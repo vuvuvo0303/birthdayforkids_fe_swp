@@ -14,7 +14,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <div>Hello world!</div>,
+      element: <LoginPage />,
     },
     {
       path: "/login",
@@ -24,26 +24,9 @@ function App() {
       path: "/register",
       element: <Register />,
     },
-    // {
-    //   path: "/dashboard",
-    //   children: [
-    //     {
-    //       path: "host",
-    //       element: <DashBoard role={"PARTY_HOST"} />,
-    //     },
-    //     {
-    //       path: "admin",
-    //       element: <DashBoard role={"ADMIN"} />,
-    //     },
-    //   ],
-    // },
     {
       path: "/dashboard",
       element: <DashBoard />,
-    },
-    {
-      path: "/demo",
-      element: <Demo />,
     },
   ]);
   return (
