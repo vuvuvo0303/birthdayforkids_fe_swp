@@ -9,32 +9,44 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import DashBoard from "./component/dashboard/index.jsx";
 import { Demo } from "./page/demo/index.jsx";
+import { HomePage } from "./page/homepage/index.jsx";
+import { Layout } from "./component/Layout/Layout.jsx";
 
 function App() {
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <LoginPage />,
-    },
-    {
-      path: "/login",
-      element: <LoginPage />,
-    },
-    {
-      path: "/register",
-      element: <Register />,
-    },
-    {
-      path: "/dashboard",
-      element: <DashBoard />,
-    },
-  ]);
-  return (
-    <>
-      <ToastContainer />
-      <RouterProvider router={router} />
-    </>
-  );
+    const router = createBrowserRouter([
+        {
+            path: "/",
+            element: <Layout />,
+            children: [
+                {
+                    path: "",
+                    element: <HomePage />,
+                },
+                {
+                    path: "abc",
+                    element: <h1>abc</h1>,
+                },
+            ],
+        },
+        {
+            path: "/login",
+            element: <LoginPage />,
+        },
+        {
+            path: "/register",
+            element: <Register />,
+        },
+        {
+            path: "/dashboard",
+            element: <DashBoard />,
+        },
+    ]);
+    return (
+        <>
+            <ToastContainer />
+            <RouterProvider router={router} />
+        </>
+    );
 }
 
 export default App;
