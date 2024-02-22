@@ -98,7 +98,7 @@ a {
 }
 
 .box:hover input {
-    width: 400px;
+    width: 300px;
 }
 
 .box input {
@@ -117,7 +117,7 @@ a {
 }
 
 .action {
-    margin-top: -11.6px;
+    margin-top: -11.5px;
 }
 
 .action__search {
@@ -133,7 +133,7 @@ a {
 .navbar__link {
     padding: 4px 21px;
     font-size: 1.6rem;
-    font-weight: 300;
+    font-weight: 600;
     color: #181616;
 }
 

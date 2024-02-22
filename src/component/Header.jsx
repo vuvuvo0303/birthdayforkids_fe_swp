@@ -45,6 +45,11 @@ export const Header = () => {
                                 </li>
                                 <li class="navbar__item">
                                     <a href="#!" class="navbar__link">
+                                        Work
+                                    </a>
+                                </li>
+                                <li class="navbar__item">
+                                    <a href="#!" class="navbar__link">
                                         About
                                     </a>
                                 </li>
@@ -58,17 +63,11 @@ export const Header = () => {
 
                         {/* <!-- Action --> */}
                         <div class="action">
-                            <a
-                                href="http://localhost:5174/login"
-                                class="action__login"
-                            >
+                            <a href="#!" class="action__login">
                                 Login
                             </a>
 
-                            <a
-                                href="http://localhost:5174/register"
-                                class="btn action__signup"
-                            >
+                            <a href="#!" class="btn action__signup">
                                 <p>Sign up</p>
                             </a>
                         </div>
