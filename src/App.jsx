@@ -11,6 +11,7 @@ import DashBoard from "./component/dashboard/index.jsx";
 import { Demo } from "./page/demo/index.jsx";
 import { HomePage } from "./page/homepage/index.jsx";
 import { Layout } from "./component/Layout/Layout.jsx";
+import ViewProfile from "./page/Profile/index.jsx";
 
 function App() {
     const router = createBrowserRouter([
@@ -39,6 +40,10 @@ function App() {
         {
             path: "/dashboard",
             element: <DashBoard />,
+        },
+        {
+            path: "/profile",
+            element: <ViewProfile />,
         },
     ]);
     return (

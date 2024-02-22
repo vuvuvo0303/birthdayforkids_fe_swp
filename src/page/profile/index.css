@@ -1,0 +1,44 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Sora:wght@100..800&display=swap");
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --header-bg: #d4f2ff;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 1.6rem;
+    font-family: "Sora", sans-serif;
+}
+
+.content {
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-color: #d4f2ff;
+    background-position: center;
+}
+
+.profile-box {
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    background: #fff;
+    color: #333;
+}
+
+.cover-pic {
+    display: block;
+    width: 100%;
+}
+
+.profile-pic {
+    width: 140px;
+    border-radius: 50%;
+    margin-top: -70px;
+} */

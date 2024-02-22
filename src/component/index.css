@@ -116,6 +116,10 @@ a {
     font-size: 1.8rem;
 }
 
+.action {
+    margin-top: -11.5px;
+}
+
 .action__search {
     --height: 40px;
     min-width: 104px;
@@ -160,6 +164,9 @@ a {
     text-shadow: 1px 0 0 currentColor;
 }
 
+.action__signup p {
+    margin-top: 5.5px;
+}
 /* Hero */
 .hero {
     display: flex;

@@ -58,12 +58,19 @@ export const Header = () => {
 
                         {/* <!-- Action --> */}
                         <div class="action">
-                            <a href="#!" class="action__login">
+                            <a
+                                href="http://localhost:5174/login"
+                                class="action__login"
+                            >
                                 Login
                             </a>
-                            <button href="#!" class="btn action__signup">
-                                Sign up
-                            </button>
+
+                            <a
+                                href="http://localhost:5174/register"
+                                class="btn action__signup"
+                            >
+                                <p>Sign up</p>
+                            </a>
                         </div>
                     </div>
 
