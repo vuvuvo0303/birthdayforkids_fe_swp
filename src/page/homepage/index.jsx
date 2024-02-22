@@ -2,6 +2,8 @@ import React from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import { Header } from "../../component/Header";
+import "./index.css";
 
 export const HomePage = () => {
     const settings = {
@@ -13,9 +15,52 @@ export const HomePage = () => {
     };
     return (
         <div>
+            <header className="header">
+                <div class="container">
+                    {/* <!-- Hero --> */}
+                    <section class="hero">
+                        {/* <!-- Hero content --> */}
+                        <section class="hero__content">
+                            <h1 class="hero__heading">
+                                The world's leading party booking service.
+                            </h1>
+                            <p class="hero__desc">
+                                Unleash the magic of birthdays with our seamless
+                                planning tools, exclusive themes, and top-tier
+                                vendors. Join our community, turning moments
+                                into memories that last a lifetime! 🎈🎁
+                            </p>
+                            <div class="hero__row">
+                                <a href="#!" class="btn">
+                                    Book Online
+                                </a>
+                                <span class="hero__phone">
+                                    or call (123) 456-7890
+                                </span>
+                            </div>
+                        </section>
+
+                        {/* <!-- Hero media --> */}
+                        <div class="hero__media">
+                            <figure class="hero__images">
+                                <img
+                                    src="/img/hero-3.jpg"
+                                    alt=""
+                                    class="hero__img"
+                                />
+                                <img
+                                    src="/img/hero-6.jpg"
+                                    alt=""
+                                    class="hero__img"
+                                />
+                            </figure>
+                        </div>
+                    </section>
+                </div>
+            </header>
             <main>
                 {/* Service */}
-                <section class="service">
+                <section class="service" id="service1">
                     <div class="container">
                         <h2 class="service__heading section-heading">
                             Our services
@@ -140,7 +185,7 @@ export const HomePage = () => {
                 </section>
 
                 {/* Work */}
-                <section class="work">
+                <section class="work" id="work1">
                     <div class="container">
                         <h2 class="section-heading">How it works</h2>
                         <p class="section-desc work-desc">
@@ -208,7 +253,7 @@ export const HomePage = () => {
                 </section>
 
                 {/* <!-- Feature --> */}
-                <section class="feature">
+                <section class="feature" id="about1">
                     <div class="container">
                         <div class="feature__inner">
                             <div class="features__media">
@@ -246,7 +291,7 @@ export const HomePage = () => {
 
                 {/* <!-- Member --> */}
 
-                <div class="member">
+                <div class="member" id="member1">
                     <div class="container">
                         <header class="member__header">
                             <h2 class="section-heading">Our virtual Hosts</h2>
@@ -320,8 +365,6 @@ export const HomePage = () => {
                                     DDS, California - Linda University
                                 </p>
                             </article>
-                            
-                            
                         </div>
 
                         <div class="member__control">
