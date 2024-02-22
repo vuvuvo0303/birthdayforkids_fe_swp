@@ -8,7 +8,6 @@ import { Register } from "./page/register/index.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import DashBoard from "./component/dashboard/index.jsx";
-import { Demo } from "./page/demo/index.jsx";
 import { HomePage } from "./page/homepage/index.jsx";
 import { Layout } from "./component/Layout/Layout.jsx";
 import ViewProfile from "./page/Profile/index.jsx";
