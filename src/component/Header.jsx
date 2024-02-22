@@ -1,12 +1,30 @@
 import React from "react";
 import "./index.css";
-import { Helmet } from "react-helmet";
+import { useState, useEffect } from "react";
 
 export const Header = () => {
+    const [isSticky, setSticky] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const offset = window.scrollY;
+            setSticky(offset > 50);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        // Clean up the event listener on component unmount
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
     return (
         <div>
-            <header className="header">
-                <div class="container">
+            {/* Remove the Helmet component */}
+            <header className={`fixed-header ${isSticky ? "sticky" : ""}`}>
+                {/* The rest of your header code remains unchanged */}
+                <div className="container">
                     {/* <!-- Header top --> */}
                     <div class="header-top">
                         <a href="/">
@@ -39,22 +57,22 @@ export const Header = () => {
                                     </div>
                                 </li>
                                 <li class="navbar__item">
-                                    <a href="#!" class="navbar__link">
+                                    <a href="#service1" class="navbar__link">
                                         Service
                                     </a>
                                 </li>
                                 <li class="navbar__item">
-                                    <a href="#!" class="navbar__link">
+                                    <a href="#work1" class="navbar__link">
                                         Work
                                     </a>
                                 </li>
                                 <li class="navbar__item">
-                                    <a href="#!" class="navbar__link">
+                                    <a href="#about1" class="navbar__link">
                                         About
                                     </a>
                                 </li>
                                 <li class="navbar__item">
-                                    <a href="#!" class="navbar__link">
+                                    <a href="#member1" class="navbar__link">
                                         Host
                                     </a>
                                 </li>
@@ -72,46 +90,6 @@ export const Header = () => {
                             </a>
                         </div>
                     </div>
-
-                    {/* <!-- Hero --> */}
-                    <section class="hero">
-                        {/* <!-- Hero content --> */}
-                        <section class="hero__content">
-                            <h1 class="hero__heading">
-                                The world's leading party booking service.
-                            </h1>
-                            <p class="hero__desc">
-                                Unleash the magic of birthdays with our seamless
-                                planning tools, exclusive themes, and top-tier
-                                vendors. Join our community, turning moments
-                                into memories that last a lifetime! 🎈🎁
-                            </p>
-                            <div class="hero__row">
-                                <a href="#!" class="btn">
-                                    Book Online
-                                </a>
-                                <span class="hero__phone">
-                                    or call (123) 456-7890
-                                </span>
-                            </div>
-                        </section>
-
-                        {/* <!-- Hero media --> */}
-                        <div class="hero__media">
-                            <figure class="hero__images">
-                                <img
-                                    src="/img/hero-3.jpg"
-                                    alt=""
-                                    class="hero__img"
-                                />
-                                <img
-                                    src="/img/hero-6.jpg"
-                                    alt=""
-                                    class="hero__img"
-                                />
-                            </figure>
-                        </div>
-                    </section>
                 </div>
             </header>
         </div>
