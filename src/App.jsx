@@ -8,8 +8,10 @@ import { Register } from "./page/register/index.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import DashBoard from "./component/dashboard/index.jsx";
-import { Demo } from "./page/demo/index.jsx";
 
+import ServicePage from "./page/party-host/service/index.jsx";
+import PackagePage from "./page/party-host/package/index.jsx";
+// import ReportPage from "./page/party-host/report/index.jsx";
 function App() {
   const router = createBrowserRouter([
     {
@@ -26,7 +28,26 @@ function App() {
     },
     {
       path: "/dashboard",
-      element: <DashBoard />,
+      children: [
+        {
+          path: "party-host",
+          element: <DashBoard role={"PARTY_HOST"} />,
+          children: [
+            {
+              path: "service",
+              element: <ServicePage />,
+            },
+            {
+              path: "package",
+              element: <PackagePage />,
+            },
+            // {
+            //   path: "report",
+            //   element: <ReportPage />,
+            // },
+          ],
+        },
+      ],
     },
   ]);
   return (
