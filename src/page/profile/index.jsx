@@ -1,15 +1,12 @@
 import React from "react";
 import "./index.css";
-
+import { HeaderLogin } from "../../component/HeaderLogin";
+import { Sidebar } from "../../component/Sidebar";
 export const ViewProfile = () => {
     return (
         <div>
-            <div className="content">
-                <div className="profile-box">
-                    <img src="/img/feature2.jpg" className="cover-pic"></img>
-                    <img src="/img/feature1.jpg" className="profile-pic"></img>
-                </div>
-            </div>
+            <HeaderLogin />
+            <Sidebar />
         </div>
     );
 };

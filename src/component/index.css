@@ -4,6 +4,13 @@
 
 :root {
     --header-bg: #d4f2ff;
+    --red: #e74c3c;
+    --orange: #f39c12;
+    --light-color: #888;
+    --light-bg: #eee;
+    --black: #2c3e50;
+    --white: #fff;
+    --border: 0.1rem solid rgba(0, 0, 0, 0.2);
 }
 
 html {
@@ -13,6 +20,7 @@ html {
 body {
     font-size: 1.6rem;
     font-family: "Sora", sans-serif;
+    /* padding-left: 30rem; */
 }
 
 /* Common */
@@ -74,7 +82,7 @@ a {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 1000;
+    z-index: 1300;
 }
 
 .fixed-header.sticky {
@@ -184,6 +192,147 @@ a {
 .action__signup p {
     margin-top: 5.5px;
 }
+
+.icons div {
+    font-size: 2rem;
+    color: var(--black);
+    background-color: var(--white);
+    border-radius: 0.5rem;
+    height: 4.5rem;
+    width: 4.5rem;
+    line-height: 4.5rem;
+    cursor: pointer;
+    text-align: center;
+    margin-left: 0.7rem;
+}
+
+.icons div:hover {
+    background-color: var(--black);
+    color: var(--white);
+}
+
+.profile {
+    position: absolute;
+    top: 120%;
+    right: 2rem;
+    background-color: var(--white);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    text-align: center;
+    overflow: hidden;
+    transform-origin: top right;
+    transform: scale(0);
+    transition: 0.2s linear;
+    width: 30rem;
+    border: var(--border);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.profile.active {
+    transform: scale(1);
+}
+
+.profile .image {
+    height: 10rem;
+    width: 10rem;
+    border-radius: 50%;
+    object-fit: contain;
+    margin-bottom: 1rem;
+}
+
+.profile .name {
+    font-size: 2rem;
+    color: var(--black);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.profile .role {
+    font-size: 1.8rem;
+    color: var(--light-color);
+}
+
+/* Sidebar */
+.side-bar {
+    position: fixed;
+    top: 78px;
+    left: 0;
+    width: 30rem;
+    background-color: var(--white);
+    height: 100vh;
+    border-right: var(--border);
+    z-index: 1200;
+    background-color: #a9c9ff;
+    background-image: linear-gradient(180deg, #a9c9ff 0%, #ffbbec 100%);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.side-bar #close-btn {
+    text-align: right;
+    padding: 2rem;
+    display: none;
+}
+
+.side-bar .avatar {
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+.side-bar .avatar .image {
+    height: 10rem;
+    width: 10rem;
+    border-radius: 50%;
+    object-fit: contain;
+    margin-bottom: 1rem;
+}
+
+.side-bar .avatar .name {
+    font-size: 2rem;
+    color: var(--black);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.side-bar .avatar .role {
+    font-size: 1.8rem;
+    color: var(--light-color);
+}
+
+.side-bar .profile .role {
+    font-size: 1.8rem;
+    color: var(--light-color);
+}
+
+.side-bar .navbar a {
+    display: block;
+    padding: 2rem;
+    font-size: 2rem;
+}
+
+.side-bar .navbar a i {
+    margin-right: 1.5rem;
+    color: var(--main-color);
+    transition: 0.2s linear;
+}
+
+.side-bar .navbar a span {
+    color: var(--light-color);
+}
+
+.side-bar .navbar a:hover {
+    background-color: var(--light-bg);
+}
+
+.side-bar .navbar a:hover i {
+    margin-right: 2.5rem;
+}
+
+.side-bar.active {
+    left: -30rem;
+}
+
 /* Hero */
 .hero {
     display: flex;
