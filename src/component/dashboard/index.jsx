@@ -24,7 +24,7 @@ const DashBoard = ({ role }) => {
   function loadItems() {
     if (role == "PARTY_HOST") {
       setitems([
-        getItem("mangae package", "1", <PieChartOutlined />),
+        getItem("Mangae package", "1", <PieChartOutlined />),
         getItem(",manage services", "2", <DesktopOutlined />),
       ]);
     } else {
