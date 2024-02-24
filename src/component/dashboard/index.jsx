@@ -8,13 +8,14 @@ import {
 } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import Table from "../table";
+import { Link, Outlet } from "react-router-dom";
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
   return {
     key,
     icon,
     children,
-    label,
+    label: <Link to={key}>{label}</Link>,
   };
 }
 
@@ -24,8 +25,16 @@ const DashBoard = ({ role }) => {
   function loadItems() {
     if (role == "PARTY_HOST") {
       setitems([
-        getItem("mangae package", "1", <PieChartOutlined />),
-        getItem(",manage services", "2", <DesktopOutlined />),
+        getItem(
+          "Mangae package",
+          "/dashboard/party-host/package",
+          <PieChartOutlined />
+        ),
+        getItem(
+          ",manage services",
+          "/dashboard/party-host/service",
+          <DesktopOutlined />
+        ),
       ]);
     } else {
       setitems([
@@ -88,7 +97,7 @@ const DashBoard = ({ role }) => {
               borderRadius: borderRadiusLG,
             }}
           >
-            <Table />
+            <Outlet />
           </div>
         </Content>
         <Footer
