@@ -13,10 +13,6 @@ export const Sidebar = () => {
                 />
             </Helmet>
             <div className="side-bar">
-                <div id="close-btn">
-                    <i className="fas fa-times"></i>
-                </div>
-
                 <div className="avatar">
                     <img src="img/pic-1.jpg" className="image" alt="" />
                     <h3 className="name">shaikh anas</h3>
@@ -27,11 +23,11 @@ export const Sidebar = () => {
                 </div>
 
                 <nav className="navbar">
-                    <a href="#!">
+                    <a href="http://localhost:5173/profile">
                         <i className="fas fa-question"></i>
-                        <span>about</span>
+                        <span>About</span>
                     </a>
-                    <a href="#!">
+                    <a href="http://localhost:5173/package">
                         <i className="fas fa-graduation-cap"></i>
                         <span>Packages</span>
                     </a>

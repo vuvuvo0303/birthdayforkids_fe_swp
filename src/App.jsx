@@ -11,8 +11,10 @@ import DashBoard from "./component/dashboard/index.jsx";
 import { HomePage } from "./page/homepage/index.jsx";
 import { Layout } from "./component/Layout/Layout.jsx";
 import ViewProfile from "./page/profile/index.jsx";
+import { Package } from "./page/packagehost/Package.jsx";
 
 function App() {
+    
     const router = createBrowserRouter([
         {
             path: "/",
@@ -44,6 +46,10 @@ function App() {
             path: "/profile",
             element: <ViewProfile />,
         },
+        {
+            path:"/package",
+            element: <Package/>
+        }
     ]);
     return (
         <>
