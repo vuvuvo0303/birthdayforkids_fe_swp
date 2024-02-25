@@ -1,5 +1,7 @@
 import '../App.css';
 import { useEffect, useState } from "react";
+import { Box } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 export default function ViewListServices() {
     const [service, setService] = useState([]);
@@ -57,7 +59,7 @@ export default function ViewListServices() {
         hanldeGetPackage();
     }, [])
     return (
-        <body>
+        <Box>
             {
                 service.length !== 0 ?
                     <h3>List Services</h3>
@@ -67,15 +69,17 @@ export default function ViewListServices() {
             <div className='list'>
                 {
                     service.map((item, index) => (
-                        item?.service_ID ?
-                            <div className='service' key={item.service_ID}>
+                        item?.serviceID ?
+                            <div className='service' key={item.serviceID}>
                                 <img src={item.picture} alt='Service Picture' />
                                 <div>
                                     <h5>Service Name: {item.name} </h5>
-                                    <p>Host: {item.host_ID}</p>
-                                    <p>{item.description}</p>
+                                    <p>Host: {item.account.name}</p>
                                     <p>Price: {item.price}$</p>
                                 </div>
+                                <Link to={`http://localhost:3000/serviceDetail/${item.serviceID}`}>
+                                    <p><button>Detail</button></p>
+                                </Link>
                             </div>
                             :
                             <p>None</p>
@@ -91,21 +95,24 @@ export default function ViewListServices() {
             <div className='list'>
                 {
                     packages.map((item, index) => (
-                        item?.package_ID ?
-                            <div className='service' key={item.package_ID}>
+                        item?.packageID ?
+                            <div className='service' key={item.packageID}>
                                 <img src={item.picture} alt='Service Picture' />
                                 <div>
                                     <h5>Package Name: {item.name} </h5>
-                                    <p>Host: {item.host_ID}</p>
-                                    <p>{item.description}</p>
+                                    <p>Host: {item.account.name}</p>
+                                    {/* <p>{item.description}</p> */}
                                     <p>Price: {item.price}$</p>
                                 </div>
+                                <Link to={`http://localhost:3000/packageDetail/${item.packageID}`}>
+                                    <p><button>Detail</button></p>
+                                </Link>
                             </div>
                             :
                             <p>None</p>
                     ))
                 }
             </div>
-        </body>
+        </Box>
     )
 }

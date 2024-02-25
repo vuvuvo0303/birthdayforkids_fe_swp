@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import { Box, Button, Card, CardContent, CardMedia, Container, Grid, IconButton, Pagination, Stack, Typography } from '@mui/material';
 
 export default function ManageService() {
-    const [service, setService] = useState([]);
-    const [packages, setPackage] = useState([]);
+    const [services, setServices] = useState([]);
+    const [packages, setPackages] = useState([]);
 
     const handleDeleteService = (ServiceID) => {
         const url = 'https://65d5f7f2f6967ba8e3bd2382.mockapi.io/Service/' + ServiceID
@@ -22,6 +22,38 @@ export default function ManageService() {
             // handle error
         }).then(data => {
             // Do something with deleted task
+            if (data?.service_ID) {
+                const newArray = services.filter(item => item.service_ID !== data.service_ID);
+                setServices(newArray);
+            } else {
+                alert('wrong ID');
+            }
+            return data;
+        }).catch(error => {
+            // handle error
+        })
+    }
+
+    const handleDeletePackage = (PackageID) => {
+        const url = 'https://65d5f7f2f6967ba8e3bd2382.mockapi.io/Package/' + PackageID
+        fetch(url, {
+            method: 'DELETE',
+        }).then(res => {
+            if (!res.ok) {
+                throw new Error('Failed to fetch data')
+            }
+            if (res.ok) {
+                return res.json();
+            }
+            // handle error
+        }).then(data => {
+            // Do something with deleted task
+            if (data?.package_ID) {
+                const newArray = packages.filter(item => item.package_ID !== data.package_ID);
+                setPackages(newArray);
+            } else {
+                alert('wrong ID');
+            }
             return data;
         }).catch(error => {
             // handle error
@@ -45,7 +77,7 @@ export default function ManageService() {
         }).then(data => {
             // Do something with the list of tasks
             // console.log('real data: ', data);
-            setService(data);
+            setServices(data);
             return data;
         }).catch(error => {
             // handle error
@@ -69,7 +101,7 @@ export default function ManageService() {
         }).then(data => {
             // Do something with the list of tasks
             // console.log('real data: ', data);
-            setPackage(data);
+            setPackages(data);
             return data;
         }).catch(error => {
             // handle error
@@ -82,14 +114,14 @@ export default function ManageService() {
     return (
         <Box>
             {
-                service.length !== 0 ?
+                services.length !== 0 ?
                     <h3>List Services</h3>
                     :
-                    <h2>Have no Service</h2>
+                    <h2>Waitting...</h2>
             }
             <div className='list'>
                 {
-                    service.map((item, index) => (
+                    services.map((item, index) => (
                         item?.service_ID ?
                             <div className='service' key={item.service_ID}>
                                 <img src={item.picture} alt='Service Picture' />
@@ -99,12 +131,15 @@ export default function ManageService() {
                                     <p>{item.description}</p>
                                     <p>Price: {item.price}$</p>
                                 </div>
-                                <Link to={`http://localhost:3000/detail/${item.service_ID}`}>
+                                <Link to={`http://localhost:3000/serviceDetail/${item.service_ID}`}>
                                     <p><button>Detail</button></p>
                                 </Link>
                                 <p>
                                     <button >Update</button>
-                                    <button onClick={(item) => handleDeleteService(item.service_ID)}>
+                                    <button onClick={
+                                        () => {
+                                            handleDeleteService(item.service_ID)
+                                        }}>
                                         Delete
                                     </button>
                                 </p>
@@ -118,7 +153,7 @@ export default function ManageService() {
                 packages.length !== 0 ?
                     <h3>List Packages</h3>
                     :
-                    <h3>Have no Package</h3>
+                    <h3>Waitting...</h3>
             }
             <div className='list'>
                 {
@@ -132,6 +167,15 @@ export default function ManageService() {
                                     <p>{item.description}</p>
                                     <p>Price: {item.price}$</p>
                                 </div>
+                                <p>
+                                    <button >Update</button>
+                                    <button onClick={
+                                        () => {
+                                            handleDeletePackage(item.package_ID)
+                                        }}>
+                                        Delete
+                                    </button>
+                                </p>
                             </div>
                             :
                             <p>None</p>

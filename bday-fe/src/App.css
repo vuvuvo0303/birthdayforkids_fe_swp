@@ -46,7 +46,7 @@ color: #333;
   margin: 30px;
 }
 
-.service button{
+button{
   height: 2em;
   margin: 0.5em;
   margin-top: 12em;
@@ -71,4 +71,19 @@ body{
   margin: 0 3%;
   padding: 3%;
   background-color: rgba(91, 134, 229, 0.51);
+}
+
+.Detail{
+  margin: 0 3%;
+  padding: 3%;
+  background-color: rgba(91, 134, 229, 0.51);
+  display: flex;
+}
+
+.Detail img{
+  width: 50vw;
+  height: 30vw;
+  object-fit: contain;
+  margin-right: 1.5em;
+  background-color: azure;
 }
