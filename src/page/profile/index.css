@@ -1,44 +1,40 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Sora:wght@100..800&display=swap");
-* {
-    box-sizing: border-box;
+/* Update Profile */
+.form-container {
+    min-height: calc(100vh - 20rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+    margin-bottom: 50px;
 }
 
-:root {
-    --header-bg: #d4f2ff;
+.form-container form {
+    background-color: var(--white);
+    border-radius: 0.5rem;
+    padding: 2rem;
+    width: 50rem;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
-html {
-    font-size: 62.5%;
-}
-
-body {
-    font-size: 1.6rem;
-    font-family: "Sora", sans-serif;
-}
-
-.content {
-    width: 100%;
-    height: 100vh;
-    background-size: cover;
-    background-color: #d4f2ff;
-    background-position: center;
-}
-
-.profile-box {
-    width: 100%;
-    max-width: 600px;
+.form-container form h3 {
+    font-size: 2.5rem;
+    text-transform: capitalize;
+    color: var(--black);
     text-align: center;
-    background: #fff;
-    color: #333;
 }
 
-.cover-pic {
-    display: block;
+.form-container form p {
+    font-size: 1.7rem;
+    color: var(--light-color);
+    padding-top: 1rem;
+}
+
+.form-container form .box-update {
+    font-size: 1.8rem;
+    color: var(--black);
+    border-radius: 0.5rem;
+    padding: 1.4rem;
+    background-color: var(--light-bg);
     width: 100%;
+    margin: 1rem 0;
 }
-
-.profile-pic {
-    width: 140px;
-    border-radius: 50%;
-    margin-top: -70px;
-} */

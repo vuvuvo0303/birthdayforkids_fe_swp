@@ -36,9 +36,9 @@ a {
 }
 
 .container-profile {
-    width: 1200px;
-    max-width: calc(100% - 50px);
-    margin: 0 0 0 320px;
+    width: 1100px;
+    max-width: calc(100% - 48px);
+    margin-left: 320px;
 }
 
 .btn {

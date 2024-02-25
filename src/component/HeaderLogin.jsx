@@ -133,6 +133,11 @@ export const HeaderLogin = () => {
                             <a href="profile.html" className="btn">
                                 View Profile
                             </a>
+                            <div class="flex-btn">
+                                <a href="#!" class="option-btn">
+                                    Sign out
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

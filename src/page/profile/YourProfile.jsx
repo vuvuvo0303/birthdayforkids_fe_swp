@@ -14,7 +14,10 @@ export const YourProfile = () => {
                             <img src="img/pic-1.jpg" alt="" />
                             <h3>shaikh anas</h3>
                             <p>student</p>
-                            <a href="update.html" class="btn">
+                            <a
+                                href="http://localhost:5173/updateProfile"
+                                class="btn"
+                            >
                                 update profile
                             </a>
                         </div>
