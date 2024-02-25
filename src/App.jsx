@@ -14,6 +14,8 @@ import ViewProfile from "./page/profile/index.jsx";
 import { Package } from "./page/packagehost/Package.jsx";
 import { Service } from "./page/packagehost/Service.jsx";
 import { YourProfile } from "./page/profile/YourProfile.jsx";
+import { UpdateProfile } from "./page/profile/updateProfile.jsx";
+import { HomepageLogin } from "./page/homepage/HomepageLogin.jsx";
 
 function App() {
     const router = createBrowserRouter([
@@ -58,6 +60,14 @@ function App() {
         {
             path: "/yourProfile",
             element: <YourProfile />,
+        },
+        {
+            path: "/updateProfile",
+            element: <UpdateProfile />,
+        },
+        {
+            path: "/homepageLogin",
+            element: <HomepageLogin />,
         },
     ]);
     return (

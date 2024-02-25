@@ -17,7 +17,7 @@ export const Sidebar = () => {
                     <img src="img/pic-1.jpg" className="image" alt="" />
                     <h3 className="name">shaikh anas</h3>
                     <p className="role">student</p>
-                    <a href="http://localhost:5173/yourProfile" className="btn">
+                    <a href="http://localhost:5173/yourProfile" className="btn btn-sidebar">
                         View Profile
                     </a>
                 </div>
