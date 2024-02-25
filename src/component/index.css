@@ -4,6 +4,13 @@
 
 :root {
     --header-bg: #d4f2ff;
+    --red: #e74c3c;
+    --orange: #f39c12;
+    --light-color: #888;
+    --light-bg: #eee;
+    --black: #2c3e50;
+    --white: #fff;
+    --border: 0.1rem solid rgba(0, 0, 0, 0.2);
 }
 
 html {
@@ -13,6 +20,7 @@ html {
 body {
     font-size: 1.6rem;
     font-family: "Sora", sans-serif;
+    /* padding-left: 30rem; */
 }
 
 /* Common */
@@ -74,7 +82,7 @@ a {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 1000;
+    z-index: 1300;
 }
 
 .fixed-header.sticky {
@@ -184,6 +192,327 @@ a {
 .action__signup p {
     margin-top: 5.5px;
 }
+
+.icons div {
+    font-size: 2rem;
+    color: var(--black);
+    background-color: var(--white);
+    border-radius: 0.5rem;
+    height: 4.5rem;
+    width: 4.5rem;
+    line-height: 4.5rem;
+    cursor: pointer;
+    text-align: center;
+    margin-left: 0.7rem;
+}
+
+.icons div:hover {
+    background-color: var(--black);
+    color: var(--white);
+}
+
+/* Profile */
+
+.profile {
+    position: absolute;
+    top: 120%;
+    right: 2rem;
+    background-color: var(--white);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    text-align: center;
+    overflow: hidden;
+    transform-origin: top right;
+    transform: scale(0);
+    transition: 0.2s linear;
+    width: 30rem;
+    border: var(--border);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.profile.active {
+    transform: scale(1);
+}
+
+.profile .image {
+    height: 10rem;
+    width: 10rem;
+    border-radius: 50%;
+    object-fit: contain;
+    margin-bottom: 1rem;
+}
+
+.profile .name {
+    font-size: 2rem;
+    color: var(--black);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.profile .role {
+    font-size: 1.8rem;
+    color: var(--light-color);
+}
+
+/* Sidebar */
+.side-bar {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 30rem;
+    background-color: var(--white);
+    height: 100vh;
+    border-right: var(--border);
+    z-index: 1200;
+    background-color: #a9c9ff;
+    background-image: linear-gradient(180deg, #a9c9ff 0%, #ffbbec 100%);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.side-bar #close-btn {
+    text-align: right;
+    padding: 2rem;
+    display: none;
+}
+
+.side-bar .avatar {
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+.side-bar .avatar .image {
+    height: 10rem;
+    width: 10rem;
+    border-radius: 50%;
+    object-fit: contain;
+    margin-bottom: 1rem;
+}
+
+.side-bar .avatar .name {
+    font-size: 2rem;
+    color: var(--black);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.side-bar .avatar .role {
+    font-size: 1.8rem;
+    color: var(--light-color);
+}
+
+.side-bar .profile .role {
+    font-size: 1.8rem;
+    color: var(--light-color);
+}
+
+.side-bar .navbar a {
+    display: block;
+    padding: 2rem;
+    font-size: 2rem;
+}
+
+.side-bar .navbar a i {
+    margin-right: 1.5rem;
+    color: var(--main-color);
+    transition: 0.2s linear;
+}
+
+.side-bar .navbar a span {
+    color: var(--light-color);
+}
+
+.side-bar .navbar a:hover {
+    background-color: var(--light-bg);
+}
+
+.side-bar .navbar a:hover i {
+    margin-right: 2.5rem;
+}
+
+.side-bar.active {
+    left: -30rem;
+}
+
+/* About */
+
+.about .row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.about .row .image {
+    flex: 1 1 40rem;
+}
+
+.about .row .image img {
+    width: 100%;
+    height: 50rem;
+}
+
+.about .row .content {
+    flex: 1 1 40rem;
+}
+
+.about .row .content p {
+    font-size: 1.7rem;
+    line-height: 2;
+    color: var(--light-color);
+    padding: 1rem 0;
+}
+
+.about .row .content h3 {
+    font-size: 3rem;
+    color: var(--black);
+    text-transform: capitalize;
+}
+
+/* Reviewers */
+.reviews {
+    margin-bottom: 10px;
+}
+
+.reviews .box-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.reviews .box-container .box-comment {
+    border-radius: 0.5rem;
+    background-color: var(--white);
+    padding: 2rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+        rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.reviews .box-container .box-comment p {
+    line-height: 1.7;
+    font-size: 1.7rem;
+    color: var(--light-color);
+}
+
+.reviews .box-container .box-comment .student {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.reviews .box-container .box-comment .student img {
+    height: 5rem;
+    width: 5rem;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.reviews .box-container .box-comment .student h3 {
+    font-size: 2rem;
+    color: var(--black);
+    margin-bottom: 0.3rem;
+}
+
+.reviews .box-container .box-comment .student .stars {
+    font-size: 1.5rem;
+    color: var(--orange);
+}
+
+/* Packages */
+
+.packages {
+    margin: 100px 0;
+}
+
+.packages .heading {
+    font-size: 2.5rem;
+    color: var(--black);
+    margin-bottom: 2.5rem;
+    border-bottom: var(--border);
+    padding-bottom: 1.5rem;
+    text-transform: capitalize;
+}
+
+.packages .box-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.packages .box-container .box-package {
+    border-radius: 0.5rem;
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+        rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.packages .box-container .box-package .tutor {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.packages .box-container .box-package .tutor img {
+    height: 5rem;
+    width: 5rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.packages .box-container .box-package .tutor h3 {
+    font-size: 1.8rem;
+    color: var(--black);
+    margin-bottom: 0.2rem;
+}
+
+.packages .box-container .box-package .tutor span {
+    font-size: 1.3rem;
+    color: var(--light-color);
+}
+
+.packages .box-container .box-package .thumb {
+    position: relative;
+}
+
+.packages .box-container .box-package .thumb span {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1.5rem;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.packages .box-container .box-package .thumb img {
+    width: 100%;
+    height: 20rem;
+    object-fit: cover;
+    border-radius: 0.5rem;
+}
+
+.packages .box-container .box-package .title {
+    font-size: 2rem;
+    color: var(--black);
+    padding-bottom: 0.5rem;
+    padding-top: 1rem;
+}
+
+.packages .more-btn {
+    text-align: center;
+    margin-top: 2rem;
+}
+
 /* Hero */
 .hero {
     display: flex;
