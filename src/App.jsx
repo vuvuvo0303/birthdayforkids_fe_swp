@@ -12,9 +12,10 @@ import { HomePage } from "./page/homepage/index.jsx";
 import { Layout } from "./component/Layout/Layout.jsx";
 import ViewProfile from "./page/profile/index.jsx";
 import { Package } from "./page/packagehost/Package.jsx";
+import { Service } from "./page/packagehost/Service.jsx";
+import { YourProfile } from "./page/profile/YourProfile.jsx";
 
 function App() {
-    
     const router = createBrowserRouter([
         {
             path: "/",
@@ -43,13 +44,21 @@ function App() {
             element: <DashBoard />,
         },
         {
-            path: "/profile",
+            path: "/about",
             element: <ViewProfile />,
         },
         {
-            path:"/package",
-            element: <Package/>
-        }
+            path: "/package",
+            element: <Package />,
+        },
+        {
+            path: "/service",
+            element: <Service />,
+        },
+        {
+            path: "/yourProfile",
+            element: <YourProfile />,
+        },
     ]);
     return (
         <>

@@ -6,7 +6,7 @@ export const ViewProfile = () => {
     return (
         <div>
             <HeaderLogin />
-            <div className="container">
+            <div className="container container-profile">
                 <section class="about">
                     <div class="row">
                         <div class="image">
