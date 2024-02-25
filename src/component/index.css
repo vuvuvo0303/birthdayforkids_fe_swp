@@ -35,6 +35,12 @@ a {
     margin: 0 auto;
 }
 
+.container-profile {
+    width: 1200px;
+    max-width: calc(100% - 50px);
+    margin: 0 0 0 320px;
+}
+
 .btn {
     --height: 60px;
     display: inline-block;
@@ -270,12 +276,6 @@ a {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
-.side-bar #close-btn {
-    text-align: right;
-    padding: 2rem;
-    display: none;
-}
-
 .side-bar .avatar {
     padding: 3rem 2rem;
     text-align: center;
@@ -423,11 +423,12 @@ a {
 }
 
 /* Packages */
-
+.services,
 .packages {
     margin: 100px 0;
 }
 
+.services .heading,
 .packages .heading {
     font-size: 2.5rem;
     color: var(--black);
@@ -437,6 +438,7 @@ a {
     text-transform: capitalize;
 }
 
+.services .box-container,
 .packages .box-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
@@ -444,7 +446,7 @@ a {
     justify-content: center;
     align-items: flex-start;
 }
-
+.services .box-container .box-package,
 .packages .box-container .box-package {
     border-radius: 0.5rem;
     background-color: var(--white);
@@ -454,6 +456,7 @@ a {
         rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 }
 
+.services .box-container .box-package .tutor,
 .packages .box-container .box-package .tutor {
     display: flex;
     align-items: center;
@@ -461,6 +464,7 @@ a {
     margin-bottom: 2.5rem;
 }
 
+.services .box-container .box-package .tutor img,
 .packages .box-container .box-package .tutor img {
     height: 5rem;
     width: 5rem;
@@ -468,21 +472,24 @@ a {
     object-fit: cover;
 }
 
+.packages .box-container .box-package .tutor h3,
 .packages .box-container .box-package .tutor h3 {
     font-size: 1.8rem;
     color: var(--black);
     margin-bottom: 0.2rem;
 }
-
+.services .box-container .box-package .tutor span,
 .packages .box-container .box-package .tutor span {
     font-size: 1.3rem;
     color: var(--light-color);
 }
 
+.services .box-container .box-package .thumb,
 .packages .box-container .box-package .thumb {
     position: relative;
 }
 
+.services .box-container .box-package .thumb span,
 .packages .box-container .box-package .thumb span {
     position: absolute;
     top: 1rem;
@@ -494,6 +501,7 @@ a {
     font-size: 1.5rem;
 }
 
+.services .box-container .box-package .thumb img,
 .packages .box-container .box-package .thumb img {
     width: 100%;
     height: 20rem;
@@ -501,6 +509,7 @@ a {
     border-radius: 0.5rem;
 }
 
+.services .box-container .box-package .title,
 .packages .box-container .box-package .title {
     font-size: 2rem;
     color: var(--black);
@@ -508,9 +517,101 @@ a {
     padding-top: 1rem;
 }
 
-.packages .more-btn {
+.services .more-btn .packages .more-btn {
     text-align: center;
     margin-top: 2rem;
+}
+
+/* User-profile */
+.user-profile {
+    margin-top: 100px;
+}
+
+.user-profile .heading {
+    font-size: 2.5rem;
+    color: var(--black);
+    margin-bottom: 2.5rem;
+    border-bottom: var(--border);
+    padding-bottom: 1.5rem;
+    text-transform: capitalize;
+}
+
+.user-profile .info {
+    border-radius: 0.5rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+        rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.user-profile .info {
+    background-color: var(--white);
+    border-radius: 0.5rem;
+    padding: 2rem;
+}
+
+.user-profile .info .user {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1rem;
+}
+
+.user-profile .info .user img {
+    height: 10rem;
+    width: 10rem;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+.user-profile .info .user h3 {
+    font-size: 2rem;
+    color: var(--black);
+}
+
+.user-profile .info .user p {
+    font-size: 1.7rem;
+    color: var(--light-color);
+    padding: 0.3rem 0;
+}
+
+.user-profile .info .box-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.user-profile .info .box-container .box-profile {
+    background-color: var(--light-bg);
+    border-radius: 0.5rem;
+    padding: 2rem;
+    flex: 1 1 25rem;
+}
+
+.user-profile .info .box-container .box-profile .flex {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+
+.user-profile .info .box-container .box-profile .flex i {
+    font-size: 2rem;
+    color: var(--white);
+    background-color: var(--black);
+    text-align: center;
+    border-radius: 0.5rem;
+    height: 5rem;
+    width: 5rem;
+    line-height: 4.9rem;
+}
+
+.user-profile .info .box-container .box-profile .flex span {
+    font-size: 2.5rem;
+    color: var(--main-color);
+}
+
+.user-profile .info .box-container .box-profile .flex p {
+    color: var(--light-color);
+    font-size: 1.7rem;
 }
 
 /* Hero */
