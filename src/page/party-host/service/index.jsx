@@ -8,9 +8,10 @@ import {
   Table,
   Tag,
   Breadcrumb,
+  message,
 } from "antd";
 import Dragger from "antd/es/upload/Dragger";
-import { InboxOutlined } from "@ant-design/icons";
+import { HomeOutlined, InboxOutlined, UserOutlined } from "@ant-design/icons";
 import uploadFile from "../../../utils/upload";
 const columns = [
   {
@@ -53,7 +54,7 @@ const columns = [
     key: "action",
     render: (_, record) => (
       <Space size="middle">
-        <a>Delete</a>
+        <a onClick={() => handleDelete(record)}>Delete</a>
       </Space>
     ),
   },
@@ -94,9 +95,21 @@ const data = [
 ];
 const ServicePage = () => {
   const [open, setOpen] = useState(false);
+  const [dataSource, setDataSource] = useState(data);
+  const handleDelete = (record) => {
+    const newData = dataSource.filter((item) => item.key !== record.key);
+    setDataSource(newData);
+    message.success("Item deleted successfully!");
+  };
+
   const onFinish = (values) => {
     console.log("Success:", values);
+    const newItem = { ...values, key: dataSource.length + 1 };
+    setDataSource([...dataSource, newItem]);
+    setOpen(false);
+    message.success("Item added successfully!");
   };
+
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
@@ -106,7 +119,7 @@ const ServicePage = () => {
     action: "https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188",
     onChange: async (info) => {
       const { status } = info.file;
-      if (status == "done") {
+      if (status === "done") {
         console.log(info);
         const reponse = await uploadFile(info.file.originFileObj);
         console.log(reponse);
@@ -119,13 +132,25 @@ const ServicePage = () => {
   return (
     <>
       <Breadcrumb
-        style={{
-          margin: "16px 0",
-        }}
-      >
-        <Breadcrumb.Item>Hosts</Breadcrumb.Item>
-        <Breadcrumb.Item>Services</Breadcrumb.Item>
-      </Breadcrumb>
+        items={[
+          {
+            href: "/homepages",
+            title: <HomeOutlined />,
+          },
+          {
+            href: "",
+            title: (
+              <>
+                <UserOutlined />
+                <span>Hosts</span>
+              </>
+            ),
+          },
+          {
+            title: "Services",
+          },
+        ]}
+      />
       <h1>Service</h1>
       <Button
         type="primary"
@@ -135,7 +160,7 @@ const ServicePage = () => {
       >
         Add
       </Button>
-      <Table columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={dataSource} />
       <Modal
         title="Create Services"
         visible={open}

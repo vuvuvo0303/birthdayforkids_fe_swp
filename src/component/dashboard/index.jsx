@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import {
   DesktopOutlined,
-  FileOutlined,
-  PieChartOutlined,
   TeamOutlined,
+  PieChartOutlined,
+  BarChartOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
@@ -20,26 +20,39 @@ function getItem(label, key, icon, children) {
 }
 
 const DashBoard = ({ role }) => {
-  const [items, setitems] = useState([]);
+  const [items, setItems] = useState([]);
 
   function loadItems() {
-    if (role == "PARTY_HOST") {
-      setitems([
+    if (role === "PARTY_HOST") {
+      setItems([
         getItem(
-          "Mangae package",
+          "Manage package",
           "/dashboard/party-host/package",
           <PieChartOutlined />
         ),
         getItem(
-          ",manage services",
+          "Manage services",
           "/dashboard/party-host/service",
           <DesktopOutlined />
         ),
+        getItem(
+          "Manage Report",
+          "/dashboard/party-host/report",
+          <DesktopOutlined />
+        ),
       ]);
-    } else {
-      setitems([
-        getItem("manage account", "1", <PieChartOutlined />),
-        getItem("manage report", "2", <DesktopOutlined />),
+    } else if (role === "ADMIN") {
+      setItems([
+        getItem(
+          "Manage accounts",
+          "/dashboard/admin/manage-accounts",
+          <TeamOutlined />
+        ),
+        getItem(
+          "Report Admin",
+          "/dashboard/admin/report-admin",
+          <BarChartOutlined />
+        ),
       ]);
     }
   }
@@ -81,14 +94,6 @@ const DashBoard = ({ role }) => {
             margin: "0 16px",
           }}
         >
-          <Breadcrumb
-            style={{
-              margin: "16px 0",
-            }}
-          >
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
-          </Breadcrumb>
           <div
             style={{
               padding: 24,

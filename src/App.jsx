@@ -11,7 +11,10 @@ import DashBoard from "./component/dashboard/index.jsx";
 
 import ServicePage from "./page/party-host/service/index.jsx";
 import PackagePage from "./page/party-host/package/index.jsx";
-// import ReportPage from "./page/party-host/report/index.jsx";
+import ReportPage from "./page/party-host/report/index.jsx";
+import ManageAccounts from "./page/dashboad_admin/manage_accounts/index.jsx";
+import ReportPageAdmin from "./page/dashboad_admin/report_admin/index.jsx";
+import StepProgress from "./page/step_progress/index.jsx";
 function App() {
   const router = createBrowserRouter([
     {
@@ -41,13 +44,31 @@ function App() {
               path: "package",
               element: <PackagePage />,
             },
-            // {
-            //   path: "report",
-            //   element: <ReportPage />,
-            // },
+            {
+              path: "report",
+              element: <ReportPage />,
+            },
+          ],
+        },
+        {
+          path: "admin",
+          element: <DashBoard role={"ADMIN"} />,
+          children: [
+            {
+              path: "manage-accounts",
+              element: <ManageAccounts />,
+            },
+            {
+              path: "report-admin",
+              element: <ReportPageAdmin />,
+            },
           ],
         },
       ],
+    },
+    {
+      path: "/step-progress",
+      element: <StepProgress />,
     },
   ]);
   return (

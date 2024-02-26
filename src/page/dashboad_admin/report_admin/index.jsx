@@ -6,7 +6,7 @@ import {
   HomeOutlined,
 } from "@ant-design/icons";
 import { Chart } from "../../../component/chart";
-const ReportPage = () => {
+const ReportPageAdmin = () => {
   // const options = {
   //   responsive: true,
   //   plugins: {
@@ -59,33 +59,33 @@ const ReportPage = () => {
             title: (
               <>
                 <UserOutlined />
-                <span>Hosts</span>
+                <span>Admin</span>
               </>
             ),
           },
           {
-            title: "Report",
+            title: "Report Admin",
           },
         ]}
       />
       <Row gutter={18}>
         <Col span={6}>
-          <Card title=" Total customers today" bordered={false}>
+          <Card title=" Total customers in the system today" bordered={false}>
             <Statistic value={100} prefix={<UserOutlined />} />
           </Card>
         </Col>
         <Col span={6}>
-          <Card title=" Total customers " bordered={false}>
+          <Card title=" Total customersin the syste " bordered={false}>
             <Statistic value={1000} prefix={<UserOutlined />} />
           </Card>
         </Col>
         <Col span={6}>
-          <Card title=" Daily revenue (VND)" bordered={false}>
+          <Card title=" System revenue today (VND)" bordered={false}>
             <Statistic value={1001000} prefix={<CreditCardOutlined />} />
           </Card>
         </Col>
         <Col span={6}>
-          <Card title=" Monthly revenue(VND)" bordered={false}>
+          <Card title=" Total System revenue(VND)" bordered={false}>
             <Statistic value={1000000000000} prefix={<CreditCardOutlined />} />
           </Card>
         </Col>
@@ -95,4 +95,4 @@ const ReportPage = () => {
   );
 };
 
-export default ReportPage;
+export default ReportPageAdmin;

@@ -11,7 +11,9 @@ import {
   message,
 } from "antd";
 import Dragger from "antd/es/upload/Dragger";
-import { InboxOutlined } from "@ant-design/icons";
+import { InboxOutlined, HomeOutlined, UserOutlined } from "@ant-design/icons";
+import axios from "axios";
+import api from "../../../config/axios";
 const { Column } = Table;
 [
   {
@@ -81,6 +83,16 @@ const data = [
 
     tags: ["Best Package", "Top1"],
   },
+  {
+    key: "2",
+    packageid: "2",
+    hostid: "KFC01",
+    name: "birthday1",
+    price: "100000",
+    description: "KFC always selected on top for customer to ....",
+
+    tags: ["Best Package", "Top1"],
+  },
 ];
 const PackagePage = () => {
   const [open, setOpen] = useState(false);
@@ -91,13 +103,20 @@ const PackagePage = () => {
     setDataSource(newData);
     message.success("Package deleted successfully!");
   };
-  const onFinish = (values) => {
-    const newData = [...dataSource];
-    newData.push(values);
-    console.log(values);
-    setDataSource(newData);
-    setOpen(false);
-    message.success("Package added successfully!");
+
+  const onFinish = async (values) => {
+    
+    try {
+      const response = await axios.post("/api/packages", values);
+      console.log(response); 
+      const newData = [...dataSource, response.data];
+      setDataSource(newData);
+      setOpen(false);
+      message.success("Package added successfully!");
+    } catch (error) {
+      console.error("Error creating package:", error);
+      message.error("Failed to add package. Please try again.");
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -120,13 +139,25 @@ const PackagePage = () => {
   return (
     <>
       <Breadcrumb
-        style={{
-          margin: "16px 0",
-        }}
-      >
-        <Breadcrumb.Item>Hosts</Breadcrumb.Item>
-        <Breadcrumb.Item>Package</Breadcrumb.Item>
-      </Breadcrumb>
+        items={[
+          {
+            href: "/homepages",
+            title: <HomeOutlined />,
+          },
+          {
+            href: "",
+            title: (
+              <>
+                <UserOutlined />
+                <span>Hosts</span>
+              </>
+            ),
+          },
+          {
+            title: "Package",
+          },
+        ]}
+      />
       <h1>Package</h1>
       <Button type="primary" onClick={() => setOpen(true)}>
         Add
