@@ -295,7 +295,10 @@ export const HomePage = () => {
                     <div class="container">
                         <header class="member__header">
                             <h2 class="section-heading">Our virtual Hosts</h2>
-                            <a href="#!" class="btn member__cta">
+                            <a
+                                href="http://localhost:5173/Hostpage"
+                                class="btn member__cta"
+                            >
                                 Meet our Hosts
                             </a>
                         </header>
