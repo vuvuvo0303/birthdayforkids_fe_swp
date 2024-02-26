@@ -25,7 +25,7 @@ export const LoginPage = () => {
     console.log(response);
     if (response.data) {
       toast.success("Login successfully");
-      navigate("/DashBoard");
+      navigate("/dashboard/party-host/service");
     } else {
       toast.error("Login fail");
     }
@@ -36,12 +36,12 @@ export const LoginPage = () => {
   };
 
   return (
-    <div class=" login">
-      <div class="background">
+    <div className=" login">
+      <div className="background">
         <div className="background__left"></div>
-        <div class="background__right">
+        <div className="background__right">
           <h1>Sign-In</h1>
-          <div class="background__right-input">
+          <div className="background__right-input">
             <Form
               name="basic"
               labelCol={{

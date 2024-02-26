@@ -1,36 +1,58 @@
 import React, { useEffect, useState } from "react";
 import {
   DesktopOutlined,
-  FileOutlined,
-  PieChartOutlined,
   TeamOutlined,
+  PieChartOutlined,
+  BarChartOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import Table from "../table";
+import { Link, Outlet } from "react-router-dom";
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
   return {
     key,
     icon,
     children,
-    label,
+    label: <Link to={key}>{label}</Link>,
   };
 }
 
 const DashBoard = ({ role }) => {
-  const [items, setitems] = useState([]);
+  const [items, setItems] = useState([]);
 
   function loadItems() {
-    if (role == "PARTY_HOST") {
-      setitems([
-        getItem("mangae package", "1", <PieChartOutlined />),
-        getItem(",manage services", "2", <DesktopOutlined />),
+    if (role === "PARTY_HOST") {
+      setItems([
+        getItem(
+          "Manage package",
+          "/dashboard/party-host/package",
+          <PieChartOutlined />
+        ),
+        getItem(
+          "Manage services",
+          "/dashboard/party-host/service",
+          <DesktopOutlined />
+        ),
+        getItem(
+          "Manage Report",
+          "/dashboard/party-host/report",
+          <DesktopOutlined />
+        ),
       ]);
-    } else {
-      setitems([
-        getItem("manage account", "1", <PieChartOutlined />),
-        getItem("manage report", "2", <DesktopOutlined />),
+    } else if (role === "ADMIN") {
+      setItems([
+        getItem(
+          "Manage accounts",
+          "/dashboard/admin/manage-accounts",
+          <TeamOutlined />
+        ),
+        getItem(
+          "Report Admin",
+          "/dashboard/admin/report-admin",
+          <BarChartOutlined />
+        ),
       ]);
     }
   }
@@ -72,14 +94,6 @@ const DashBoard = ({ role }) => {
             margin: "0 16px",
           }}
         >
-          <Breadcrumb
-            style={{
-              margin: "16px 0",
-            }}
-          >
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
-          </Breadcrumb>
           <div
             style={{
               padding: 24,
@@ -88,7 +102,7 @@ const DashBoard = ({ role }) => {
               borderRadius: borderRadiusLG,
             }}
           >
-            <Table />
+            <Outlet />
           </div>
         </Content>
         <Footer

@@ -18,6 +18,12 @@ import { UpdateProfile } from "./page/profile/updateProfile.jsx";
 import { HomepageLogin } from "./page/homepage/HomepageLogin.jsx";
 import { Hostpage } from "./page/HostPage/Hostpage.jsx";
 
+import ServicePage from "./page/party-host/service/index.jsx";
+import PackagePage from "./page/party-host/package/index.jsx";
+import ReportPage from "./page/party-host/report/index.jsx";
+import ManageAccounts from "./page/dashboad_admin/manage_accounts/index.jsx";
+import ReportPageAdmin from "./page/dashboad_admin/report_admin/index.jsx";
+import StepProgress from "./page/step_progress/index.jsx";
 function App() {
     const router = createBrowserRouter([
         {
@@ -44,7 +50,44 @@ function App() {
         },
         {
             path: "/dashboard",
-            element: <DashBoard />,
+            children: [
+                {
+                    path: "party-host",
+                    element: <DashBoard role={"PARTY_HOST"} />,
+                    children: [
+                        {
+                            path: "service",
+                            element: <ServicePage />,
+                        },
+                        {
+                            path: "package",
+                            element: <PackagePage />,
+                        },
+                        {
+                            path: "report",
+                            element: <ReportPage />,
+                        },
+                    ],
+                },
+                {
+                    path: "admin",
+                    element: <DashBoard role={"ADMIN"} />,
+                    children: [
+                        {
+                            path: "manage-accounts",
+                            element: <ManageAccounts />,
+                        },
+                        {
+                            path: "report-admin",
+                            element: <ReportPageAdmin />,
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            path: "/step-progress",
+            element: <StepProgress />,
         },
         {
             path: "/about",
@@ -71,9 +114,9 @@ function App() {
             element: <HomepageLogin />,
         },
         {
-            path:"/hostpage",
-            element: <Hostpage/>
-        }
+            path: "/hostpage",
+            element: <Hostpage />,
+        },
     ]);
     return (
         <>
