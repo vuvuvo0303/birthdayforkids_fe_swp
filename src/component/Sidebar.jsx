@@ -17,21 +17,21 @@ export const Sidebar = () => {
                     <img src="img/pic-1.jpg" className="image" alt="" />
                     <h3 className="name">shaikh anas</h3>
                     <p className="role">student</p>
-                    <a href="http://localhost:5173/yourProfile" className="btn btn-sidebar">
+                    <a href="/yourProfile" className="btn btn-sidebar">
                         View Profile
                     </a>
                 </div>
 
                 <nav className="navbar">
-                    <a href="http://localhost:5173/about">
+                    <a href="/about">
                         <i className="fas fa-question"></i>
                         <span>About</span>
                     </a>
-                    <a href="http://localhost:5173/package">
+                    <a href="/package">
                         <i className="fas fa-graduation-cap"></i>
                         <span>Packages</span>
                     </a>
-                    <a href="http://localhost:5173/service">
+                    <a href="/service">
                         <i className="fas fa-chalkboard-user"></i>
                         <span>Services</span>
                     </a>

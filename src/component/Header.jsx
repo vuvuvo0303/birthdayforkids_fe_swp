@@ -81,11 +81,11 @@ export const Header = () => {
 
                         {/* <!-- Action --> */}
                         <div class="action">
-                            <a href="#!" class="action__login">
+                            <a href="/login" class="action__login">
                                 Login
                             </a>
 
-                            <a href="#!" class="btn action__signup">
+                            <a href="/register" class="btn action__signup">
                                 <p>Sign up</p>
                             </a>
                         </div>
