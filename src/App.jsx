@@ -16,6 +16,7 @@ import { Service } from "./page/packagehost/Service.jsx";
 import { YourProfile } from "./page/profile/YourProfile.jsx";
 import { UpdateProfile } from "./page/profile/updateProfile.jsx";
 import { HomepageLogin } from "./page/homepage/HomepageLogin.jsx";
+import { Hostpage } from "./page/HostPage/Hostpage.jsx";
 
 function App() {
     const router = createBrowserRouter([
@@ -69,6 +70,10 @@ function App() {
             path: "/homepageLogin",
             element: <HomepageLogin />,
         },
+        {
+            path:"/hostpage",
+            element: <Hostpage/>
+        }
     ]);
     return (
         <>

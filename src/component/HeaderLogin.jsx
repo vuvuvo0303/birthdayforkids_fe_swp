@@ -130,7 +130,10 @@ export const HeaderLogin = () => {
                             <img src="img/pic-1.jpg" className="image" alt="" />
                             <h3 className="name">Trinh Huy</h3>
                             <p className="role">host</p>
-                            <a href="profile.html" className="btn">
+                            <a
+                                href="http://localhost:5173/yourProfile"
+                                className="btn"
+                            >
                                 View Profile
                             </a>
                             <div class="flex-btn">
