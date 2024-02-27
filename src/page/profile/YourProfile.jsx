@@ -14,7 +14,7 @@ export const YourProfile = () => {
                             <img src="img/pic-1.jpg" alt="" />
                             <h3>shaikh anas</h3>
                             <p>student</p>
-                            <a href="/updateProfile" class="btn">
+                            <a href="/dashboard/party-host/" class="btn">
                                 update profile
                             </a>
                         </div>

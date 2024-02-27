@@ -24,6 +24,8 @@ import ReportPage from "./page/party-host/report/index.jsx";
 import ManageAccounts from "./page/dashboad_admin/manage_accounts/index.jsx";
 import ReportPageAdmin from "./page/dashboad_admin/report_admin/index.jsx";
 import StepProgress from "./page/step_progress/index.jsx";
+import { GuestDetail } from "./page/GuestProfile/GuestDetail.jsx";
+import { GuestProfile } from "./page/GuestProfile/GuestProfile.jsx";
 function App() {
     const router = createBrowserRouter([
         {
@@ -116,6 +118,14 @@ function App() {
         {
             path: "/hostpage",
             element: <Hostpage />,
+        },
+        {
+            path: "/guestDetail",
+            element: <GuestDetail />,
+        },
+        {
+            path: "/guestProfile",
+            element: <GuestProfile />,
         },
     ]);
     return (
