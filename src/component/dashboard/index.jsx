@@ -6,9 +6,11 @@ import {
   BarChartOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Breadcrumb, Layout, Menu, theme } from "antd";
+import { Breadcrumb, Button, Dropdown, Layout, Menu, Row, theme } from "antd";
 import Table from "../table";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../redux/features/userSlice";
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
   return {
@@ -21,6 +23,15 @@ function getItem(label, key, icon, children) {
 
 const DashBoard = ({ role }) => {
   const [items, setItems] = useState([]);
+  const user = useSelector((store) => store.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user]);
 
   function loadItems() {
     if (role === "PARTY_HOST") {
@@ -63,6 +74,25 @@ const DashBoard = ({ role }) => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const menuItems = [
+    {
+      key: "1",
+      label: <Link to={"/yourProfile"}>Your Profile</Link>,
+    },
+    {
+      key: "2",
+      label: (
+        <span
+          onClick={() => {
+            dispatch(logout());
+          }}
+        >
+          Logout
+        </span>
+      ),
+    },
+  ];
   return (
     <Layout
       style={{
@@ -84,11 +114,26 @@ const DashBoard = ({ role }) => {
       </Sider>
       <Layout>
         <Header
-          style={{
-            padding: 0,
-            background: colorBgContainer,
-          }}
-        />
+          style={{ padding: 0, background: colorBgContainer, marginBottom: 30 }}
+        >
+          <Row
+            align={"middle"}
+            justify={"end"}
+            style={{
+              height: "100%",
+            }}
+          >
+            <Dropdown menu={{ items: menuItems }} placement="bottomRight">
+              <Button
+                style={{
+                  marginRight: 50,
+                }}
+              >
+                {user?.name}
+              </Button>
+            </Dropdown>
+          </Row>
+        </Header>
         <Content
           style={{
             margin: "0 16px",

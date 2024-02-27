@@ -20,7 +20,7 @@ export const Register = () => {
       });
   };
   const onFinish = async (values) => {
-    const response = await api.post("/authentication/register", values);
+    const response = await api.post("/auth/register", values);
     console.log(response);
     toast.success("successfully register accounts!");
     navigate("/login");
@@ -55,8 +55,20 @@ export const Register = () => {
               autoComplete="off"
             >
               <Form.Item
-                label="Username"
-                name="userName"
+                label="Name"
+                name="name"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your FullName",
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+              {/* <Form.Item
+                label="Name"
+                name="name"
                 rules={[
                   {
                     required: true,
@@ -65,7 +77,7 @@ export const Register = () => {
                 ]}
               >
                 <Input />
-              </Form.Item>
+              </Form.Item> */}
 
               <Form.Item
                 label="Password"
@@ -93,33 +105,22 @@ export const Register = () => {
                 <Input />
               </Form.Item>
               <Form.Item
-                label="Gender"
-                name="gender"
+                label="Role"
+                name="role"
                 rules={[
                   {
                     required: true,
-                    message: "Please input your gender",
+                    message: "Please choose your Hosts",
                   },
                 ]}
               >
                 <Radio.Group>
-                  <Radio value={"MALE"}>MALE</Radio>
-                  <Radio value={"FEMALE"}>FEMALE</Radio>
+                  <Radio value={"Guest"}>Guest</Radio>
+                  <Radio value={"Hosts"}>Hosts</Radio>
                 </Radio.Group>
               </Form.Item>
-              <Form.Item
-                label="Full Name"
-                name="fullName"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your FullName",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
+
+              {/* <Form.Item
                 label="Phone Number"
                 name="phoneNumber"
                 rules={[
@@ -130,7 +131,7 @@ export const Register = () => {
                 ]}
               >
                 <Input />
-              </Form.Item>
+              </Form.Item> */}
               <Form.Item
                 wrapperCol={{
                   offset: 8,

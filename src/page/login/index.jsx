@@ -6,8 +6,11 @@ import { Button, Form, Input } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../../config/axios";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/features/userSlice";
 export const LoginPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const loginGoogle = () => {
     const auth = getAuth();
@@ -21,12 +24,13 @@ export const LoginPage = () => {
       });
   };
   const onFinish = async (values) => {
-    const response = await api.post("/authentication/login", values);
-    console.log(response);
-    if (response.data) {
+    try {
+      const response = await api.post("/auth/login", values);
+      console.log(response);
+      dispatch(login(response.data));
       toast.success("Login successfully");
       navigate("/dashboard/party-host/service");
-    } else {
+    } catch (e) {
       toast.error("Login fail");
     }
   };
@@ -62,7 +66,7 @@ export const LoginPage = () => {
             >
               <Form.Item
                 label="Username"
-                name="userName"
+                name="email"
                 rules={[
                   {
                     required: true,

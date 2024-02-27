@@ -83,16 +83,6 @@ const data = [
 
     tags: ["Best Package", "Top1"],
   },
-  {
-    key: "2",
-    packageid: "2",
-    hostid: "KFC01",
-    name: "birthday1",
-    price: "100000",
-    description: "KFC always selected on top for customer to ....",
-
-    tags: ["Best Package", "Top1"],
-  },
 ];
 const PackagePage = () => {
   const [open, setOpen] = useState(false);
@@ -105,10 +95,9 @@ const PackagePage = () => {
   };
 
   const onFinish = async (values) => {
-    
     try {
       const response = await axios.post("/api/packages", values);
-      console.log(response); 
+      console.log(response);
       const newData = [...dataSource, response.data];
       setDataSource(newData);
       setOpen(false);
