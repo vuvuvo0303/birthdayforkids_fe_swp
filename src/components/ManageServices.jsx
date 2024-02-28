@@ -8,6 +8,27 @@ export default function ManageService() {
     const [services, setServices] = useState([]);
     const [packages, setPackages] = useState([]);
 
+    const handleUpdate = (ID) => {
+
+
+        fetch(`https://65d8ca70c96fbb24c1bc4ffe.mockapi.io/ListGuige/${ID}`, {
+            method: 'PUT', // or PATCH
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ name: 'abc' })
+        }).then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+            // handle error
+        }).then(task => {
+            // Do something with updated task
+            console.log('check data: ', task);
+        }).catch(error => {
+            // handle error
+        })
+
+    }
+
     const handleDeleteService = (ServiceID) => {
         const url = 'http://birthdayblitzhub.online:8080/api/services/' + ServiceID
         fetch(url, {
