@@ -77,7 +77,7 @@ export const OrderHistory = () => {
         },
     ];
     return (
-        <div>
+        <div className="table-orderHistory">
             <Table columns={columns} dataSource={data} />
         </div>
     );
