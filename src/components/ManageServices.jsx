@@ -8,13 +8,28 @@ export default function ManageService() {
     const [services, setServices] = useState([]);
     const [packages, setPackages] = useState([]);
 
-    const handleUpdate = (ID) => {
-
-
+    const handleUpdate = (ID, newName, newPrice, newDescription, newPicture) => {
+        const updatedData = {};
+        if (newName) {
+            updatedData.name = newName;
+        }
+        if (newPrice) {
+            updatedData.price = newPrice;
+        }
+        if (newDescription) {
+            updatedData.description = newDescription;
+        }
+        if (newDescription) {
+            updatedData.picture = newPicture;
+        }
+        if (Object.keys(updatedData).length === 0) {
+            alert('Please provide at least one field to update.');
+            return;
+        }
         fetch(`https://65d8ca70c96fbb24c1bc4ffe.mockapi.io/ListGuige/${ID}`, {
             method: 'PUT', // or PATCH
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ name: 'abc' })
+            body: JSON.stringify({ updatedData })
         }).then(res => {
             if (res.ok) {
                 return res.json();
