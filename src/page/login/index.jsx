@@ -15,9 +15,15 @@ export const LoginPage = () => {
   const loginGoogle = () => {
     const auth = getAuth();
     signInWithPopup(auth, provider)
-      .then((result) => {
+      .then(async (result) => {
+        const token = await result.user.getIdToken();
+        const response = await api.post("/authentication/logingg", {
+          token: token,
+        });
+        dispatch(login(response.data));
         toast.success("Login successfully");
-        navigate("/DashBoard/admin");
+        navigate("/dashboard");
+        localStorage.setItem("token", response.data.token);
       })
       .catch((error) => {
         console.log(error);
@@ -65,7 +71,7 @@ export const LoginPage = () => {
               autoComplete="off"
             >
               <Form.Item
-                label="Username"
+                label="email"
                 name="email"
                 rules={[
                   {

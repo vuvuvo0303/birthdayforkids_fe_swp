@@ -1,20 +1,19 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-*{
-  font-family: 'Roboto', sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+* {
+  font-family: "Roboto", sans-serif;
 }
-.background{
-  background-color: #5B86E5;
-    height: calc(100vh - 40px);
-    display: flex;
-    border-radius: 30px;
-    overflow: hidden;
+.background {
+  background-color: #5b86e5;
+  height: calc(100vh - 40px);
+  display: flex;
+  border-radius: 30px;
+  overflow: hidden;
 }
-.background__left{
-    width: 50%;
-    height: 100%;
+.background__left {
+  width: 50%;
+  height: 100%;
 }
-.background__right{
+.background__right {
   background-color: #fff;
   width: 50%;
   display: flex;
@@ -23,9 +22,16 @@
   justify-content: center;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
+  overflow: auto;
+  height: 100%;
 }
 
-.login{
-  background-color: #D4F2FF;
+.background__right .wrapper {
+  height: 2000px !important;
+  margin-top: 200px;
+}
+
+.login {
+  background-color: #d4f2ff;
   padding: 20px 100px;
 }

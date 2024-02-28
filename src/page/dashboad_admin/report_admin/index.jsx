@@ -1,10 +1,6 @@
 import React, { useEffect } from "react";
 import { Button, Col, Row, Statistic, Card, Breadcrumb } from "antd";
-import {
-  UserOutlined,
-  CreditCardOutlined,
-  HomeOutlined,
-} from "@ant-design/icons";
+import { UserOutlined, CreditCardOutlined, HomeOutlined } from "@ant-design/icons";
 import { Chart } from "../../../component/chart";
 const ReportPageAdmin = () => {
   // const options = {
@@ -70,17 +66,17 @@ const ReportPageAdmin = () => {
       />
       <Row gutter={18}>
         <Col span={6}>
-          <Card title=" Total customers in the system today" bordered={false}>
+          <Card title=" Total Guest " bordered={false}>
             <Statistic value={100} prefix={<UserOutlined />} />
           </Card>
         </Col>
         <Col span={6}>
-          <Card title=" Total customersin the syste " bordered={false}>
+          <Card title=" Total Host" bordered={false}>
             <Statistic value={1000} prefix={<UserOutlined />} />
           </Card>
         </Col>
         <Col span={6}>
-          <Card title=" System revenue today (VND)" bordered={false}>
+          <Card title=" Total revenue today (VND)" bordered={false}>
             <Statistic value={1001000} prefix={<CreditCardOutlined />} />
           </Card>
         </Col>
