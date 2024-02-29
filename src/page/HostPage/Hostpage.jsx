@@ -1,9 +1,25 @@
 import React from "react";
 import { Header } from "../../component/Header";
 import { Footer } from "../../component/Footer";
-import "./index.css"
+import { useState, useEffect } from "react";
+import "./index.css";
+import axios from "axios";
 
 export const Hostpage = () => {
+    const [members, setMembers] = useState([]);
+
+    useEffect(() => {
+        // Gọi API để lấy danh sách thành viên
+        axios
+            .get("http://birthdayblitzhub.online:8080/auth/getAllHost")
+            .then((response) => {
+                setMembers(response.data); // Cập nhật state với dữ liệu từ API
+            })
+            .catch((error) => {
+                console.error("Error fetching data:", error);
+            });
+    }, []);
+
     return (
         <div>
             <Header />
@@ -11,177 +27,28 @@ export const Hostpage = () => {
             <div class="member" id="member1">
                 <div class="container">
                     <header class="member__header">
-                        <h2 class="section-heading host-heading">Our virtual Hosts</h2>
+                        <h2 class="section-heading host-heading">
+                            Our virtual Hosts
+                        </h2>
                     </header>
-                    <div class="member__list">
-                        {/* <!-- Member item 1 --> */}
-                        <article class="member__item">
-                            <div class="member-item__img-bg">
-                                <img
-                                    src="/img/avatar1.jpg"
-                                    alt="Dr. Essence Page"
-                                    class="member-item__thumb"
-                                />
-                            </div>
-                            <h3 class="member-item__name">Dr. Essence Page</h3>
-                            <p class="member-item__desc">
-                                DDS, California - Linda University
-                            </p>
-                        </article>
-                        {/* <!-- Member item 2 --> */}
-                        <article class="member__item">
-                            <div class="member-item__img-bg">
-                                <img
-                                    src="/img/avatar1.jpg"
-                                    alt="Dr. Essence Page"
-                                    class="member-item__thumb"
-                                />
-                            </div>
-                            <h3 class="member-item__name">Dr. Essence Page</h3>
-                            <p class="member-item__desc">
-                                DDS, California - Linda University
-                            </p>
-                        </article>
-                        {/* <!-- Member item 3 --> */}
-                        <article class="member__item">
-                            <div class="member-item__img-bg">
-                                <img
-                                    src="/img/avatar1.jpg"
-                                    alt="Dr. Essence Page"
-                                    class="member-item__thumb"
-                                />
-                            </div>
-                            <h3 class="member-item__name">Dr. Essence Page</h3>
-                            <p class="member-item__desc">
-                                DDS, California - Linda University
-                            </p>
-                        </article>
-                        {/* <!-- Member item 4 --> */}
-                        <article class="member__item">
-                            <div class="member-item__img-bg">
-                                <img
-                                    src="/img/avatar1.jpg"
-                                    alt="Dr. Essence Page"
-                                    class="member-item__thumb"
-                                />
-                            </div>
-                            <h3 class="member-item__name">Dr. Essence Page</h3>
-                            <p class="member-item__desc">
-                                DDS, California - Linda University
-                            </p>
-                        </article>
-                        {/* <!-- Member item 5 --> */}
-                        <article class="member__item">
-                            <div class="member-item__img-bg">
-                                <img
-                                    src="/img/avatar1.jpg"
-                                    alt="Dr. Essence Page"
-                                    class="member-item__thumb"
-                                />
-                            </div>
-                            <h3 class="member-item__name">Dr. Essence Page</h3>
-                            <p class="member-item__desc">
-                                DDS, California - Linda University
-                            </p>
-                        </article>
-                        {/* <!-- Member item 6 --> */}
-                        <article class="member__item">
-                            <div class="member-item__img-bg">
-                                <img
-                                    src="/img/avatar1.jpg"
-                                    alt="Dr. Essence Page"
-                                    class="member-item__thumb"
-                                />
-                            </div>
-                            <h3 class="member-item__name">Dr. Essence Page</h3>
-                            <p class="member-item__desc">
-                                DDS, California - Linda University
-                            </p>
-                        </article>
-                        {/* <!-- Member item 7 --> */}
-                        <article class="member__item">
-                            <div class="member-item__img-bg">
-                                <img
-                                    src="/img/avatar1.jpg"
-                                    alt="Dr. Essence Page"
-                                    class="member-item__thumb"
-                                />
-                            </div>
-                            <h3 class="member-item__name">Dr. Essence Page</h3>
-                            <p class="member-item__desc">
-                                DDS, California - Linda University
-                            </p>
-                        </article>
-                        {/* <!-- Member item 8 --> */}
-                        <article class="member__item">
-                            <div class="member-item__img-bg">
-                                <img
-                                    src="/img/avatar1.jpg"
-                                    alt="Dr. Essence Page"
-                                    class="member-item__thumb"
-                                />
-                            </div>
-                            <h3 class="member-item__name">Dr. Essence Page</h3>
-                            <p class="member-item__desc">
-                                DDS, California - Linda University
-                            </p>
-                        </article>
-                        {/* <!-- Member item 4 --> */}
-                        <article class="member__item">
-                            <div class="member-item__img-bg">
-                                <img
-                                    src="/img/avatar1.jpg"
-                                    alt="Dr. Essence Page"
-                                    class="member-item__thumb"
-                                />
-                            </div>
-                            <h3 class="member-item__name">Dr. Essence Page</h3>
-                            <p class="member-item__desc">
-                                DDS, California - Linda University
-                            </p>
-                        </article>
-                        {/* <!-- Member item 4 --> */}
-                        <article class="member__item">
-                            <div class="member-item__img-bg">
-                                <img
-                                    src="/img/avatar1.jpg"
-                                    alt="Dr. Essence Page"
-                                    class="member-item__thumb"
-                                />
-                            </div>
-                            <h3 class="member-item__name">Dr. Essence Page</h3>
-                            <p class="member-item__desc">
-                                DDS, California - Linda University
-                            </p>
-                        </article>
-                        {/* <!-- Member item 4 --> */}
-                        <article class="member__item">
-                            <div class="member-item__img-bg">
-                                <img
-                                    src="/img/avatar1.jpg"
-                                    alt="Dr. Essence Page"
-                                    class="member-item__thumb"
-                                />
-                            </div>
-                            <h3 class="member-item__name">Dr. Essence Page</h3>
-                            <p class="member-item__desc">
-                                DDS, California - Linda University
-                            </p>
-                        </article>
-                        {/* <!-- Member item 4 --> */}
-                        <article class="member__item">
-                            <div class="member-item__img-bg">
-                                <img
-                                    src="/img/avatar1.jpg"
-                                    alt="Dr. Essence Page"
-                                    class="member-item__thumb"
-                                />
-                            </div>
-                            <h3 class="member-item__name">Dr. Essence Page</h3>
-                            <p class="member-item__desc">
-                                DDS, California - Linda University
-                            </p>
-                        </article>
+                    <div className="member__list">
+                        {members.map((member) => (
+                            <article key={member.id} className="member__item">
+                                <div className="member-item__img-bg">
+                                    <img
+                                        src={member.avatar}
+                                        alt={member.name}
+                                        className="member-item__thumb"
+                                    />
+                                </div>
+                                <h3 className="member-item__name">
+                                    {member.name}
+                                </h3>
+                                <p className="member-item__desc">
+                                    {member.email}
+                                </p>
+                            </article>
+                        ))}
                     </div>
                 </div>
             </div>
