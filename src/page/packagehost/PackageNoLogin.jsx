@@ -1,7 +1,9 @@
 import React from "react";
 import { Header } from "../../component/Header";
 import { SidebarNoLogin } from "../profile/SidebarNoLogin";
+import { useParams } from "react-router";
 export const PackageNoLogin = () => {
+    const { id } = useParams();
     return (
         <div>
             <Header />
@@ -165,7 +167,7 @@ export const PackageNoLogin = () => {
                     </div>
                 </section>
             </div>
-            <SidebarNoLogin />
+            <SidebarNoLogin id={id} />
         </div>
     );
 };

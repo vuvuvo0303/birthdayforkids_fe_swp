@@ -1,4 +1,4 @@
-import '../App.css';
+import './ManageService.css';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 

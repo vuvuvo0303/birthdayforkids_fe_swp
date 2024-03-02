@@ -2,7 +2,10 @@ import React from "react";
 import "./index.css";
 import { Header } from "../../component/Header";
 import { SidebarNoLogin } from "./SidebarNoLogin";
+import { useParams } from "react-router";
 export const AboutNoLogin = () => {
+    const { id } = useParams();
+    console.log(id);
     return (
         <div>
             <Header />
@@ -178,7 +181,7 @@ export const AboutNoLogin = () => {
                     </div>
                 </section>
             </div>
-            <SidebarNoLogin />
+            <SidebarNoLogin id={id} />
         </div>
     );
 };

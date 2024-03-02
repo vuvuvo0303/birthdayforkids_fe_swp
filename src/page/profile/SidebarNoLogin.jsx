@@ -5,7 +5,8 @@ import { useParams } from "react-router-dom";
 import api from "../../config/axios";
 import { Link } from "react-router-dom";
 
-export const SidebarNoLogin = () => {
+export const SidebarNoLogin = ({id}) => {
+    console.log(id);
     const params = useParams();
     const [profile, setProfile] = useState();
 
@@ -47,15 +48,15 @@ export const SidebarNoLogin = () => {
                 </div>
 
                 <nav className="navbar">
-                    <a href="/aboutNoLogin">
+                    <a href={`/host/${id}`}>
                         <i className="fas fa-question"></i>
                         <span>About</span>
                     </a>
-                    <a href="/packageNoLogin">
+                    <a href={`/packageNoLogin/${id}`}>
                         <i className="fas fa-graduation-cap"></i>
                         <span>Packages</span>
                     </a>
-                    <a href="/serviceNoLogin">
+                    <a href={`/serviceNoLogin/${id}`}>
                         <i className="fas fa-chalkboard-user"></i>
                         <span>Services</span>
                     </a>
