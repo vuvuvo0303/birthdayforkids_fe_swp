@@ -28,6 +28,8 @@ import StepProgress from "./page/step_progress/index.jsx";
 import { GuestDetail } from "./page/GuestProfile/GuestDetail.jsx";
 import { GuestProfile } from "./page/GuestProfile/GuestProfile.jsx";
 import { AboutNoLogin } from "./page/profile/AboutNoLogin.jsx";
+import { PackageNoLogin } from "./page/packagehost/PackageNoLogin.jsx";
+import { ServiceNoLogin } from "./page/packagehost/ServiceNoLogin.jsx";
 
 function App() {
     const router = createBrowserRouter([
@@ -134,15 +136,19 @@ function App() {
             path: "/HostProfile",
             element: <HostProfile />,
         },
+        //Guest khi nhin about Profile cua Host
         {
-            path: "aboutNoLogin",
+            path: "/host/:id",
             element: <AboutNoLogin />,
         },
-        //Guest khi nhin about cua Host
-        // {
-        //     path: "/AboutNoLogin",
-        //     element: <AboutNoLogin />,
-        // },
+        {
+            path: "/packageNoLogin",
+            element: <PackageNoLogin />,
+        },
+        {
+            path: "/serviceNoLogin",
+            element: <ServiceNoLogin />,
+        },
     ]);
     return (
         <>
