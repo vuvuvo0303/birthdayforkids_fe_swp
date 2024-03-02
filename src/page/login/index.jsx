@@ -6,27 +6,37 @@ import { Button, Form, Input } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../../config/axios";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/features/userSlice";
 export const LoginPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const loginGoogle = () => {
     const auth = getAuth();
     signInWithPopup(auth, provider)
-      .then((result) => {
+      .then(async (result) => {
+        const token = await result.user.getIdToken();
+        const response = await api.post("/authentication/logingg", {
+          token: token,
+        });
+        dispatch(login(response.data));
         toast.success("Login successfully");
-        navigate("/DashBoard/admin");
+        navigate("/dashboard");
+        localStorage.setItem("token", response.data.token);
       })
       .catch((error) => {
         console.log(error);
       });
   };
   const onFinish = async (values) => {
-    const response = await api.post("/authentication/login", values);
-    console.log(response);
-    if (response.data) {
+    try {
+      const response = await api.post("/auth/login", values);
+      console.log(response);
+      dispatch(login(response.data));
       toast.success("Login successfully");
       navigate("/dashboard/party-host/service");
-    } else {
+    } catch (e) {
       toast.error("Login fail");
     }
   };
@@ -61,8 +71,8 @@ export const LoginPage = () => {
               autoComplete="off"
             >
               <Form.Item
-                label="Username"
-                name="userName"
+                label="email"
+                name="email"
                 rules={[
                   {
                     required: true,

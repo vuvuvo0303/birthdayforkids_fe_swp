@@ -1,8 +1,26 @@
-import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "./features/counterSlice";
+// configureStore.js
 
-export const store = configureStore({
-    reducer: {
-        counter: counterReducer,
-    },
+import { combineReducers, createStore } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+
+import userSlice from "./features/userSlice";
+
+const persistConfig = {
+  key: "root",
+  storage,
+};
+
+const rootReducer = combineReducers({
+  user: userSlice,
 });
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+let store = createStore(
+  persistedReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+let persistor = persistStore(store);
+
+export { store, persistor };
