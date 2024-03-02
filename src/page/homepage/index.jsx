@@ -4,8 +4,35 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { Header } from "../../component/Header";
 import "./index.css";
-
+import { useEffect, useState } from "react";
+import axios from "axios";
 export const HomePage = () => {
+    const [members, setMembers] = useState([]);
+    useEffect(() => {
+        axios
+            .get("http://birthdayblitzhub.online:8080/auth/getAllHost")
+            .then((response) => {
+                if (Array.isArray(response.data)) {
+                    // Trộn mảng để lấy ngẫu nhiên
+                    const shuffledMembers = shuffleArray(response.data);
+                    // Lấy 4 thành viên đầu tiên
+                    const selectedMembers = shuffledMembers.slice(0, 4);
+                    setMembers(selectedMembers);
+                } else {
+                    console.error("Invalid data format from API");
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching data:", error);
+            });
+    }, []);
+    const shuffleArray = (array) => {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    };
     const settings = {
         dots: true,
         infinite: true,
@@ -183,7 +210,6 @@ export const HomePage = () => {
                         </div>
                     </div>
                 </section>
-
                 {/* Work */}
                 <section class="work" id="work1">
                     <div class="container">
@@ -251,7 +277,6 @@ export const HomePage = () => {
                         </div>
                     </div>
                 </section>
-
                 {/* <!-- Feature --> */}
                 <section class="feature" id="about1">
                     <div class="container">
@@ -288,86 +313,38 @@ export const HomePage = () => {
                         </div>
                     </div>
                 </section>
-
                 {/* <!-- Member --> */}
 
                 <div class="member" id="member1">
                     <div class="container">
                         <header class="member__header">
                             <h2 class="section-heading">Our virtual Hosts</h2>
-                            <a
-                                href="http://localhost:5173/Hostpage"
-                                class="btn member__cta"
-                            >
+                            <a href="/Hostpage" class="btn member__cta">
                                 Meet our Hosts
                             </a>
                         </header>
 
-                        <div class="member__list">
-                            {/* <!-- Member item 1 --> */}
-                            <article class="member__item">
-                                <div class="member-item__img-bg">
-                                    <img
-                                        src="/img/avatar1.jpg"
-                                        alt="Dr. Essence Page"
-                                        class="member-item__thumb"
-                                    />
-                                </div>
-                                <h3 class="member-item__name">
-                                    Dr. Essence Page
-                                </h3>
-                                <p class="member-item__desc">
-                                    DDS, California - Linda University
-                                </p>
-                            </article>
-                            {/* <!-- Member item 2 --> */}
-                            <article class="member__item">
-                                <div class="member-item__img-bg">
-                                    <img
-                                        src="/img/avatar1.jpg"
-                                        alt="Dr. Essence Page"
-                                        class="member-item__thumb"
-                                    />
-                                </div>
-                                <h3 class="member-item__name">
-                                    Dr. Essence Page
-                                </h3>
-                                <p class="member-item__desc">
-                                    DDS, California - Linda University
-                                </p>
-                            </article>
-                            {/* <!-- Member item 3 --> */}
-                            <article class="member__item">
-                                <div class="member-item__img-bg">
-                                    <img
-                                        src="/img/avatar1.jpg"
-                                        alt="Dr. Essence Page"
-                                        class="member-item__thumb"
-                                    />
-                                </div>
-                                <h3 class="member-item__name">
-                                    Dr. Essence Page
-                                </h3>
-                                <p class="member-item__desc">
-                                    DDS, California - Linda University
-                                </p>
-                            </article>
-                            {/* <!-- Member item 4 --> */}
-                            <article class="member__item">
-                                <div class="member-item__img-bg">
-                                    <img
-                                        src="/img/avatar1.jpg"
-                                        alt="Dr. Essence Page"
-                                        class="member-item__thumb"
-                                    />
-                                </div>
-                                <h3 class="member-item__name">
-                                    Dr. Essence Page
-                                </h3>
-                                <p class="member-item__desc">
-                                    DDS, California - Linda University
-                                </p>
-                            </article>
+                        <div className="member__list">
+                            {members.map((member) => (
+                                <article
+                                    key={member.id}
+                                    className="member__item"
+                                >
+                                    <div className="member-item__img-bg">
+                                        <img
+                                            src={member.avatar}
+                                            alt={member.name}
+                                            className="member-item__thumb"
+                                        />
+                                    </div>
+                                    <h3 className="member-item__name">
+                                        {member.name}
+                                    </h3>
+                                    <p className="member-item__desc">
+                                        {member.address}
+                                    </p>
+                                </article>
+                            ))}
                         </div>
 
                         <div class="member__control">

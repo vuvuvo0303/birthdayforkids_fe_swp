@@ -1,15 +1,5 @@
 import React, { useState } from "react";
-import {
-  Button,
-  Form,
-  Input,
-  Modal,
-  Space,
-  Table,
-  Tag,
-  Breadcrumb,
-  message,
-} from "antd";
+import { Button, Form, Input, Modal, Space, Table, Tag, Breadcrumb, message } from "antd";
 import Dragger from "antd/es/upload/Dragger";
 import { InboxOutlined, HomeOutlined, UserOutlined } from "@ant-design/icons";
 import axios from "axios";
@@ -63,7 +53,7 @@ const PackagePage = () => {
       <Breadcrumb
         items={[
           {
-            href: "/homepages",
+            href: "/homepage",
             title: <HomeOutlined />,
           },
           {
@@ -92,36 +82,21 @@ const PackagePage = () => {
           title="Image"
           dataIndex="image"
           key="image"
-          render={(text, record) => (
-            <img
-              src={record.image}
-              alt="Image"
-              style={{ width: "50px", height: "50px" }}
-            />
-          )}
+          render={(text, record) => <img src={record.image} alt="Image" style={{ width: "50px", height: "50px" }} />}
         />
         <Column
           title="Actions"
           key="action"
           render={(text, record) => (
             <Space size="middle">
-              <Button
-                type="primary"
-                danger
-                onClick={() => handleDelete(record)}
-              >
+              <Button type="primary" danger onClick={() => handleDelete(record)}>
                 Delete
               </Button>
             </Space>
           )}
         />
       </Table>
-      <Modal
-        title="Create Package"
-        visible={open}
-        onCancel={() => setOpen(false)}
-        footer={null}
-      >
+      <Modal title="Create Package" visible={open} onCancel={() => setOpen(false)} footer={null}>
         <Form
           name="basic"
           labelCol={{ span: 24 }}
@@ -129,41 +104,25 @@ const PackagePage = () => {
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
         >
-          <Form.Item
-            label="Name"
-            name="name"
-            rules={[{ required: true, message: "Name must not be blank" }]}
-          >
+          <Form.Item label="Name" name="name" rules={[{ required: true, message: "Name must not be blank" }]}>
             <Input />
           </Form.Item>
-          <Form.Item
-            label="Price"
-            name="price"
-            rules={[{ required: true, message: "Price must not be blank" }]}
-          >
+          <Form.Item label="Price" name="price" rules={[{ required: true, message: "Price must not be blank" }]}>
             <Input suffix="VND" />
           </Form.Item>
           <Form.Item
             label="Description"
             name="description"
-            rules={[
-              { required: true, message: "Description must not be blank" },
-            ]}
+            rules={[{ required: true, message: "Description must not be blank" }]}
           >
             <Input.TextArea />
           </Form.Item>
-          <Form.Item
-            label="Image"
-            name="image"
-            rules={[{ required: true, message: "Image must not be blank" }]}
-          >
+          <Form.Item label="Image" name="image" rules={[{ required: true, message: "Image must not be blank" }]}>
             <Dragger {...props}>
               <p className="ant-upload-drag-icon">
                 <InboxOutlined />
               </p>
-              <p className="ant-upload-text">
-                Click or drag file to this area to upload
-              </p>
+              <p className="ant-upload-text">Click or drag file to this area to upload</p>
             </Dragger>
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>

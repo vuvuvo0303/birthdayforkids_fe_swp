@@ -23,7 +23,7 @@ export const LoginPage = () => {
         dispatch(login(response.data));
         toast.success("Login successfully");
         navigate("/dashboard");
-        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("token", response.data.tokens);
       })
       .catch((error) => {
         console.log(error);
@@ -36,6 +36,7 @@ export const LoginPage = () => {
       dispatch(login(response.data));
       toast.success("Login successfully");
       navigate("/dashboard/party-host/service");
+      localStorage.setItem("token", response.data.tokens);
     } catch (e) {
       toast.error("Login fail");
     }

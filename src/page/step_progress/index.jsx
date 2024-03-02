@@ -131,5 +131,13 @@ const FirstStepContent = () => {
     </Form>
   );
 };
+const SecondStepContent = () => {
+  return (
+  
+    <>
+      
+    </>
+  );
+}
 
 export default StepProgress;
