@@ -1,15 +1,5 @@
 import React, { useState } from "react";
-import {
-  Button,
-  Form,
-  Input,
-  Modal,
-  Space,
-  Table,
-  Tag,
-  Breadcrumb,
-  message,
-} from "antd";
+import { Button, Form, Input, Modal, Space, Table, Tag, Breadcrumb, message } from "antd";
 import Dragger from "antd/es/upload/Dragger";
 import { HomeOutlined, InboxOutlined, UserOutlined } from "@ant-design/icons";
 import uploadFile from "../../../utils/upload";
@@ -134,7 +124,7 @@ const ServicePage = () => {
       <Breadcrumb
         items={[
           {
-            href: "/homepages",
+            href: "/homepage",
             title: <HomeOutlined />,
           },
           {
@@ -161,12 +151,7 @@ const ServicePage = () => {
         Add
       </Button>
       <Table columns={columns} dataSource={dataSource} />
-      <Modal
-        title="Create Services"
-        visible={open}
-        onCancel={() => setOpen(false)}
-        footer={null}
-      >
+      <Modal title="Create Services" visible={open} onCancel={() => setOpen(false)} footer={null}>
         <Form
           name="basic"
           labelCol={{ span: 24 }}
@@ -174,41 +159,25 @@ const ServicePage = () => {
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
         >
-          <Form.Item
-            label="Name"
-            name="name"
-            rules={[{ required: true, message: "Name not must be blank" }]}
-          >
+          <Form.Item label="Name" name="name" rules={[{ required: true, message: "Name not must be blank" }]}>
             <Input />
           </Form.Item>
-          <Form.Item
-            label="Price"
-            name="price"
-            rules={[{ required: true, message: "Price not must be blank" }]}
-          >
+          <Form.Item label="Price" name="price" rules={[{ required: true, message: "Price not must be blank" }]}>
             <Input suffix="VND" />
           </Form.Item>
           <Form.Item
             label="Description"
             name="description"
-            rules={[
-              { required: true, message: "Description not must be blank" },
-            ]}
+            rules={[{ required: true, message: "Description not must be blank" }]}
           >
             <Input.TextArea />
           </Form.Item>
-          <Form.Item
-            label="Image"
-            name="image"
-            rules={[{ required: true, message: "Image not must be blank" }]}
-          >
+          <Form.Item label="Image" name="image" rules={[{ required: true, message: "Image not must be blank" }]}>
             <Dragger {...props}>
               <p className="ant-upload-drag-icon">
                 <InboxOutlined />
               </p>
-              <p className="ant-upload-text">
-                Click or drag file to this area to upload
-              </p>
+              <p className="ant-upload-text">Click or drag file to this area to upload</p>
             </Dragger>
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>

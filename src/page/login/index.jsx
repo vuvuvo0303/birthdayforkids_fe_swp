@@ -12,35 +12,34 @@ export const LoginPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const loginGoogle = () => {
-        const auth = getAuth();
-        signInWithPopup(auth, provider)
-            .then(async (result) => {
-                const token = await result.user.getIdToken();
-                const response = await api.post("/authentication/logingg", {
-                    token: token,
-                });
-                dispatch(login(response.data));
-                toast.success("Login successfully");
-                navigate("/dashboard");
-                localStorage.setItem("token", response.data.tokens);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
-    const onFinish = async (values) => {
-        try {
-            const response = await api.post("/auth/login", values);
-            console.log(response);
-            dispatch(login(response.data));
-            toast.success("Login successfully");
-            navigate("/dashboard/party-host/service");
-            localStorage.setItem("token", response.data.tokens);
-        } catch (e) {
-            toast.error("Login fail");
-        }
-    };
+  const loginGoogle = () => {
+    const auth = getAuth();
+    signInWithPopup(auth, provider)
+      .then(async (result) => {
+        const token = await result.user.getIdToken();
+        const response = await api.post("/authentication/logingg", {
+          token: token,
+        });
+        dispatch(login(response.data));
+        toast.success("Login successfully");
+        navigate("/dashboard");
+        localStorage.setItem("token", response.data.token);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const onFinish = async (values) => {
+    try {
+      const response = await api.post("/auth/login", values);
+      console.log(response);
+      dispatch(login(response.data));
+      toast.success("Login successfully");
+      navigate("/dashboard/party-host/service");
+    } catch (e) {
+      toast.error("Login fail");
+    }
+  };
 
     const onFinishFailed = (errorInfo) => {
         console.log("Failed:", errorInfo);
