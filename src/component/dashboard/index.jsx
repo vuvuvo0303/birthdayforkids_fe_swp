@@ -30,8 +30,9 @@ const DashBoard = ({ role }) => {
   function loadItems() {
     if (role === "PARTY_HOST") {
       setItems([
-        getItem("Manage package", "/dashboard/party-host/package", <PieChartOutlined />),
-        getItem("Manage services", "/dashboard/party-host/service", <DesktopOutlined />),
+        // getItem("Manage package", "/dashboard/party-host/package", <PieChartOutlined />),
+        // getItem("Manage services", "/dashboard/party-host/service", <DesktopOutlined />),
+        getItem("Manage Package and service", "/dashboard/party-host/manage-package-service", <DesktopOutlined />),
         getItem("Manage Report", "/dashboard/party-host/report", <BarChartOutlined />),
         getItem("Update Profile", "/dashboard/party-host/edit-ptofile-hosts", <EditOutlined />),
       ]);

@@ -1,15 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Breadcrumb,
-  List,
-  Avatar,
-  Skeleton,
-  Button,
-  Modal,
-  Form,
-  Upload,
-  Input,
-} from "antd";
+import { Breadcrumb, List, Avatar, Skeleton, Button, Modal, Form, Upload, Input } from "antd";
 import { HomeOutlined, UploadOutlined } from "@ant-design/icons";
 import "./index.css"; // Import tập tin CSS
 
@@ -36,6 +26,7 @@ const EditProfileHosts = () => {
           username: "john.doe",
           email: "john.doe@example.com",
           password: "password123",
+          phone: "xxxxxxxxxx",
           gender: "Male",
         },
       ];
@@ -56,9 +47,7 @@ const EditProfileHosts = () => {
 
   const handleSave = () => {
     form.validateFields().then((values) => {
-      const newData = data.map((item) =>
-        item.id === values.id ? { ...item, ...values } : item
-      );
+      const newData = data.map((item) => (item.id === values.id ? { ...item, ...values } : item));
       setData(newData);
       setModalVisible(false);
     });
@@ -82,7 +71,7 @@ const EditProfileHosts = () => {
       <Breadcrumb
         style={{ margin: "16px 0" }}
         items={[
-          { href: "/homepages", title: <HomeOutlined /> },
+          { href: "/homepage", title: <HomeOutlined /> },
           { href: "", title: "Hosts" },
           { title: "Update Profile" },
         ]}
@@ -108,36 +97,20 @@ const EditProfileHosts = () => {
                   title={item.username} // Thay đổi phần này
                   description={
                     <div className="description-container">
-                      <div className="description-item username">
-                        Username: {item.username}
-                      </div>
-                      <div className="description-item email">
-                        Email: {item.email}
-                      </div>
-                      <div className="description-item password">
-                        Password: {item.password}
-                      </div>
-                      <div className="description-item password">
-                        Gender: {item.gender}
-                      </div>
+                      <div className="description-item username">Username: {item.username}</div>
+                      <div className="description-item email">Email: {item.email}</div>
+                      <div className="description-item password">Password: {item.password}</div>
+                      <div className="description-item gender">Gender: {item.gender}</div>
+                      <div className="description-item phone">Phone: {item.phone}</div>
                     </div>
                   }
                 />
               </Skeleton>
-              <img
-                src={item.avatar}
-                alt="Avatar"
-                style={{ width: 100, marginLeft: 20 }}
-              />
+              <img src={item.avatar} alt="Avatar" style={{ width: 100, marginLeft: 20 }} />
             </List.Item>
           )}
         />
-        <Modal
-          title="Edit Profile"
-          visible={modalVisible}
-          onCancel={handleCancel}
-          onOk={handleSave}
-        >
+        <Modal title="Edit Profile" visible={modalVisible} onCancel={handleCancel} onOk={handleSave}>
           <Form
             form={form}
             labelCol={{ span: 8 }}
@@ -183,15 +156,23 @@ const EditProfileHosts = () => {
             >
               <Input />
             </Form.Item>
+            <Form.Item
+              label="Phone Number"
+              name="phone"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your phone!",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
             <Upload {...uploadProps}>
               <Button icon={<UploadOutlined />}>Upload Avatar</Button>
             </Upload>
             {avatarFile && (
-              <img
-                src={URL.createObjectURL(avatarFile)}
-                alt="Avatar Preview"
-                style={{ width: 100, marginTop: 10 }}
-              />
+              <img src={URL.createObjectURL(avatarFile)} alt="Avatar Preview" style={{ width: 100, marginTop: 10 }} />
             )}
             <Form.Item name="id" noStyle>
               <Input type="hidden" />

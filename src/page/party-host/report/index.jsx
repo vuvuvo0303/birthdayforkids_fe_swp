@@ -1,10 +1,6 @@
 import React, { useEffect } from "react";
 import { Button, Col, Row, Statistic, Card, Breadcrumb } from "antd";
-import {
-  UserOutlined,
-  CreditCardOutlined,
-  HomeOutlined,
-} from "@ant-design/icons";
+import { UserOutlined, CreditCardOutlined, HomeOutlined } from "@ant-design/icons";
 import { Chart } from "../../../component/chart";
 const ReportPage = () => {
   // const options = {
@@ -51,7 +47,7 @@ const ReportPage = () => {
       <Breadcrumb
         items={[
           {
-            href: "/homepages",
+            href: "/homepage",
             title: <HomeOutlined />,
           },
           {
