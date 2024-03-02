@@ -32,107 +32,111 @@ import { PackageNoLogin } from "./page/packagehost/PackageNoLogin.jsx";
 import { ServiceNoLogin } from "./page/packagehost/ServiceNoLogin.jsx";
 
 function App() {
-    const router = createBrowserRouter([
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout />,
+      children: [
         {
-            path: "/",
-            element: <Layout />,
-            children: [
-                {
-                    path: "",
-                    element: <HomePage />,
-                },
-                {
-                    path: "abc",
-                    element: <h1>abc</h1>,
-                },
-            ],
+          path: "",
+          element: <HomePage />,
         },
         {
-            path: "/login",
-            element: <LoginPage />,
+          path: "abc",
+          element: <h1>abc</h1>,
+        },
+      ],
+    },
+    {
+      path: "/login",
+      element: <LoginPage />,
+    },
+    {
+      path: "/register",
+      element: <Register />,
+    },
+    {
+      path: "/dashboard",
+      children: [
+        {
+          path: "party-host",
+          element: <DashBoard role={"PARTY_HOST"} />,
+          children: [
+            {
+              path: "service",
+              element: <ServicePage />,
+            },
+            {
+              path: "package",
+              element: <PackagePage />,
+            },
+            {
+              path: "report",
+              element: <ReportPage />,
+            },
+            {
+              path: "edit-ptofile-hosts",
+              element: <EditProfileHosts />,
+            },
+          ],
         },
         {
-            path: "/register",
-            element: <Register />,
+          path: "admin",
+          element: <DashBoard role={"ADMIN"} />,
+          children: [
+            {
+              path: "manage-accounts",
+              element: <ManageAccounts />,
+            },
+            {
+              path: "report-admin",
+              element: <ReportPageAdmin />,
+            },
+          ],
         },
-        {
-            path: "/dashboard",
-            children: [
-                {
-                    path: "party-host",
-                    element: <DashBoard role={"PARTY_HOST"} />,
-                    children: [
-                        {
-                            path: "service",
-                            element: <ServicePage />,
-                        },
-                        {
-                            path: "package",
-                            element: <PackagePage />,
-                        },
-                        {
-                            path: "report",
-                            element: <ReportPage />,
-                        },
-                    ],
-                },
-                {
-                    path: "admin",
-                    element: <DashBoard role={"ADMIN"} />,
-                    children: [
-                        {
-                            path: "manage-accounts",
-                            element: <ManageAccounts />,
-                        },
-                        {
-                            path: "report-admin",
-                            element: <ReportPageAdmin />,
-                        },
-                    ],
-                },
-            ],
-        },
-        {
-            path: "/step-progress",
-            element: <StepProgress />,
-        },
-        {
-            path: "/about",
-            element: <ViewProfile />,
-        },
-        {
-            path: "/package",
-            element: <Package />,
-        },
-        {
-            path: "/service",
-            element: <Service />,
-        },
-        {
-            path: "/yourProfile",
-            element: <YourProfile />,
-        },
-        {
-            path: "/updateProfile",
-            element: <UpdateProfile />,
-        },
-        {
-            path: "/homepageLogin",
-            element: <HomepageLogin />,
-        },
-        {
-            path: "/hostpage",
-            element: <Hostpage />,
-        },
-        {
-            path: "/guestDetail",
-            element: <GuestDetail />,
-        },
-        {
-            path: "/guestProfile",
-            element: <GuestProfile />,
-        },
-        {
+],
+    },
+    {
+      path: "/step-progress",
+      element: <StepProgress />,
+    },
+    {
+      path: "/about",
+      element: <ViewProfile />,
+    },
+    {
+      path: "/package",
+      element: <Package />,
+    },
+    {
+      path: "/service",
+      element: <Service />,
+    },
+    {
+      path: "/yourProfile",
+      element: <YourProfile />,
+    },
+    {
+      path: "/updateProfile",
+      element: <UpdateProfile />,
+    },
+    {
+      path: "/homepageLogin",
+      element: <HomepageLogin />,
+    },
+    {
+      path: "/hostpage",
+      element: <Hostpage />,
+    },
+    {
+      path: "/guestDetail",
+      element: <GuestDetail />,
+    },
+    {
+      path: "/guestProfile",
+      element: <GuestProfile />,
+    },
+      {
             path: "/HostProfile",
             element: <HostProfile />,
         },
@@ -149,13 +153,14 @@ function App() {
             path: "/serviceNoLogin",
             element: <ServiceNoLogin />,
         },
-    ]);
-    return (
-        <>
-            <ToastContainer />
-            <RouterProvider router={router} />
-        </>
-    );
+  ]);
+  return (
+    <>
+      <ToastContainer />
+      <RouterProvider router={router} />
+    </>
+  );
+
 }
 
 export default App;
