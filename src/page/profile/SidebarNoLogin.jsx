@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./index.css";
-import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
+import { useParams } from "react-router-dom";
+import api from "../../config/axios";
+import { Link } from "react-router-dom";
 
 export const SidebarNoLogin = () => {
+    const params = useParams();
+    const [profile, setProfile] = useState();
+
+    const fetchProfile = async () => {
+        const response = await api.get(`/auth/getUser/${params.id}`);
+        setProfile(response.data);
+    };
+
+    useEffect(() => {
+        fetchProfile();
+    }, []);
+
     return (
         <div>
             <Helmet>
@@ -14,9 +28,19 @@ export const SidebarNoLogin = () => {
             </Helmet>
             <div className="side-bar">
                 <div className="avatar">
-                    <img src="img/pic-1.jpg" className="image" alt="" />
-                    <h3 className="name">shaikh anas</h3>
-                    <p className="role">student</p>
+                    {/* Hiển thị thông tin của host đã chọn */}
+                    {profile && (
+                        <>
+                            <img
+                                src={profile.avatar}
+                                className="image"
+                                alt={profile.name}
+                            />
+                            <h3 className="name">{profile.name}</h3>
+                            <p className="role">{profile.role}</p>
+                            {/* ... Các thông tin khác của host ... */}
+                        </>
+                    )}
                     <a href="/HostProfile" className="btn btn-sidebar">
                         View Profile
                     </a>
@@ -27,11 +51,11 @@ export const SidebarNoLogin = () => {
                         <i className="fas fa-question"></i>
                         <span>About</span>
                     </a>
-                    <a href="#!">
+                    <a href="/packageNoLogin">
                         <i className="fas fa-graduation-cap"></i>
                         <span>Packages</span>
                     </a>
-                    <a href="#!">
+                    <a href="/serviceNoLogin">
                         <i className="fas fa-chalkboard-user"></i>
                         <span>Services</span>
                     </a>

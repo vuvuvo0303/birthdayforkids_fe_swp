@@ -28,7 +28,8 @@ import StepProgress from "./page/step_progress/index.jsx";
 import { GuestDetail } from "./page/GuestProfile/GuestDetail.jsx";
 import { GuestProfile } from "./page/GuestProfile/GuestProfile.jsx";
 import { AboutNoLogin } from "./page/profile/AboutNoLogin.jsx";
-import ManagePackageAndService from "./page/party-host/manage_package_service/index.jsx";
+import { PackageNoLogin } from "./page/packagehost/PackageNoLogin.jsx";
+import { ServiceNoLogin } from "./page/packagehost/ServiceNoLogin.jsx";
 
 function App() {
   const router = createBrowserRouter([
@@ -61,14 +62,14 @@ function App() {
           path: "party-host",
           element: <DashBoard role={"PARTY_HOST"} />,
           children: [
-            // {
-            //   path: "service",
-            //   element: <ServicePage />,
-            // },
-            // {
-            //   path: "package",
-            //   element: <PackagePage />,
-            // },
+            {
+              path: "service",
+              element: <ServicePage />,
+            },
+            {
+              path: "package",
+              element: <PackagePage />,
+            },
             {
               path: "report",
               element: <ReportPage />,
@@ -76,10 +77,6 @@ function App() {
             {
               path: "edit-ptofile-hosts",
               element: <EditProfileHosts />,
-            },
-            {
-              path: "manage-package-service",
-              element: <ManagePackageAndService />,
             },
           ],
         },
@@ -97,7 +94,7 @@ function App() {
             },
           ],
         },
-      ],
+],
     },
     {
       path: "/step-progress",
@@ -139,6 +136,23 @@ function App() {
       path: "/guestProfile",
       element: <GuestProfile />,
     },
+      {
+            path: "/HostProfile",
+            element: <HostProfile />,
+        },
+        //Guest khi nhin about Profile cua Host
+        {
+            path: "/host/:id",
+            element: <AboutNoLogin />,
+        },
+        {
+            path: "/packageNoLogin",
+            element: <PackageNoLogin />,
+        },
+        {
+            path: "/serviceNoLogin",
+            element: <ServiceNoLogin />,
+        },
   ]);
   return (
     <>
@@ -146,6 +160,7 @@ function App() {
       <RouterProvider router={router} />
     </>
   );
+
 }
 
 export default App;
