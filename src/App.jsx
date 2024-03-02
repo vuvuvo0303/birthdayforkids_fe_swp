@@ -17,6 +17,7 @@ import { YourProfile } from "./page/profile/YourProfile.jsx";
 import { UpdateProfile } from "./page/profile/updateProfile.jsx";
 import { HomepageLogin } from "./page/homepage/HomepageLogin.jsx";
 import { Hostpage } from "./page/HostPage/Hostpage.jsx";
+import { HostProfile } from "./page/profile/HostProfile.jsx";
 import EditProfileHosts from "./page/party-host/editprofilehosts/index.jsx";
 import ServicePage from "./page/party-host/service/index.jsx";
 import PackagePage from "./page/party-host/package/index.jsx";
@@ -26,6 +27,10 @@ import ReportPageAdmin from "./page/dashboad_admin/report_admin/index.jsx";
 import StepProgress from "./page/step_progress/index.jsx";
 import { GuestDetail } from "./page/GuestProfile/GuestDetail.jsx";
 import { GuestProfile } from "./page/GuestProfile/GuestProfile.jsx";
+import { AboutNoLogin } from "./page/profile/AboutNoLogin.jsx";
+import { PackageNoLogin } from "./page/packagehost/PackageNoLogin.jsx";
+import { ServiceNoLogin } from "./page/packagehost/ServiceNoLogin.jsx";
+
 function App() {
   const router = createBrowserRouter([
     {
@@ -89,7 +94,7 @@ function App() {
             },
           ],
         },
-      ],
+],
     },
     {
       path: "/step-progress",
@@ -131,6 +136,23 @@ function App() {
       path: "/guestProfile",
       element: <GuestProfile />,
     },
+      {
+            path: "/HostProfile",
+            element: <HostProfile />,
+        },
+        //Guest khi nhin about Profile cua Host
+        {
+            path: "/host/:id",
+            element: <AboutNoLogin />,
+        },
+        {
+            path: "/packageNoLogin",
+            element: <PackageNoLogin />,
+        },
+        {
+            path: "/serviceNoLogin",
+            element: <ServiceNoLogin />,
+        },
   ]);
   return (
     <>
@@ -138,6 +160,7 @@ function App() {
       <RouterProvider router={router} />
     </>
   );
+
 }
 
 export default App;
