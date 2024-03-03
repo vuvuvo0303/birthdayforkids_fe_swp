@@ -10,9 +10,13 @@ const EditProfileHosts = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [form] = Form.useForm();
   const [avatarFile, setAvatarFile] = useState(null);
+  const [loggedUser, setLoggedUser] = useState({});
+  const [editUser, setEditUser] = useState({});
 
   useEffect(() => {
     fetchData();
+    const user = JSON.parse(localStorage.getItem("logged-user"));
+    setLoggedUser(user);
   }, []);
 
   const fetchData = () => {
@@ -36,8 +40,9 @@ const EditProfileHosts = () => {
     }, 1000);
   };
 
-  const handleEdit = (item) => {
-    form.setFieldsValue(item);
+  const handleEdit = () => {
+    form.setFieldsValue(loggedUser);
+    setEditUser(loggedUser);
     setModalVisible(true);
   };
 
@@ -51,6 +56,8 @@ const EditProfileHosts = () => {
       setData(newData);
       setModalVisible(false);
     });
+    setLoggedUser(editUser);
+    localStorage.setItem("logged-user", JSON.stringify(editUser));
   };
 
   const handleAvatarChange = (info) => {
@@ -66,6 +73,11 @@ const EditProfileHosts = () => {
     showUploadList: false,
   };
 
+  if (avatarFile) {
+    setEditUser((state) => {
+      return { ...state, avatar: URL.createObjectURL(avatarFile) };
+    });
+  }
   return (
     <>
       <Breadcrumb
@@ -93,20 +105,20 @@ const EditProfileHosts = () => {
             >
               <Skeleton avatar title={false} loading={loading} active>
                 <List.Item.Meta
-                  avatar={<Avatar src={item.avatar} />}
-                  title={item.username} // Thay đổi phần này
+                  avatar={<Avatar src={loggedUser.avatar} />}
+                  title={loggedUser.name} // Thay đổi phần này
                   description={
                     <div className="description-container">
-                      <div className="description-item username">Username: {item.username}</div>
-                      <div className="description-item email">Email: {item.email}</div>
-                      <div className="description-item password">Password: {item.password}</div>
-                      <div className="description-item gender">Gender: {item.gender}</div>
-                      <div className="description-item phone">Phone: {item.phone}</div>
+                      <div className="description-item username">Username: {loggedUser.name}</div>
+                      <div className="description-item email">Email: {loggedUser.email}</div>
+                      {/* <div className="description-item password">Password: {item.password}</div> */}
+                      <div className="description-item gender">Gender: {loggedUser.gender}</div>
+                      <div className="description-item phone">Phone: {loggedUser.phone}</div>
                     </div>
                   }
                 />
               </Skeleton>
-              <img src={item.avatar} alt="Avatar" style={{ width: 100, marginLeft: 20 }} />
+              <img src={loggedUser.avatar} alt="Avatar" style={{ width: 100, marginLeft: 20 }} />
             </List.Item>
           )}
         />
@@ -118,7 +130,14 @@ const EditProfileHosts = () => {
             onFinish={(values) => console.log("Received values:", values)}
           >
             <Form.Item label="Username" name="username">
-              <Input />
+              <Input
+                name="name"
+                onChange={(e) => {
+                  setEditUser((state) => {
+                    return { ...state, [e.target.name]: e.target.value };
+                  });
+                }}
+              />
             </Form.Item>
             <Form.Item
               label="Email"
@@ -130,9 +149,16 @@ const EditProfileHosts = () => {
                 },
               ]}
             >
-              <Input />
+              <Input
+                name="email"
+                onChange={(e) => {
+                  setEditUser((state) => {
+                    return { ...state, [e.target.name]: e.target.value };
+                  });
+                }}
+              />
             </Form.Item>
-            <Form.Item
+            {/* <Form.Item
               label="Password"
               name="password"
               rules={[
@@ -143,7 +169,7 @@ const EditProfileHosts = () => {
               ]}
             >
               <Input.Password />
-            </Form.Item>
+            </Form.Item> */}
             <Form.Item
               label="Gender"
               name="gender"
@@ -154,7 +180,14 @@ const EditProfileHosts = () => {
                 },
               ]}
             >
-              <Input />
+              <Input
+                name="gender"
+                onChange={(e) => {
+                  setEditUser((state) => {
+                    return { ...state, [e.target.name]: e.target.value };
+                  });
+                }}
+              />
             </Form.Item>
             <Form.Item
               label="Phone Number"
@@ -166,7 +199,14 @@ const EditProfileHosts = () => {
                 },
               ]}
             >
-              <Input />
+              <Input
+                name="phone"
+                onChange={(e) => {
+                  setEditUser((state) => {
+                    return { ...state, [e.target.name]: e.target.value };
+                  });
+                }}
+              />
             </Form.Item>
             <Upload {...uploadProps}>
               <Button icon={<UploadOutlined />}>Upload Avatar</Button>
