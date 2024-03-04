@@ -1,26 +1,28 @@
-import React, { useState } from "react";
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import "./index.css";
-import { getAuth, signInWithPopup } from "firebase/auth";
-import { provider } from "../../config/firebase";
-import { Button, Form, Input, Modal, Radio, Select, Upload } from "antd";
+// import { getAuth, signInWithPopup } from "firebase/auth";
+// import { provider } from "../../config/firebase";
+import { Button, Form, Input, Modal, Radio, Upload } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { PlusOutlined } from "@ant-design/icons";
 import api from "../../config/axios";
 import { toast } from "react-toastify";
 import uploadFile from "../../utils/upload";
-export const Register = () => {
+import { Box, Text } from "@chakra-ui/layout";
+const Register = () => {
   const navigate = useNavigate();
 
-  const loginGoogle = () => {
-    const auth = getAuth();
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  // const loginGoogle = () => {
+  //   const auth = getAuth();
+  //   signInWithPopup(auth, provider)
+  //     .then((result) => {
+  //       console.log(result);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   const onFinish = async (values) => {
     let url = "";
@@ -72,159 +74,150 @@ export const Register = () => {
   );
 
   return (
-    <div class=" login">
-      <div class="background">
-        <div className="background__left"></div>
-        <div class="background__right">
-          <div className="wrapper">
-            <h1>Sign-Up</h1>
-            <div class="background__right-input">
-              <Form
-                name="basic"
-                labelCol={{
-                  span: 24,
-                }}
-                wrapperCol={{
-                  span: 24,
-                }}
-                style={{
-                  maxWidth: 600,
-                }}
-                initialValues={{
-                  remember: true,
-                }}
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
-                autoComplete="off"
+    <div>
+      <div>
+        <h1>Sign-Up</h1>
+        <div>
+          <Form
+            name="basic"
+            labelCol={{
+              span: 24,
+            }}
+            wrapperCol={{
+              span: 24,
+            }}
+            style={{
+              maxWidth: 600,
+            }}
+            initialValues={{
+              remember: true,
+            }}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+            autoComplete="off"
+          >
+            <Form.Item
+              label="Name"
+              name="name"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your Name",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              label="Password"
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your password!",
+                },
+              ]}
+            >
+              <Input.Password />
+            </Form.Item>
+
+            <Form.Item
+              label="Email"
+              name="email"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your email!",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              label="Phone Number"
+              name="phone"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your Phone Number",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              label="Gender"
+              name="gender"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input gender!",
+                },
+              ]}
+            >
+              <Radio.Group defaultValue={"MALE"}>
+                <Radio value={"MALE"}>Male</Radio>
+                <Radio value={"FEMALE"}>Female</Radio>
+              </Radio.Group>
+            </Form.Item>
+            <Form.Item
+              label="Role"
+              name="role"
+              rules={[
+                {
+                  required: true,
+                  message: "Please choose your Hosts",
+                },
+              ]}
+            >
+              <Radio.Group defaultValue={"Guest"}>
+                <Radio value={"Guest"}>Guest</Radio>
+                <Radio value={"Host"}>Host</Radio>
+              </Radio.Group>
+            </Form.Item>
+            <Form.Item
+              label="Avatar"
+              name="avatar"
+            // rules={[
+            //   {
+            //     required: true,
+            //     message: "Please upload your Avatar",
+            //   },
+            // ]}
+            >
+              <Upload
+                action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+                listType="picture-card"
+                fileList={fileList}
+                onPreview={handlePreview}
+                onChange={handleChange}
+                maxCount={1}
               >
-                <Form.Item
-                  label="Name"
-                  name="name"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input your Name",
-                    },
-                  ]}
-                >
-                  <Input />
-                </Form.Item>
+                {fileList.length >= 8 ? null : uploadButton}
+              </Upload>
+            </Form.Item>
 
-                <Form.Item
-                  label="Password"
-                  name="password"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input your password!",
-                    },
-                  ]}
-                >
-                  <Input.Password />
-                </Form.Item>
-
-                <Form.Item
-                  label="Email"
-                  name="email"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input your email!",
-                    },
-                  ]}
-                >
-                  <Input />
-                </Form.Item>
-                <Form.Item
-                  label="Phone Number"
-                  name="phone"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input your Phone Number",
-                    },
-                  ]}
-                >
-                  <Input />
-                </Form.Item>
-                <Form.Item
-                  label="Gender"
-                  name="gender"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input gender!",
-                    },
-                  ]}
-                >
-                  <Select
-                    style={{ width: "100%" }}
-                    options={[
-                      { value: "MALE", label: "Male" },
-                      { value: "FEMALE", label: "Female" },
-                    ]}
-                  />
-                </Form.Item>
-                <Form.Item
-                  label="Role"
-                  name="role"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please choose your Hosts",
-                    },
-                  ]}
-                >
-                  <Radio.Group>
-                    <Radio value={"Guest"}>Guest</Radio>
-                    <Radio value={"Host"}>Host</Radio>
-                  </Radio.Group>
-                </Form.Item>
-                <Form.Item
-                  label="Avatar"
-                  name="avatar"
-                  // rules={[
-                  //   {
-                  //     required: true,
-                  //     message: "Please upload your Avatar",
-                  //   },
-                  // ]}
-                >
-                  <Upload
-                    action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-                    listType="picture-card"
-                    fileList={fileList}
-                    onPreview={handlePreview}
-                    onChange={handleChange}
-                    maxCount={1}
-                  >
-                    {fileList.length >= 8 ? null : uploadButton}
-                  </Upload>
-                </Form.Item>
-
-                <Form.Item
-                  wrapperCol={{
-                    offset: 8,
-                    span: 16,
-                  }}
-                >
-                  <Button type="primary" htmlType="submit">
-                    Submit
-                  </Button>
-                </Form.Item>
-              </Form>
-              <div>
-                <p>
-                  Have an account?
-                  <Link to={"/login"}>
-                    <strong>Login Here</strong>
-                  </Link>
-                </p>
-              </div>
-            </div>
+            <Form.Item
+              wrapperCol={{
+                span: 16,
+              }}
+            >
+              <Button type="primary" htmlType="submit"  style={{ width: "300px" }}>
+                Sign up
+              </Button>
+            </Form.Item>
+          </Form>
+          <div>
+            <Text fontSize="small" textAlign="center">
+              Have an account?&nbsp;
+              <Link to="/login">
+                <Box as="strong" cursor="pointer">Login Here</Box>
+              </Link>
+            </Text>
           </div>
         </div>
-      </div>{" "}
+      </div>
       <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
         <img
           alt="example"
@@ -237,3 +230,4 @@ export const Register = () => {
     </div>
   );
 };
+export default Register;
