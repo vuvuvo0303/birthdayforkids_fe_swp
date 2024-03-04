@@ -29,6 +29,7 @@ import { GuestDetail } from "./page/GuestProfile/GuestDetail.jsx";
 import { GuestProfile } from "./page/GuestProfile/GuestProfile.jsx";
 import { AboutNoLogin } from "./page/profile/AboutNoLogin.jsx";
 import { PackageNoLogin } from "./page/packagehost/PackageNoLogin.jsx";
+import ManagePackageAndService from "./page/party-host/manage_package_service/index.jsx";
 import { ServiceNoLogin } from "./page/packagehost/ServiceNoLogin.jsx";
 
 function App() {
@@ -63,12 +64,8 @@ function App() {
           element: <DashBoard role={"PARTY_HOST"} />,
           children: [
             {
-              path: "service",
-              element: <ServicePage />,
-            },
-            {
-              path: "package",
-              element: <PackagePage />,
+              path: "manage-package-service",
+              element: <ManagePackageAndService />,
             },
             {
               path: "report",
@@ -94,7 +91,7 @@ function App() {
             },
           ],
         },
-],
+      ],
     },
     {
       path: "/step-progress",
@@ -136,23 +133,23 @@ function App() {
       path: "/guestProfile",
       element: <GuestProfile />,
     },
-      {
-            path: "/HostProfile",
-            element: <HostProfile />,
-        },
-        //Guest khi nhin about Profile cua Host
-        {
-            path: "/host/:id",
-            element: <AboutNoLogin />,
-        },
-        {
-            path: "/packageNoLogin",
-            element: <PackageNoLogin />,
-        },
-        {
-            path: "/serviceNoLogin",
-            element: <ServiceNoLogin />,
-        },
+    {
+      path: "/HostProfile",
+      element: <HostProfile />,
+    },
+    //Guest khi nhin about Profile cua Host
+    {
+      path: "/host/:id",
+      element: <AboutNoLogin />,
+    },
+    {
+      path: "/packageNoLogin",
+      element: <PackageNoLogin />,
+    },
+    {
+      path: "/serviceNoLogin",
+      element: <ServiceNoLogin />,
+    },
   ]);
   return (
     <>
@@ -160,7 +157,6 @@ function App() {
       <RouterProvider router={router} />
     </>
   );
-
 }
 
 export default App;

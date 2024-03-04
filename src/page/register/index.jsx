@@ -27,7 +27,7 @@ export const Register = () => {
     if (values.avatar.file) {
       url = await uploadFile(values.avatar.file.originFileObj);
     }
-    console.log(values);
+    console.log("VALUE " + JSON.stringify(values));
     const response = await api.post("/auth/register", {
       ...values,
       avatar: url,
@@ -137,7 +137,7 @@ export const Register = () => {
                 </Form.Item>
                 <Form.Item
                   label="Phone Number"
-                  name="phoneNumber"
+                  name="phone"
                   rules={[
                     {
                       required: true,

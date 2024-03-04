@@ -4,6 +4,7 @@ import { HeaderLogin } from "../../component/HeaderLogin";
 
 import "./index.css";
 import { Calendar, theme } from "antd";
+import Checkout from "./Checkout";
 const { Step } = Steps;
 const { Item } = Form;
 
@@ -14,7 +15,7 @@ const steps = [
   },
   {
     title: "Checkout",
-    content: "Second-content",
+    content: <Checkout />,
   },
   {
     title: "Payment",
@@ -131,13 +132,5 @@ const FirstStepContent = () => {
     </Form>
   );
 };
-const SecondStepContent = () => {
-  return (
   
-    <>
-      
-    </>
-  );
-}
-
 export default StepProgress;
