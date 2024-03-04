@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Breadcrumb, List, Avatar, Skeleton, Button, Modal, Form, Upload, Input } from "antd";
 import { HomeOutlined, UploadOutlined } from "@ant-design/icons";
 import "./index.css"; // Import tập tin CSS
+import { useSelector } from "react-redux";
 
 const EditProfileHosts = () => {
   const [data, setData] = useState([]);
@@ -10,13 +11,11 @@ const EditProfileHosts = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [form] = Form.useForm();
   const [avatarFile, setAvatarFile] = useState(null);
-  const [loggedUser, setLoggedUser] = useState({});
+  const loggedUser = useSelector((store) => store.user);
   const [editUser, setEditUser] = useState({});
 
   useEffect(() => {
     fetchData();
-    const user = JSON.parse(localStorage.getItem("logged-user"));
-    setLoggedUser(user);
   }, []);
 
   const fetchData = () => {
@@ -109,9 +108,9 @@ const EditProfileHosts = () => {
                   title={loggedUser.name} // Thay đổi phần này
                   description={
                     <div className="description-container">
-                      <div className="description-item username">Username: {loggedUser.name}</div>
+                      <div className="description-item Name">Name: {loggedUser.name}</div>
                       <div className="description-item email">Email: {loggedUser.email}</div>
-                      {/* <div className="description-item password">Password: {item.password}</div> */}
+                      <div className="description-item password">Password: {item.password}</div>
                       <div className="description-item gender">Gender: {loggedUser.gender}</div>
                       <div className="description-item phone">Phone: {loggedUser.phone}</div>
                     </div>
@@ -129,15 +128,8 @@ const EditProfileHosts = () => {
             wrapperCol={{ span: 16 }}
             onFinish={(values) => console.log("Received values:", values)}
           >
-            <Form.Item label="Username" name="username">
-              <Input
-                name="name"
-                onChange={(e) => {
-                  setEditUser((state) => {
-                    return { ...state, [e.target.name]: e.target.value };
-                  });
-                }}
-              />
+            <Form.Item label="Name" name="name">
+              <Input name="name" />
             </Form.Item>
             <Form.Item
               label="Email"
@@ -149,16 +141,9 @@ const EditProfileHosts = () => {
                 },
               ]}
             >
-              <Input
-                name="email"
-                onChange={(e) => {
-                  setEditUser((state) => {
-                    return { ...state, [e.target.name]: e.target.value };
-                  });
-                }}
-              />
+              <Input name="email" />
             </Form.Item>
-            {/* <Form.Item
+            <Form.Item
               label="Password"
               name="password"
               rules={[
@@ -169,7 +154,7 @@ const EditProfileHosts = () => {
               ]}
             >
               <Input.Password />
-            </Form.Item> */}
+            </Form.Item>
             <Form.Item
               label="Gender"
               name="gender"
@@ -180,14 +165,7 @@ const EditProfileHosts = () => {
                 },
               ]}
             >
-              <Input
-                name="gender"
-                onChange={(e) => {
-                  setEditUser((state) => {
-                    return { ...state, [e.target.name]: e.target.value };
-                  });
-                }}
-              />
+              <Input name="gender" />
             </Form.Item>
             <Form.Item
               label="Phone Number"
@@ -199,14 +177,7 @@ const EditProfileHosts = () => {
                 },
               ]}
             >
-              <Input
-                name="phone"
-                onChange={(e) => {
-                  setEditUser((state) => {
-                    return { ...state, [e.target.name]: e.target.value };
-                  });
-                }}
-              />
+              <Input name="phone" />
             </Form.Item>
             <Upload {...uploadProps}>
               <Button icon={<UploadOutlined />}>Upload Avatar</Button>

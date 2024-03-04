@@ -1,0 +1,35 @@
+.package {
+  background-color: #f3f2f2;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 12px 0;
+  border: solid 1px #d2d0d0;
+  cursor: pointer;
+}
+
+.package.select {
+  border: solid 3px #07b3fb;
+}
+
+.service-item-order p {
+  text-align: center;
+  background-color: #f3f2f2;
+  padding: 10px;
+}
+
+.service-item-order {
+  background-color: #f3f2f2;
+  border-radius: 10px;
+  overflow: hidden;
+  border: solid 1px #d2d0d0;
+  cursor: pointer;
+}
+
+.service-item-order.select {
+  border: solid 3px #07b3fb;
+}
+
+.service-item-order img {
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}

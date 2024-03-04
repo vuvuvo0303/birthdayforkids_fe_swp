@@ -47,7 +47,7 @@ const DashBoard = ({ role }) => {
   useEffect(loadItems, []);
 
   const [collapsed, setCollapsed] = useState(false);
-  const loggedUser = JSON.parse(localStorage.getItem("logged-user"));
+  // const loggedUser = JSON.parse(localStorage.getItem("logged-user"));
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -112,7 +112,7 @@ const DashBoard = ({ role }) => {
                     fontSize: 18,
                   }}
                 >
-                  {loggedUser.name}
+                  {user?.name}
                 </p>
               </Row>
             </Dropdown>
