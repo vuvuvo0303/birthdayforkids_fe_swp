@@ -1,10 +1,6 @@
-import axios from "axios";
-// import "./App.css";
-import { useEffect } from "react";
-import FormLogin from "./component/form.jsx";
+import "./App.css";
 import { LoginPage } from "./page/login/index.jsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { Register } from "./page/register/index.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import DashBoard from "./component/dashboard/index.jsx";
@@ -19,8 +15,6 @@ import { HomepageLogin } from "./page/homepage/HomepageLogin.jsx";
 import { Hostpage } from "./page/HostPage/Hostpage.jsx";
 import { HostProfile } from "./page/profile/HostProfile.jsx";
 import EditProfileHosts from "./page/party-host/editprofilehosts/index.jsx";
-import ServicePage from "./page/party-host/service/index.jsx";
-import PackagePage from "./page/party-host/package/index.jsx";
 import ReportPage from "./page/party-host/report/index.jsx";
 import ManageAccounts from "./page/dashboad_admin/report_admin/manage_accounts/index.jsx";
 import ReportPageAdmin from "./page/dashboad_admin/report_admin/index.jsx";
@@ -31,8 +25,7 @@ import { AboutNoLogin } from "./page/profile/AboutNoLogin.jsx";
 import { PackageNoLogin } from "./page/packagehost/PackageNoLogin.jsx";
 import ManagePackageAndService from "./page/party-host/manage_package_service/index.jsx";
 import { ServiceNoLogin } from "./page/packagehost/ServiceNoLogin.jsx";
-// import ManageService from "./components/ManageServices.jsx";
-import Navigation from "./components/Navigation.jsx";
+
 
 function App() {
   const router = createBrowserRouter([
@@ -56,7 +49,7 @@ function App() {
     },
     {
       path: "/register",
-      element: <Register />,
+      element: <LoginPage isRegister />,
     },
     {
       path: "/dashboard",
