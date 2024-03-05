@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import api from "../../config/axios";
 import { Link } from "react-router-dom";
 
-export const SidebarNoLogin = ({id}) => {
+export const SidebarNoLogin = ({ id }) => {
     console.log(id);
     const params = useParams();
     const [profile, setProfile] = useState();

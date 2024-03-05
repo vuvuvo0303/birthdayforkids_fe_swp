@@ -2,6 +2,7 @@ import React from "react";
 import "./index.css";
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
+import { Button, Drawer } from "antd";
 
 export const HeaderLogin = () => {
     const [isSticky, setSticky] = useState(false);
@@ -27,13 +28,16 @@ export const HeaderLogin = () => {
         };
     }, []);
 
-    const handleProfileClick = () => {
-        setProfileActive(!isProfileActive);
-        setSearchActive(false);
+    const handleLogout = () => {
+        setLogoutClicked(true);
     };
 
-    const handleMenuClick = () => {
-        setMenuActive(!isMenuActive);
+    const [open, setOpen] = useState(false);
+    const showDrawer = () => {
+        setOpen(true);
+    };
+    const onClose = () => {
+        setOpen(false);
     };
 
     return (
@@ -106,39 +110,48 @@ export const HeaderLogin = () => {
                             </ul>
                         </nav>
 
-                        {/* <!-- Icon --> */}
-                        <div className="icons">
-                            {/* <div
-                                id="menu-btn"
-                                className={`fas fa-bars ${
-                                    isMenuActive ? "active" : ""
-                                }`}
-                                onClick={handleMenuClick}
-                            ></div> */}
-                            <div
-                                id="user-btn"
-                                className="fas fa-user"
-                                onClick={handleProfileClick}
-                            ></div>
-                        </div>
-                        {/* Profile */}
-                        <div
-                            className={`profile ${
-                                isProfileActive ? "active" : ""
-                            }`}
+                        <Button type="primary" onClick={showDrawer}>
+                            <i class="fa-solid fa-user-tie"></i>
+                        </Button>
+                        <Drawer
+                            title="Profile"
+                            onClose={onClose}
+                            open={open}
+                            className="drawerBody"
+                            placement="left"
                         >
-                            <img src="img/pic-1.jpg" className="image" alt="" />
-                            <h3 className="name">Trinh Huy</h3>
-                            <p className="role">host</p>
-                            <a href="/yourProfile" className="btn">
-                                View Profile
-                            </a>
-                            <div class="flex-btn">
-                                <a href="#!" class="option-btn">
-                                    Sign out
+                            <div className="avatar">
+                                <img
+                                    src="img/pic-1.jpg"
+                                    className="image"
+                                    alt=""
+                                />
+                                <h3 className="name">shaikh anas</h3>
+                                <p className="role">student</p>
+                                <a
+                                    href="/GuestProfile"
+                                    className="btn btn-sidebar"
+                                >
+                                    View Profile
                                 </a>
                             </div>
-                        </div>
+
+                            <nav className="navbar">
+                                <a href="/guestDetail">
+                                    <i class="fa-solid fa-clock-rotate-left"></i>
+                                    <span>Order history</span>
+                                </a>
+                            </nav>
+
+                            {/* Logout Button */}
+                            <Button
+                                type="default"
+                                onClick={handleLogout}
+                                className="logout-button"
+                            >
+                                Logout
+                            </Button>
+                        </Drawer>
                     </div>
                 </div>
             </header>

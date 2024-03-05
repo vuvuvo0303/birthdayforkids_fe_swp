@@ -1,9 +1,79 @@
 .table-orderHistory {
-  width: 1170px;
-  margin-top: 100px;
-  margin-left: 320px;
+    margin-top: 100px;
 }
 
 .form-container .info {
-  margin-top: -160px;
+    margin-top: -160px;
+}
+
+.drawerContent {
+    width: 300px;
+}
+.drawerBody .avatar {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 3rem 2rem;
+}
+
+.drawerBody .avatar .image {
+    height: 10rem;
+    width: 10rem;
+    border-radius: 50%;
+    object-fit: contain;
+    margin-bottom: 1rem;
+}
+
+.drawerBody .avatar .name {
+    font-size: 2rem;
+    color: var(--black);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.drawerBody .avatar .role {
+    font-size: 1.8rem;
+    color: var(--light-color);
+}
+
+.drawerBody .profile .role {
+    font-size: 1.8rem;
+    color: var(--light-color);
+}
+
+.drawerBody .navbar a {
+    display: block;
+    padding: 2rem;
+    font-size: 2rem;
+}
+
+.drawerBody .navbar a i {
+    margin-right: 1.5rem;
+    color: var(--main-color);
+    transition: 0.2s linear;
+}
+
+.drawerBody .navbar a span {
+    color: var(--light-color);
+}
+
+.drawerBody .navbar a:hover {
+    background-color: var(--light-bg);
+}
+
+.drawerBody .navbar a:hover i {
+    margin-right: 2.5rem;
+}
+
+.drawerBody.active {
+    left: -30rem;
+}
+
+.chakra-modal__header {
+    font-size: 23px;
+}
+
+.ant-drawer {
+    z-index: 10000000000000;
 }

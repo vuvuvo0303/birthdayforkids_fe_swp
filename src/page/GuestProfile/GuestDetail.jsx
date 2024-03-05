@@ -8,7 +8,7 @@ export const GuestDetail = () => {
         <div>
             <HeaderLogin />
             <OrderHistory />
-            <SidebarGuest />
+            {/* <SidebarGuest /> */}
         </div>
     );
 };

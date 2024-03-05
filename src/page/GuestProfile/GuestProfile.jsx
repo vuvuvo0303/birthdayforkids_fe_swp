@@ -7,7 +7,7 @@ export const GuestProfile = () => {
     return (
         <div>
             <HeaderLogin />
-            <div className="container container-profile">
+            <div className="container ">
                 <section class="user-profile">
                     <h1 class="heading">your profile</h1>
                     <section className="form-container">
@@ -22,7 +22,8 @@ export const GuestProfile = () => {
                                     rules={[
                                         {
                                             required: true,
-                                            message: "Please input your FullName",
+                                            message:
+                                                "Please input your FullName",
                                         },
                                     ]}
                                 >
@@ -34,13 +35,14 @@ export const GuestProfile = () => {
                                     rules={[
                                         {
                                             required: true,
-                                            message: "Please input your password!",
+                                            message:
+                                                "Please input your password!",
                                         },
                                     ]}
                                 >
                                     <Input.Password />
                                 </Form.Item>
-    
+
                                 <Form.Item
                                     label="Email"
                                     name="email"
@@ -53,22 +55,7 @@ export const GuestProfile = () => {
                                 >
                                     <Input />
                                 </Form.Item>
-                                <Form.Item
-                                    label="Role"
-                                    name="role"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: "Please choose your Hosts",
-                                        },
-                                    ]}
-                                >
-                                    <Radio.Group>
-                                        <Radio value={"Guest"}>Guest</Radio>
-                                        <Radio value={"Hosts"}>Hosts</Radio>
-                                    </Radio.Group>
-                                </Form.Item>
-    
+
                                 <a href="#!" class="btn">
                                     update profile
                                 </a>

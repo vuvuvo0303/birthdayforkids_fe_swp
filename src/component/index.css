@@ -264,7 +264,7 @@ a {
 /* Sidebar */
 .side-bar {
     position: fixed;
-    top: 70px;
+    top: 50px;
     left: 0;
     width: 30rem;
     background-color: var(--white);
@@ -277,8 +277,10 @@ a {
 }
 
 .side-bar .avatar {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     padding: 3rem 2rem;
-    text-align: center;
 }
 
 .side-bar .avatar .image {
@@ -549,7 +551,9 @@ a {
 }
 
 .user-profile .info .user {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     margin-bottom: 2rem;
     padding: 1rem;
 }
