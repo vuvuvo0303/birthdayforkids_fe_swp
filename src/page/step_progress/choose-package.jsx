@@ -21,7 +21,7 @@ export const ChoosePackage = () => {
   return (
     <>
       {packages.map((item) => (
-        <Package data={item} isSelected={item.packageID === selectedPackages.packageID} />
+        <Package data={item} isSelected={item?.packageID === selectedPackages?.packageID} />
       ))}
     </>
   );
