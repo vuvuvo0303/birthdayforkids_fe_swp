@@ -18,6 +18,7 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 
 const cartItemsData = [
@@ -87,6 +88,7 @@ const cartItemsData = [
 ];
 
 const Checkout = () => {
+  const booking = useSelector((store) => store.booking);
   const [cartItems, setCartItems] = useState(cartItemsData);
   const handleDeleteItem = (id) => {
     setCartItems((prev) => {
@@ -123,6 +125,7 @@ const Checkout = () => {
       });
     });
   };
+  console.log(booking);
   var subtotal = 0;
   cartItems.forEach((item) => {
     subtotal += item.price * item.quantity;
