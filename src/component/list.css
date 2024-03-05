@@ -1,0 +1,119 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+.popup {
+  margin: 70px auto;
+  padding: 5px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+.popup img{ 
+  height: 35vh;
+  object-fit: cover;
+  width: 100%;
+}
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {color: #06D85F;}
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+
+/* khuc treen nay de popup  */
+
+a{
+    text-decoration: none;
+  }
+  
+  .servicee {
+    display: flex;
+    background-color: white;
+    margin-bottom: 1em;
+    border-radius: 30px;
+    /* justify-content: space-around; */
+  }
+  
+  .servicee img{
+    width: 350px;
+    height: 200px;
+    margin: 30px;
+    object-fit: cover;
+  }
+  
+  .content{
+    width: 40vw;
+    margin-top: 2em;
+  }
+  
+  button{
+    height: 2em;
+    margin: 0.5em;
+    margin-top: 2em;
+    border-radius: 20px;
+    border: 0;
+  }
+  
+  .servicee button:nth-child(1){
+    background-color: #F0C6E7;
+    color: black;
+  }
+  .servicee button:nth-child(2){
+    background-color: #C2F4B1;
+    /* color: white; */
+  }
+  
+  Box{
+    background-color: #D4F2FF;
+  }
+  
+  .list{
+    margin: 0 3%;
+    margin-top:  85px;
+    padding: 3%;
+    background-color: rgba(91, 134, 229, 0.51);
+  }
+  
+  .Detail{
+    margin: 0 3%;
+    padding: 3%;
+    background-color: rgba(91, 134, 229, 0.51);
+    display: flex;
+  }
+  
+  .Detail img{
+    width: 550px;
+    height: 600px;
+    object-fit: cover;
+    /* contain; */
+    margin-right: 1.5em;
+    background-color: azure;
+  }

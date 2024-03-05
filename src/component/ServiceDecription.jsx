@@ -47,7 +47,7 @@ export default function ServiceDecription() {
             <div>
                 <h3>Service Name: {service?.name} </h3>
                 <p>Host: {service?.account.name}</p>
-                <p>{service?.description}</p>
+                <p>Description:<br /> {service?.description}</p>
                 <p>Price: {service?.price}$</p>
             </div>
             <button>Add to card</button>

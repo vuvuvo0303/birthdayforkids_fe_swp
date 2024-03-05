@@ -32,6 +32,11 @@ import { PackageNoLogin } from "./page/packagehost/PackageNoLogin.jsx";
 import ManagePackageAndService from "./page/party-host/manage_package_service/index.jsx";
 import { ServiceNoLogin } from "./page/packagehost/ServiceNoLogin.jsx";
 
+import ManageService from "./component/ManageServices.jsx";
+import ViewListServices from "./component/ViewListServices.jsx";
+import ServiceDecription from "./component/ServiceDecription.jsx";
+import PackageDecription from "./component/PackageDecription.jsx";
+
 function App() {
   const router = createBrowserRouter([
     {
@@ -150,6 +155,23 @@ function App() {
       path: "/serviceNoLogin",
       element: <ServiceNoLogin />,
     },
+    {
+      path: "/ViewListService",
+      element: <ViewListServices />
+    },
+    {
+      path: "/ManageService",
+      element: <ManageService />
+    },
+    {
+      path: '/serviceDetail/:id',
+      element: <ServiceDecription />
+    },
+    {
+      path: '/spackageDetail/:id',
+      element: <PackageDecription />
+    },
+
   ]);
   return (
     <>

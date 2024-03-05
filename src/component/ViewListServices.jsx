@@ -1,7 +1,10 @@
-import '../App.css';
+import '../component/list.css';
+// import '../App.css'
+
 import { useEffect, useState } from "react";
 import { Box } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { Header } from './Header';
 
 export default function ViewListServices() {
     const [service, setService] = useState([]);
@@ -32,7 +35,7 @@ export default function ViewListServices() {
     }
 
     const hanldeGetPackage = () => {
-        fetch('http://birthdayblitzhub.online:8080/api/packages', {
+        fetch('http://birthdayblitzhub.online:8080/api/packages/allPackages', {
             method: 'GET',
             headers: { 'content-type': 'application/json' },
         }).then(res => {
@@ -60,17 +63,18 @@ export default function ViewListServices() {
     }, [])
     return (
         <Box>
+            <Header />
             {
                 service.length !== 0 ?
                     <h3>List Services</h3>
                     :
-                    <h2>Have no Service</h2>
+                    <h2>Waiting...</h2>
             }
             <div className='list'>
                 {
                     service.map((item, index) => (
                         item?.serviceID ?
-                            <div className='service' key={item.serviceID}>
+                            <div className='servicee' key={item.serviceID}>
                                 <img src={item.picture} alt='Service Picture' />
                                 <div>
                                     <h5>Service Name: {item.name} </h5>
@@ -90,13 +94,13 @@ export default function ViewListServices() {
                 packages.length !== 0 ?
                     <h3>List Packages</h3>
                     :
-                    <h3>Have no Package</h3>
+                    <h3>Waiting...</h3>
             }
             <div className='list'>
                 {
                     packages.map((item, index) => (
                         item?.packageID ?
-                            <div className='service' key={item.packageID}>
+                            <div className='servicee' key={item.packageID}>
                                 <img src={item.picture} alt='Service Picture' />
                                 <div>
                                     <h5>Package Name: {item.name} </h5>
