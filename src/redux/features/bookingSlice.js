@@ -15,7 +15,7 @@ export const bookingSlice = createSlice({
         state.services = [];
       }
 
-      const index = state.services.map(item => item.serviceID).indexOf(action.payload.serviceID);
+      const index = state.services.map((item) => item.serviceID).indexOf(action.payload.serviceID);
 
       if (index >= 0) {
         state.services.splice(index, 1);
@@ -25,6 +25,10 @@ export const bookingSlice = createSlice({
 
       return state;
     },
+    updateInformation: (state, action) => {
+      state.information = action.payload;
+      return state;
+    },
     reset: () => {
       return initialState;
     },
@@ -32,6 +36,6 @@ export const bookingSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { updatePackage, reset, selectService } = bookingSlice.actions;
+export const { updatePackage, reset, selectService, updateInformation } = bookingSlice.actions;
 
 export default bookingSlice.reducer;

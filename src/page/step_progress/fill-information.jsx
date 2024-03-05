@@ -1,35 +1,38 @@
-import { Button, Calendar, Form, Input, theme } from "antd";
+import { Button, Calendar, Form, Input, Select, theme } from "antd";
 import Item from "antd/es/list/Item";
-import React, { useState } from "react";
-// const onPanelChange = (value, mode) => {
-//   console.log(value.format("YYYY-MM-DD"), mode);
-// };
+import React, { useEffect, useState } from "react";
+import api from "../../config/axios";
+import { useDispatch, useSelector } from "react-redux";
+import { updateInformation } from "../../redux/features/bookingSlice";
 
-export const FillInformation = () => {
+export const FillInformation = ({ form, setCurrent, current }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [dateError, setDateError] = useState("");
-  const onPanelChange = (value) => {
-    // Perform your custom validation here
-    // For example, you can check if the selected date is in the future
-    const currentDate = new Date();
-    if (value.isBefore(currentDate, "day")) {
-      setDateError("Please select a future date.");
-    } else {
-      setDateError("");
-      setSelectedDate(value);
-    }
+  const [schedule, setSchedule] = useState([]);
+  const dispatch = useDispatch();
+  const { token } = theme.useToken();
+  const info = useSelector((store) => store.booking.information);
+  const fetchSchedule = async () => {
+    const response = await api.get(`/api/schedules/68`);
+    setSchedule(
+      response.data.map((item) => {
+        return {
+          label: item.time,
+          value: item.scheduleID,
+        };
+      })
+    );
   };
 
-  const { token } = theme.useToken();
-  const wrapperStyle = {
-    width: 300,
-    border: `1px solid ${token.colorBorderSecondary}`,
-    borderRadius: token.borderRadiusLG,
-  };
-  const [form] = Form.useForm();
+  useEffect(() => {
+    fetchSchedule();
+    form.setFieldsValue(info);
+  }, []);
 
   const onFinish = (values) => {
     console.log("Received values of form:", values);
+    dispatch(updateInformation(values));
+    setCurrent(current + 1);
   };
 
   return (
@@ -56,21 +59,25 @@ export const FillInformation = () => {
         <Form.Item label="Venue" name="venue" rules={[{ required: true, message: "Please input your Venue" }]}>
           <Input />
         </Form.Item>
-        <Form.Item label="Venue" name="venue" rules={[{ required: true, message: "Please input your Venue" }]}>
-          <Input />
-        </Form.Item>
         <Form.Item label="Note" name="note" rules={[{ required: true, message: "Please input your Note" }]}>
           <Input.TextArea />
         </Form.Item>
-        <Item label="Date" name={"date"} rules={[{ required: true, message: "Please input your date" }]}>
-          <Calendar fullscreen={false} onPanelChange={onPanelChange} />
-        </Item>
-
-        <Item>
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Item>
+        <Form.Item label="time" name={"scheduleId"} rules={[{ required: true, message: "Please input your date" }]}>
+          {/* <Calendar
+            onChange={(value) => {
+              console.log(value);
+              form.setFieldValue("date", value.$d);
+            }}
+            fullscreen={false}
+            onPanelChange={onPanelChange}
+          /> */}
+          <Select
+            style={{
+              width: 120,
+            }}
+            options={schedule}
+          />
+        </Form.Item>
       </Form>
     </>
   );

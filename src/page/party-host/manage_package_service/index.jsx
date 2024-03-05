@@ -14,7 +14,14 @@ export const ManagePackageAndService = () => {
   const fetchPackage = async () => {
     try {
       const response = await api.get("api/packages/hostPackages");
-      setDataSource(response.data);
+      setDataSource(
+        response.data.map((item) => {
+          return {
+            ...item,
+            key: item.packageID,
+          };
+        })
+      );
     } catch (error) {
       console.error("Error fetching packages:", error);
     }
@@ -163,7 +170,7 @@ export const ManagePackageAndService = () => {
         columns={columns}
         dataSource={dataSource}
         expandable={{
-          expandedRowRender: (record) => <Service />,
+          expandedRowRender: (record) => <Service packageID={record.packageID} />,
         }}
       />
       <Modal
@@ -209,7 +216,7 @@ export const ManagePackageAndService = () => {
   );
 };
 
-const Service = () => {
+const Service = ({ packageID }) => {
   const [form] = Form.useForm();
   const [showAddPackage, setShowService] = useState(false);
   const [dataSource, setDataSource] = useState([]);
@@ -238,31 +245,29 @@ const Service = () => {
   //   },
   // ];
   const onSubmit = async (values) => {
+    console.log(values);
     if (values.picture.file) {
       const url = await uploadFile(values.picture.file.originFileObj);
       values.picture = url;
     }
     try {
-      values.packageId = data.id;
+      values.packageId = packageID;
       const response = await api.post(`/api/services/addService/${values.packageId}`, {
         ...values,
       });
       console.log(response.data);
       form.resetFields();
       setShowService(false);
-      fetchPackage();
+      fetchService();
       toast.success("Add successfully");
     } catch (error) {
       console.error("Error submitting Service:", error);
     }
   };
 
-  useEffect(() => {
-    fetchService();
-  }, []);
   const fetchService = async () => {
     try {
-      const response = await api.get("api/services");
+      const response = await api.get(`/api/services/${packageID}`);
 
       setDataSource(response.data.filter((item) => !item.deleted));
       console.log(response.data);
@@ -335,29 +340,6 @@ const Service = () => {
   };
   return (
     <>
-      <Breadcrumb
-        items={[
-          {
-            href: "/homepage",
-            title: <HomeOutlined />,
-          },
-          {
-            href: "",
-            title: (
-              <>
-                <UserOutlined />
-                <span>Hosts</span>
-              </>
-            ),
-          },
-          {
-            title: "Package",
-          },
-          {
-            title: "Service",
-          },
-        ]}
-      />
       <Button
         style={{
           marginBottom: 10,
@@ -374,16 +356,7 @@ const Service = () => {
         okText="Add"
         onCancel={() => setShowService(false)}
         onOk={() => {
-          form
-            .validateFields()
-            .then((values) => {
-              form.resetFields();
-              setShowService(false);
-              message.success("Service added successfully!");
-            })
-            .catch((errorInfo) => {
-              console.log("Failed:", errorInfo);
-            });
+          form.submit();
         }}
       >
         <Form form={form} name="basic" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }} onFinish={onSubmit}>

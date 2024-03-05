@@ -9,7 +9,7 @@ export const ChooseServices = () => {
   const dispatch = useDispatch();
   const selectedServices = useSelector((store) => store.booking.services);
   const fetchServices = async () => {
-    const response = await api.get(`/api/services/${68}`);
+    const response = await api.get(`/api/services/host/${68}`);
     setServices(response.data);
     console.log(response);
   };
