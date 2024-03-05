@@ -12,36 +12,40 @@ import ChooseServices from "./choose-services";
 const { Step } = Steps;
 const { Item } = Form;
 
-const steps = [
-  {
-    title: "Package",
-    content: <ChoosePackage />,
-  },
-  {
-    title: "Services",
-    content: <ChooseServices />,
-  },
-  {
-    title: "Fill information",
-    content: <FillInformation />,
-  },
-  {
-    title: "Checkout",
-    content: <Checkout />,
-  },
-  {
-    title: "Payment",
-    content: <Payment />,
-  },
-];
-
 const StepProgress = () => {
   const [current, setCurrent] = useState(0);
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const prefixCls = getPrefixCls("steps", "ant-steps");
+  const [form] = Form.useForm();
 
+  const steps = [
+    {
+      title: "Package",
+      content: <ChoosePackage />,
+    },
+    {
+      title: "Services",
+      content: <ChooseServices />,
+    },
+    {
+      title: "Fill information",
+      content: <FillInformation form={form} setCurrent={setCurrent} current={current} />,
+    },
+    {
+      title: "Checkout",
+      content: <Checkout />,
+    },
+    {
+      title: "Payment",
+      content: <Payment />,
+    },
+  ];
   const next = () => {
-    setCurrent(current + 1);
+    if (current === 2) {
+      form.submit();
+    } else {
+      setCurrent(current + 1);
+    }
   };
 
   const prev = () => {

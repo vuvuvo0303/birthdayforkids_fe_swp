@@ -1,7 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Sora:wght@100..800&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Sora", sans-serif;
+}
 
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Sora:wght@100..800&display=swap"); * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Sora", sans-serif;
+.row-checkout.disable {
+  background-color: #f7f2f7;
+}
+
+.row-checkout td div {
+  justify-content: center;
 }
