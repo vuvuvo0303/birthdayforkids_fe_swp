@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { DesktopOutlined, TeamOutlined, PieChartOutlined, BarChartOutlined, EditOutlined } from "@ant-design/icons";
+import { DesktopOutlined, TeamOutlined, ClockCircleOutlined, BarChartOutlined, EditOutlined } from "@ant-design/icons";
 import { Avatar, Breadcrumb, Button, Dropdown, Layout, Menu, Row, theme } from "antd";
 import Table from "../table";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/features/userSlice";
+import { Box } from "@chakra-ui/react";
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
   return {
@@ -35,6 +36,7 @@ const DashBoard = ({ role }) => {
         getItem("Manage Package and service", "/dashboard/party-host/manage-package-service", <DesktopOutlined />),
         getItem("Manage Report", "/dashboard/party-host/report", <BarChartOutlined />),
         getItem("Update Profile", "/dashboard/party-host/edit-ptofile-hosts", <EditOutlined />),
+        getItem("Manage Schedule", "/dashboard/party-host/schedule/manage", <ClockCircleOutlined />),
       ]);
     } else if (role === "ADMIN") {
       setItems([
@@ -80,12 +82,18 @@ const DashBoard = ({ role }) => {
         minHeight: "100vh",
       }}
     >
-      <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+      <Sider
+        collapsible
+        collapsed={collapsed}
+        onCollapse={(value) => setCollapsed(value)}
+        style={{ paddingTop: "2.5rem" }}
+        width="250px"
+      >
         <div className="demo-logo-vertical" />
         <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline" items={items} />
       </Sider>
       <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer, marginBottom: 30 }}>
+        <Box p="2rem" bgColor="white" shadow="lg" mb={8}>
           <Row
             align={"middle"}
             justify={"end"}
@@ -117,7 +125,8 @@ const DashBoard = ({ role }) => {
               </Row>
             </Dropdown>
           </Row>
-        </Header>
+        </Box>
+
         <Content
           style={{
             margin: "0 16px",
@@ -125,7 +134,7 @@ const DashBoard = ({ role }) => {
         >
           <div
             style={{
-              padding: 24,
+              padding: "5px 20px",
               minHeight: 360,
               background: colorBgContainer,
               borderRadius: borderRadiusLG,

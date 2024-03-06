@@ -268,7 +268,6 @@ const Service = ({ packageID }) => {
   const fetchService = async () => {
     try {
       const response = await api.get(`/api/services/${packageID}`);
-
       setDataSource(response.data.filter((item) => !item.deleted));
       console.log(response.data);
     } catch (error) {

@@ -25,6 +25,7 @@ import { AboutNoLogin } from "./page/profile/AboutNoLogin.jsx";
 import { PackageNoLogin } from "./page/packagehost/PackageNoLogin.jsx";
 import ManagePackageAndService from "./page/party-host/manage_package_service/index.jsx";
 import { ServiceNoLogin } from "./page/packagehost/ServiceNoLogin.jsx";
+import ManageSchedule from "./page/party-host/manage_schedule/ManageSchedule.jsx";
 
 function App() {
   const router = createBrowserRouter([
@@ -68,6 +69,15 @@ function App() {
             {
               path: "edit-ptofile-hosts",
               element: <EditProfileHosts />,
+            },
+            {
+              path: "schedule",
+              children: [
+                {
+                  path: "manage",
+                  element: <ManageSchedule />,
+                },
+              ],
             },
           ],
         },
