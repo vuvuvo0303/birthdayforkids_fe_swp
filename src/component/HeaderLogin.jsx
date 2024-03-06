@@ -1,5 +1,5 @@
 import React from "react";
-import "./index.css";
+import "./home.css";
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 
@@ -123,9 +123,8 @@ export const HeaderLogin = () => {
                         </div>
                         {/* Profile */}
                         <div
-                            className={`profile ${
-                                isProfileActive ? "active" : ""
-                            }`}
+                            className={`profile ${isProfileActive ? "active" : ""
+                                }`}
                         >
                             <img src="img/pic-1.jpg" className="image" alt="" />
                             <h3 className="name">Trinh Huy</h3>

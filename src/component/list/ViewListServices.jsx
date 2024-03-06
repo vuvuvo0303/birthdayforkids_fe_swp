@@ -1,10 +1,10 @@
-import '../component/list.css';
+import '../list.css';
 // import '../App.css'
 
 import { useEffect, useState } from "react";
 import { Box } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { Header } from './Header';
+import { Header } from '../Header';
 
 export default function ViewListServices() {
     const [service, setService] = useState([]);

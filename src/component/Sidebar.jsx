@@ -1,5 +1,5 @@
 import React from "react";
-import "./index.css";
+import "./home.css";
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 

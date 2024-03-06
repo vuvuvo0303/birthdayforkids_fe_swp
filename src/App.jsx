@@ -32,10 +32,10 @@ import { PackageNoLogin } from "./page/packagehost/PackageNoLogin.jsx";
 import ManagePackageAndService from "./page/party-host/manage_package_service/index.jsx";
 import { ServiceNoLogin } from "./page/packagehost/ServiceNoLogin.jsx";
 
-import ManageService from "./component/ManageServices.jsx";
-import ViewListServices from "./component/ViewListServices.jsx";
-import ServiceDecription from "./component/ServiceDecription.jsx";
-import PackageDecription from "./component/PackageDecription.jsx";
+import ManageService from "./component/list/ManageServices.jsx";
+import ViewListServices from "./component/list/ViewListServices.jsx";
+import ServiceDecription from "./component/decription/ServiceDecription.jsx";
+import PackageDecription from "./component/decription/PackageDecription.jsx";
 
 function App() {
   const router = createBrowserRouter([
@@ -168,7 +168,7 @@ function App() {
       element: <ServiceDecription />
     },
     {
-      path: '/spackageDetail/:id',
+      path: '/packageDetail/:id',
       element: <PackageDecription />
     },
 

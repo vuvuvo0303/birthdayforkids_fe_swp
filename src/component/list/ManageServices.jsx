@@ -1,9 +1,9 @@
-import '../component/list.css';
+import '../list.css';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import { HeaderLogin } from './HeaderLogin';
+import { HeaderLogin } from '../HeaderLogin';
 import { Box } from '@mui/material';
-import { Header } from './Header';
+// import { Header } from '../Header';
 
 
 export default function ManageService() {
@@ -161,13 +161,13 @@ export default function ManageService() {
         hanldeGetPackage();
     }, [])
 
-    useEffect(() => {
-        localStorage.setItem('service', JSON.stringify(services));
-    }, [services])
+    // useEffect(() => {
+    //     localStorage.setItem('service', JSON.stringify(services));
+    // }, [services])
 
-    useEffect(() => {
-        localStorage.setItem('packages', JSON.stringify(packages));
-    }, [packages])
+    // useEffect(() => {
+    //     localStorage.setItem('packages', JSON.stringify(packages));
+    // }, [packages])
 
     return (
         <Box>
@@ -189,27 +189,26 @@ export default function ManageService() {
                                     <h5>Service Name: {item.name} </h5>
                                     <p>Host: {item.account.name}</p>
                                     <p>{item.description}</p>
-                                    <p>Price: {item.price}$</p>
-                                </div>
-
-                                <div>
-                                    <Link to={`http://localhost:5173/serviceDetail/${item.serviceID}`}>
-                                        <button>Detail</button>
-                                    </Link>
-                                    <button onClick={
-                                        () => {
-                                            setIsOpen(true)
-                                            setData(item)
-                                        }}>
-                                        <a href='#popup1' id="openPopUp">Update</a>
-                                    </button>
-                                    <button onClick={
-                                        () => {
-                                            handleDeleteService(item.serviceID)
-                                            hanldeGetService()
-                                        }}>
-                                        Delete
-                                    </button>
+                                    <p className='price'>Price: {item.price}$</p>
+                                    <div>
+                                        <Link to={`http://localhost:5173/serviceDetail/${item.serviceID}`}>
+                                            <button>Detail</button>
+                                        </Link>
+                                        <button onClick={
+                                            () => {
+                                                setIsOpen(true)
+                                                setData(item)
+                                            }}>
+                                            <a href='#popup1' id="openPopUp">Update</a>
+                                        </button>
+                                        <button onClick={
+                                            () => {
+                                                handleDeleteService(item.serviceID)
+                                                hanldeGetService()
+                                            }}>
+                                            Delete
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                             :
@@ -222,7 +221,7 @@ export default function ManageService() {
                     <div className="popup">
                         <a className="close" href="#">&times;</a>
                         <img src={data.picture} alt='Service Picture' />
-                        <form >
+                        <form className='content' >
                             <div>
                                 <label htmlFor="newName">Service Name:</label>
                                 <input
@@ -270,8 +269,8 @@ export default function ManageService() {
                                     }
                                 />
                             </div>
-                            <button type="submit" onClick={() => { handleUpdate(data?.serviceID); setIsOpen(false); hanldeGetService() }}>Update</button>
-                            <button onClick={() => { setIsOpen(false) }}>Close</button>
+                            <button className='buttUpdate' type="submit" onClick={() => { handleUpdate(data?.serviceID); hanldeGetService() }}>Update</button>
+                            <button className='Close' onClick={() => { setIsOpen(false) }}>Close</button>
                         </form>
                     </div>
                 </div>
@@ -298,24 +297,24 @@ export default function ManageService() {
                                     <p>Host: {item.account.name}</p>
                                     <p>{item.description}</p>
                                     <p>Price: {item.price}$</p>
-                                </div>
-                                <div>
-                                    <Link to={`http://localhost:5173/packageDetail/${item.packageID}`}>
-                                        <p><button>Detail</button></p>
-                                    </Link>
-                                    <button onClick={
-                                        () => {
-                                            setIsOpen(true)
-                                            setData(item)
-                                        }}>
-                                        <a href='#popup2' id="openPopUp">Update</a>
-                                    </button>
-                                    <button onClick={
-                                        () => {
-                                            handleDeletePackage(item.packageID)
-                                        }}>
-                                        Delete
-                                    </button>
+                                    <div>
+                                        <Link to={`http://localhost:5173/packageDetail/${item.packageID}`}>
+                                            <button>Detail</button>
+                                        </Link>
+                                        <button onClick={
+                                            () => {
+                                                setIsOpen(true)
+                                                setData(item)
+                                            }}>
+                                            <a href='#popup2' id="openPopUp">Update</a>
+                                        </button>
+                                        <button onClick={
+                                            () => {
+                                                handleDeletePackage(item.packageID)
+                                            }}>
+                                            Delete
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                             :
@@ -328,7 +327,7 @@ export default function ManageService() {
                     <div className="popup">
                         <a className="close" href="#">&times;</a>
                         <img src={data.picture} alt='Service Picture' />
-                        <form >
+                        <form className='content' >
                             <div>
                                 <label htmlFor="newName">Service Name:</label>
                                 <input
@@ -376,8 +375,8 @@ export default function ManageService() {
                                     }
                                 />
                             </div>
-                            <button type="submit" onClick={() => { (data.packageID) ? handleUpdatePackage(data?.packageID) : handleUpdate(data?.serviceID); setIsOpen(false); hanldeGetService() }}>Update</button>
-                            <button onClick={() => { setIsOpen(false) }}>Close</button>
+                            <button className='buttUpdate' type="submit" onClick={() => {handleUpdatePackage(data?.packageID); setIsOpen(false); hanldeGetService() }}>Update</button>
+                            <button className='Close' onClick={() => { setIsOpen(false) }}>Close</button>
                         </form>
                     </div>
                 </div>

@@ -206,7 +206,11 @@ export const HomePage = () => {
                                     </section>
                                 </div>
 
-                                <Link class="btn" className='active' to={'/ManageService'}>All Services</Link>
+                                <Link className="btn"
+                                    // className='active' 
+                                    to={'/ManageService'}>
+                                    All Services
+                                </Link>
                                 {/* <a href="" class="btn">
                                     All Services
                                 </a> */}
