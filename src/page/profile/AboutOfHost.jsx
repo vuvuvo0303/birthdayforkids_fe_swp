@@ -1,12 +1,12 @@
 import React from "react";
 import "./index.css";
-import { HeaderLogin } from "../../component/HeaderLogin";
-import { Sidebar } from "../../component/Sidebar";
+import { HeaderLoginOfHost } from "./HeaderLoginOfHost";
+
 export const ViewProfile = () => {
     return (
         <div>
-            <HeaderLogin />
-            <div className="container container-profile">
+            <HeaderLoginOfHost />
+            <div className="container ">
                 <section class="about">
                     <div class="row">
                         <div class="image">
@@ -178,7 +178,7 @@ export const ViewProfile = () => {
                     </div>
                 </section>
             </div>
-            <Sidebar />
+            {/* <Sidebar /> */}
         </div>
     );
 };

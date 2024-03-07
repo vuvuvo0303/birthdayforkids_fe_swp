@@ -1,6 +1,6 @@
 import React from "react";
 import { HeaderLogin } from "../../component/HeaderLogin";
-import { SidebarGuest } from "./SidebarGuest";
+import { Footer } from "../../component/Footer";
 import { OrderHistory } from "./OrderHistory";
 import "./index.css";
 export const GuestDetail = () => {
@@ -8,7 +8,7 @@ export const GuestDetail = () => {
         <div>
             <HeaderLogin />
             <OrderHistory />
-            {/* <SidebarGuest /> */}
+            {/* <Footer /> */}
         </div>
     );
 };

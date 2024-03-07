@@ -4,11 +4,8 @@ import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { Button, Drawer } from "antd";
 
-export const HeaderLogin = () => {
+export const HeaderLoginOfHost = () => {
     const [isSticky, setSticky] = useState(false);
-    const [isProfileActive, setProfileActive] = useState(false);
-    const [isSearchActive, setSearchActive] = useState(false);
-    const [isMenuActive, setMenuActive] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -137,9 +134,21 @@ export const HeaderLogin = () => {
                             </div>
 
                             <nav className="navbar">
-                                <a href="/guestDetail">
-                                    <i class="fa-solid fa-clock-rotate-left"></i>
-                                    <span>Order history</span>
+                                <a href="/about">
+                                    <i class="fa-solid fa-address-card"></i>
+                                    <span>About</span>
+                                </a>
+                            </nav>
+                            <nav className="navbar">
+                                <a href="/package">
+                                    <i class="fa-solid fa-boxes-stacked"></i>
+                                    <span>Package</span>
+                                </a>
+                            </nav>
+                            <nav className="navbar">
+                                <a href="/service">
+                                    <i class="fa-solid fa-box"></i>
+                                    <span>Service</span>
                                 </a>
                             </nav>
 

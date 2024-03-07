@@ -2,12 +2,13 @@ import React from "react";
 
 import { HeaderLogin } from "../../component/HeaderLogin";
 import { Sidebar } from "../../component/Sidebar";
+import { HeaderLoginOfHost } from "../profile/HeaderLoginOfHost";
 
 export const Package = () => {
     return (
         <div>
-            <HeaderLogin />
-            <div className="container container-profile">
+            <HeaderLoginOfHost />
+            <div className="container ">
                 <section class="packages">
                     <h1 class="heading">Our packages</h1>
 
@@ -167,7 +168,6 @@ export const Package = () => {
                     </div>
                 </section>
             </div>
-            <Sidebar />
         </div>
     );
 };

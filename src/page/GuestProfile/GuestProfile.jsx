@@ -1,9 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { HeaderLogin } from "../../component/HeaderLogin";
-import { SidebarGuest } from "./SidebarGuest";
-import { Button, Form, Input, Radio } from "antd";
-
+import { Footer } from "../../component/Footer";
+import { PlusOutlined } from "@ant-design/icons";
+import {
+    Button,
+    Cascader,
+    Checkbox,
+    ColorPicker,
+    DatePicker,
+    Form,
+    Input,
+    InputNumber,
+    Radio,
+    Select,
+    Slider,
+    Switch,
+    TreeSelect,
+    Upload,
+} from "antd";
+const { RangePicker } = DatePicker;
+const { TextArea } = Input;
+const normFile = (e) => {
+    if (Array.isArray(e)) {
+        return e;
+    }
+    return e?.fileList;
+};
 export const GuestProfile = () => {
+    const [componentDisabled, setComponentDisabled] = useState(true);
     return (
         <div>
             <HeaderLogin />
@@ -16,45 +40,74 @@ export const GuestProfile = () => {
                                 <img src="img/pic-1.jpg" alt="" />
                                 <h3>shaikh anas</h3>
                                 <p>student</p>
-                                <Form.Item
-                                    label="Name"
-                                    name="name"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message:
-                                                "Please input your FullName",
-                                        },
-                                    ]}
+                                <Checkbox
+                                    checked={componentDisabled}
+                                    onChange={(e) =>
+                                        setComponentDisabled(e.target.checked)
+                                    }
                                 >
-                                    <Input />
-                                </Form.Item>
-                                <Form.Item
-                                    label="Password"
-                                    name="password"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message:
-                                                "Please input your password!",
-                                        },
-                                    ]}
+                                    Form disabled
+                                </Checkbox>
+                                <Form
+                                    labelCol={{
+                                        span: 4,
+                                    }}
+                                    wrapperCol={{
+                                        span: 14,
+                                    }}
+                                    layout="horizontal"
+                                    disabled={componentDisabled}
+                                    style={{
+                                        maxWidth: 1000,
+                                    }}
                                 >
-                                    <Input.Password />
-                                </Form.Item>
+                                    <Form.Item label="Name">
+                                        <Input />
+                                    </Form.Item>
+                                    <Form.Item label="Password">
+                                        <Input />
+                                    </Form.Item>
+                                    <Form.Item label="Email">
+                                        <Input />
+                                    </Form.Item>
+                                    <Form.Item label="Phone Numb ">
+                                        <Input />
+                                    </Form.Item>
+                                    <Form.Item label="Gender">
+                                        <Radio.Group>
+                                            <Radio value="apple"> Male </Radio>
+                                            <Radio value="pear"> Female </Radio>
+                                        </Radio.Group>
+                                    </Form.Item>
 
-                                <Form.Item
-                                    label="Email"
-                                    name="email"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: "Please input your email!",
-                                        },
-                                    ]}
-                                >
-                                    <Input />
-                                </Form.Item>
+                                    <Form.Item
+                                        label="Upload"
+                                        valuePropName="fileList"
+                                        getValueFromEvent={normFile}
+                                    >
+                                        <Upload
+                                            action="/upload.do"
+                                            listType="picture-card"
+                                        >
+                                            <button
+                                                style={{
+                                                    border: 0,
+                                                    background: "none",
+                                                }}
+                                                type="button"
+                                            >
+                                                <PlusOutlined />
+                                                <div
+                                                    style={{
+                                                        marginTop: 8,
+                                                    }}
+                                                >
+                                                    Upload
+                                                </div>
+                                            </button>
+                                        </Upload>
+                                    </Form.Item>
+                                </Form>
 
                                 <a href="#!" class="btn">
                                     update profile
@@ -64,7 +117,7 @@ export const GuestProfile = () => {
                     </section>
                 </section>
             </div>
-            <SidebarGuest />
+            <Footer />
         </div>
     );
 };

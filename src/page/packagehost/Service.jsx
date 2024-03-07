@@ -1,11 +1,12 @@
 import React from "react";
 import { HeaderLogin } from "../../component/HeaderLogin";
 import { Sidebar } from "../../component/Sidebar";
+import { HeaderLoginOfHost } from "../profile/HeaderLoginOfHost";
 export const Service = () => {
     return (
         <div>
-            <HeaderLogin />
-            <div className="container container-profile">
+            <HeaderLoginOfHost />
+            <div className="container ">
                 <section class="services">
                     <h1 class="heading">Our Service</h1>
 
@@ -114,7 +115,6 @@ export const Service = () => {
                     </div>
                 </section>
             </div>
-            <Sidebar />
         </div>
     );
 };
