@@ -1,0 +1,43 @@
+/* Policy Content Styles */
+
+.policy-content {
+    border: 5px solid #d4f2ff;
+    border-radius: 10px;
+    padding: 8px;
+    margin-bottom: 20px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+.policy-desc {
+    margin-top: 40px;
+}
+.policy-title {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.policy-desc__header {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.policy-desc__content {
+    margin-bottom: 15px;
+}
+
+/* Footer Styles */
+.policy-end {
+    margin-top: 20px;
+    font-size: 17px;
+    color: #555;
+}
+
+/* Contact Styles */
+.policy-end a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.policy-end a:hover {
+    text-decoration: underline;
+}

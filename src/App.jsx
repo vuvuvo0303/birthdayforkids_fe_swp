@@ -32,6 +32,8 @@ import ServiceDecription from "./component/decription/ServiceDecription.jsx";
 import PackageDecription from "./component/decription/PackageDecription.jsx";
 import ManageSchedule from "./page/party-host/manage_schedule/ManageSchedule.jsx";
 
+
+import { Policy } from "./page/Privacy Policy/Policy.jsx";
 function App() {
     const router = createBrowserRouter([
         {
@@ -175,6 +177,10 @@ function App() {
         path: '/packageDetail/:id',
         element: <PackageDecription />
       },
+      {
+        path:"/Policy",
+        element: <Policy/>
+      }
   ]);
   return (
     <>
