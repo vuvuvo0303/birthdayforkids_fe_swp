@@ -48,8 +48,10 @@ const Service = ({ isSelected, data }) => {
     <div className={`service-item-order ${isSelected ? "select" : ""}`}>
       <img src={data.picture} />
       <p>
-        {data.name}({data.price})
+        {data.name}
       </p>
+      <p><strong>Price: {data.price} VND</strong></p>
+      
     </div>
   );
 };
