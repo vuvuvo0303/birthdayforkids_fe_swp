@@ -1,5 +1,5 @@
 import React from "react";
-import "./index.css";
+import "./home.css";
 import { useState, useEffect } from "react";
 import { Button, Popover } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";

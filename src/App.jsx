@@ -25,6 +25,11 @@ import { AboutNoLogin } from "./page/profile/AboutNoLogin.jsx";
 import { PackageNoLogin } from "./page/packagehost/PackageNoLogin.jsx";
 import ManagePackageAndService from "./page/party-host/manage_package_service/index.jsx";
 import { ServiceNoLogin } from "./page/packagehost/ServiceNoLogin.jsx";
+
+import ManageService from "./component/list/ManageServices.jsx";
+import ViewListServices from "./component/list/ViewListServices.jsx";
+import ServiceDecription from "./component/decription/ServiceDecription.jsx";
+import PackageDecription from "./component/decription/PackageDecription.jsx";
 import ManageSchedule from "./page/party-host/manage_schedule/ManageSchedule.jsx";
 
 function App() {
@@ -79,88 +84,104 @@ function App() {
                 },
               ],
             },
-                    ],
-                },
-                {
-                    path: "admin",
-                    element: <DashBoard role={"ADMIN"} />,
-                    children: [
-                        {
-                            path: "manage-accounts",
-                            element: <ManageAccounts />,
-                        },
-                        {
-                            path: "report-admin",
-                            element: <ReportPageAdmin />,
-                        },
-                    ],
-                },
-            ],
+          ],
         },
         {
-            path: "/step-progress",
-            element: <StepProgress />,
+          path: "admin",
+          element: <DashBoard role={"ADMIN"} />,
+          children: [
+            {
+              path: "manage-accounts",
+              element: <ManageAccounts />,
+            },
+            {
+              path: "report-admin",
+              element: <ReportPageAdmin />,
+            },
+          ],
         },
-        {
-            path: "/about",
-            element: <ViewProfile />,
-        },
-        {
-            path: "/package",
-            element: <Package />,
-        },
-        {
-            path: "/service",
-            element: <Service />,
-        },
-        {
-            path: "/yourProfile",
-            element: <YourProfile />,
-        },
-        {
-            path: "/updateProfile",
-            element: <UpdateProfile />,
-        },
-        {
-            path: "/homepageLogin",
-            element: <HomepageLogin />,
-        },
-        {
-            path: "/hostpage",
-            element: <Hostpage />,
-        },
-        {
-            path: "/guestDetail",
-            element: <GuestDetail />,
-        },
-        {
-            path: "/guestProfile",
-            element: <GuestProfile />,
-        },
-        {
-            path: "/HostProfile",
-            element: <HostProfile />,
-        },
-        //Guest khi nhin about Profile cua Host
-        {
-            path: "/host/:id",
-            element: <AboutNoLogin />,
-        },
-        {
-            path: "/packageNoLogin/:id",
-            element: <PackageNoLogin />,
-        },
-        {
-            path: "/serviceNoLogin/:id",
-            element: <ServiceNoLogin />,
-        },
-    ]);
-    return (
-        <>
-            <ToastContainer />
-            <RouterProvider router={router} />
-        </>
-    );
+      ],
+    },
+    {
+      path: "/step-progress",
+      element: <StepProgress />,
+    },
+    {
+      path: "/about",
+      element: <ViewProfile />,
+    },
+    {
+      path: "/package",
+      element: <Package />,
+    },
+    {
+      path: "/service",
+      element: <Service />,
+    },
+    {
+      path: "/yourProfile",
+      element: <YourProfile />,
+    },
+    {
+      path: "/updateProfile",
+      element: <UpdateProfile />,
+    },
+    {
+      path: "/homepageLogin",
+      element: <HomepageLogin />,
+    },
+    {
+      path: "/hostpage",
+      element: <Hostpage />,
+    },
+    {
+      path: "/guestDetail",
+      element: <GuestDetail />,
+    },
+    {
+      path: "/guestProfile",
+      element: <GuestProfile />,
+    },
+    {
+      path: "/HostProfile",
+      element: <HostProfile />,
+    },
+    //Guest khi nhin about Profile cua Host
+    {
+      path: "/host/:id",
+      element: <AboutNoLogin />,
+    },
+    {
+      path: "/packageNoLogin/:id",
+      element: <PackageNoLogin />,
+    },
+    {
+      path: "/serviceNoLogin/:id",
+      element: <ServiceNoLogin />,
+    },
+    {
+        path: "/ViewListService",
+        element: <ViewListServices />
+      },
+      {
+        path: "/ManageService",
+        element: <ManageService />
+      },
+      {
+        path: '/serviceDetail/:id',
+        element: <ServiceDecription />
+      },
+      {
+        path: '/packageDetail/:id',
+        element: <PackageDecription />
+      },
+  ]);
+  return (
+    <>
+      <ToastContainer />
+      <RouterProvider router={router} />
+    </>
+  );
 }
 
 export default App;

@@ -6,6 +6,9 @@ import { Header } from "../../component/Header";
 import "./index.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
+
+import { Link } from "react-router-dom";
+
 export const HomePage = () => {
     const [members, setMembers] = useState([]);
     useEffect(() => {
@@ -203,9 +206,16 @@ export const HomePage = () => {
                                     </section>
                                 </div>
 
-                                <a href="" class="btn">
+                                <Link
+                                    className="btn"
+                                    // className='active'
+                                    to={"/ManageService"}
+                                >
                                     All Services
-                                </a>
+                                </Link>
+                                {/* <a href="" class="btn">
+                                    All Services
+                                </a> */}
                             </div>
                         </div>
                     </div>
