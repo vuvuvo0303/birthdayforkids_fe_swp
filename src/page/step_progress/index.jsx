@@ -8,6 +8,9 @@ import Payment from "./payment";
 import FillInformation from "./fill-information";
 import ChoosePackage from "./choose-package";
 import ChooseServices from "./choose-services";
+import { toast } from "react-toastify";
+import api from "../../config/axios";
+import { useSelector } from "react-redux";
 
 const { Step } = Steps;
 const { Item } = Form;
@@ -17,6 +20,8 @@ const StepProgress = () => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const prefixCls = getPrefixCls("steps", "ant-steps");
   const [form] = Form.useForm();
+  const [cartItems, setCartItems] = useState();
+  const booking = useSelector((store) => store.booking);
 
   const steps = [
     {
@@ -33,12 +38,12 @@ const StepProgress = () => {
     },
     {
       title: "Checkout",
-      content: <Checkout />,
+      content: <Checkout setCartItemsIndex={setCartItems} />,
     },
-    {
-      title: "Payment",
-      content: <Payment />,
-    },
+    // {
+    //   title: "Payment",
+    //   content: <Payment />,
+    // },
   ];
   const next = () => {
     if (current === 2) {
@@ -47,11 +52,45 @@ const StepProgress = () => {
       setCurrent(current + 1);
     }
   };
+  const calcTotal = () => {
+    var subtotal = 0;
+    cartItems.forEach((item) => {
+      subtotal += item.price * item.quantity;
+    });
 
+    return subtotal;
+  };
   const prev = () => {
     setCurrent(current - 1);
   };
-
+  const handlePayment = async () => {
+    console.log(booking);
+    console.log({
+      totalPrice: calcTotal(),
+      packageId: booking.package.packageID,
+      nameReceiver: booking?.information?.username,
+      phone: booking?.information?.phoneNumber,
+      email: booking?.information?.email,
+      venue: booking?.information?.venue,
+      slot: booking?.information?.slot,
+      additionalNotes: booking?.information?.note,
+      schedule: booking?.information?.scheduleId,
+    });
+    const response = await api.post("api/orders/create-payment", {
+      totalPrice: calcTotal() * 25000,
+      packageId: booking.package.packageID,
+      nameReceiver: booking?.information?.username,
+      phone: booking?.information?.phoneNumber,
+      email: booking?.information?.email,
+      venue: booking?.information?.venue,
+      slot: booking?.information?.slot,
+      additionalNotes: booking?.information?.note,
+      scheduleId: booking?.information?.scheduleId,
+      orderDetailDTOList: booking.services.map((item) => item.serviceID),
+    });
+    console.log(response);
+    window.open(response.data);
+  };
   return (
     <div>
       <HeaderLogin />
@@ -70,8 +109,9 @@ const StepProgress = () => {
               Next
             </Button>
           )}
+
           {current === steps.length - 1 && (
-            <Button type="primary" onClick={() => message.success("Processing complete!")}>
+            <Button type="primary" onClick={handlePayment}>
               Done
             </Button>
           )}

@@ -267,9 +267,12 @@ const Service = ({ packageID }) => {
 
   const fetchService = async () => {
     try {
-      const response = await api.get(`/api/services/${packageID}`);
-      setDataSource(response.data.filter((item) => !item.deleted));
-      console.log(response.data);
+      const response = await api.get(`/api/services/package/${packageID}`);
+      if (response.data) {
+        setDataSource(response.data.filter((item) => !item.deleted));
+      } else {
+        setDataSource([]);
+      }
     } catch (error) {
       console.error("Error fetching services:", error);
       message.error("Error fetching services. Please try again later.");

@@ -18,7 +18,7 @@ import EditProfileHosts from "./page/party-host/editprofilehosts/index.jsx";
 import ReportPage from "./page/party-host/report/index.jsx";
 import ManageAccounts from "./page/dashboad_admin/report_admin/manage_accounts/index.jsx";
 import ReportPageAdmin from "./page/dashboad_admin/report_admin/index.jsx";
-import StepProgress from "./page/step_progress/index.jsx";
+
 import { GuestDetail } from "./page/GuestProfile/GuestDetail.jsx";
 import { GuestProfile } from "./page/GuestProfile/GuestProfile.jsx";
 import { AboutNoLogin } from "./page/profile/AboutNoLogin.jsx";
@@ -31,58 +31,54 @@ import ViewListServices from "./component/list/ViewListServices.jsx";
 import ServiceDecription from "./component/decription/ServiceDecription.jsx";
 import PackageDecription from "./component/decription/PackageDecription.jsx";
 import ManageSchedule from "./page/party-host/manage_schedule/ManageSchedule.jsx";
-
+import StepProgress from "./page/step_progress/index.jsx";
+import SuccessPage from "./page/success/index.jsx";
 function App() {
-    const router = createBrowserRouter([
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout />,
+      children: [
         {
-            path: "/",
-            element: <Layout />,
-            children: [
-                {
-                    path: "",
-                    element: <HomePage />,
-                },
-                {
-                    path: "abc",
-                    element: <h1>abc</h1>,
-                },
-            ],
+          path: "",
+          element: <HomePage />,
         },
         {
-            path: "/login",
-            element: <LoginPage />,
+          path: "abc",
+          element: <h1>abc</h1>,
         },
+      ],
+    },
+    {
+      path: "/login",
+      element: <LoginPage />,
+    },
+    {
+      path: "/register",
+      element: <LoginPage isRegister />,
+    },
+    {
+      path: "/dashboard",
+      children: [
         {
-            path: "/register",
-            element: <LoginPage isRegister />,
-        },
-        {
-            path: "/dashboard",
-            children: [
-                {
-                    path: "party-host",
-                    element: <DashBoard role={"PARTY_HOST"} />,
-                    children: [
-                        {
-                            path: "manage-package-service",
-                            element: <ManagePackageAndService />,
-                        },
-                        {
-                            path: "report",
-                            element: <ReportPage />,
-                        },
-                        {
-                            path: "edit-ptofile-hosts",
-                            element: <EditProfileHosts />,
-                        },
+          path: "party-host",
+          element: <DashBoard role={"PARTY_HOST"} />,
+          children: [
             {
-              path: "schedule",
-              children: [
-                {
-                  path: "manage",
-                  element: <ManageSchedule />,
-                },
-              ],
+              path: "manage-package-service",
+              element: <ManagePackageAndService />,
+            },
+            {
+              path: "report",
+              element: <ReportPage />,
+            },
+            {
+              path: "edit-ptofile-hosts",
+              element: <EditProfileHosts />,
+            },
+            {
+              path: "manage-schedule",
+              element: <ManageSchedule />,
             },
           ],
         },
@@ -160,21 +156,25 @@ function App() {
       element: <ServiceNoLogin />,
     },
     {
-        path: "/ViewListService",
-        element: <ViewListServices />
-      },
-      {
-        path: "/ManageService",
-        element: <ManageService />
-      },
-      {
-        path: '/serviceDetail/:id',
-        element: <ServiceDecription />
-      },
-      {
-        path: '/packageDetail/:id',
-        element: <PackageDecription />
-      },
+      path: "/ViewListService",
+      element: <ViewListServices />,
+    },
+    {
+      path: "/ManageService",
+      element: <ManageService />,
+    },
+    {
+      path: "/serviceDetail/:id",
+      element: <ServiceDecription />,
+    },
+    {
+      path: "/packageDetail/:id",
+      element: <PackageDecription />,
+    },
+    {
+      path: "/success",
+      element: <SuccessPage />,
+    },
   ]);
   return (
     <>

@@ -14,27 +14,28 @@ import {
   ModalCloseButton,
 } from "@chakra-ui/react";
 import { toast } from "react-toastify";
+import api from "../../../config/axios";
 const schedulesData = [
-  {
-    id: 1,
-    time: "05:30",
-  },
-  {
-    id: 2,
-    time: "08:00",
-  },
-  {
-    id: 3,
-    time: "12:30",
-  },
-  {
-    id: 4,
-    time: "13:15",
-  },
-  {
-    id: 5,
-    time: "15:30",
-  },
+  // {
+  //   id: 1,
+  //   time: "05:30",
+  // },
+  // {
+  //   id: 2,
+  //   time: "08:00",
+  // },
+  // {
+  //   id: 3,
+  //   time: "12:30",
+  // },
+  // {
+  //   id: 4,
+  //   time: "13:15",
+  // },
+  // {
+  //   id: 5,
+  //   time: "15:30",
+  // },
 ];
 
 const ManageSchedule = () => {
@@ -48,7 +49,7 @@ const ManageSchedule = () => {
       toast.success("Delete schedule successfully!");
     }
   };
-  const handleAdd = (time) => {
+  const handleAdd = async (time) => {
     if (schedules.find((item) => item.time === time)) {
       toast.error("Schedule already exist!");
     } else {
@@ -64,6 +65,8 @@ const ManageSchedule = () => {
       toast.success("Add new schedule successfully!");
       onClose();
     }
+    const response = await api.post("api/schedules");
+    console.log(response.data);
   };
   const handleEdit = (id, time) => {
     if (schedules.find((item) => item.time === time)) {
