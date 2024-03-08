@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { HeaderLogin } from "../../component/HeaderLogin";
 import { Footer } from "../../component/Footer";
 import { PlusOutlined } from "@ant-design/icons";
+
 import {
     Button,
     Cascader,
@@ -27,7 +29,45 @@ const normFile = (e) => {
     return e?.fileList;
 };
 export const GuestProfile = () => {
-    const [componentDisabled, setComponentDisabled] = useState(true);
+    const [componentDisabled, setComponentDisabled] = useState(false);
+    const [userData, setUserData] = useState({
+        name: "",
+        password: "",
+        email: "",
+        phone: "",
+        gender: "",
+    });
+
+    useEffect(() => {
+        if (!componentDisabled) {
+            fetchUserProfile();
+        }
+    }, [componentDisabled]);
+
+    const fetchUserProfile = async () => {
+        try {
+            
+            const response = await fetch(
+                "http://birthdayblitzhub.online:8080/auth/getAlluser",
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        
+                    },
+                }
+            );
+
+            if (response.ok) {
+                const userDataFromApi = await response.json();
+                setUserData(userDataFromApi);
+            } else {
+                console.error("Không thể lấy thông tin người dùng");
+            }
+        } catch (error) {
+            console.error("Lỗi khi lấy thông tin người dùng:", error);
+        }
+    };
     return (
         <div>
             <HeaderLogin />
@@ -36,10 +76,11 @@ export const GuestProfile = () => {
                     <h1 class="heading">your profile</h1>
                     <section className="form-container">
                         <div class="info">
+                            {/* Display user profile data */}
                             <div class="user">
-                                <img src="img/pic-1.jpg" alt="" />
-                                <h3>shaikh anas</h3>
-                                <p>student</p>
+                                <img src={`${userData.avatar}`} alt="" />
+                                <h3>{userData.name}</h3>
+                                <p>{userData.email}</p>
                                 <Checkbox
                                     checked={componentDisabled}
                                     onChange={(e) =>

@@ -10,11 +10,11 @@ export const Hostpage = () => {
     const [members, setMembers] = useState([]);
 
     useEffect(() => {
-        // Gọi API để lấy danh sách thành viên
+        
         axios
             .get("http://birthdayblitzhub.online:8080/auth/getAllHost")
             .then((response) => {
-                setMembers(response.data); // Cập nhật state với dữ liệu từ API
+                setMembers(response.data); 
             })
             .catch((error) => {
                 console.error("Error fetching data:", error);
