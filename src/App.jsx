@@ -18,7 +18,7 @@ import EditProfileHosts from "./page/party-host/editprofilehosts/index.jsx";
 import ReportPage from "./page/party-host/report/index.jsx";
 import ManageAccounts from "./page/dashboad_admin/report_admin/manage_accounts/index.jsx";
 import ReportPageAdmin from "./page/dashboad_admin/report_admin/index.jsx";
-
+import React from "react";
 import { GuestDetail } from "./page/GuestProfile/GuestDetail.jsx";
 import { GuestProfile } from "./page/GuestProfile/GuestProfile.jsx";
 import { AboutNoLogin } from "./page/profile/AboutNoLogin.jsx";
@@ -33,6 +33,7 @@ import PackageDecription from "./component/decription/PackageDecription.jsx";
 import ManageSchedule from "./page/party-host/manage_schedule/ManageSchedule.jsx";
 import StepProgress from "./page/step_progress/index.jsx";
 import SuccessPage from "./page/success/index.jsx";
+import ManageOrder from "./page/dashboad_admin/report_admin/manage-orders/ManageOrder";
 function App() {
   const router = createBrowserRouter([
     {
@@ -93,6 +94,10 @@ function App() {
             {
               path: "report-admin",
               element: <ReportPageAdmin />,
+            },
+            {
+              path: "manage-orders",
+              element: <ManageOrder />,
             },
           ],
         },

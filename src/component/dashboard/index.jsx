@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { DesktopOutlined, TeamOutlined, ClockCircleOutlined, BarChartOutlined, EditOutlined } from "@ant-design/icons";
+import { DesktopOutlined, TeamOutlined, ClockCircleOutlined, BarChartOutlined, EditOutlined, TableOutlined } from "@ant-design/icons";
 import { Avatar, Breadcrumb, Button, Dropdown, Layout, Menu, Row, theme } from "antd";
 import Table from "../table";
 import { Link, Outlet, useNavigate } from "react-router-dom";
@@ -40,6 +40,8 @@ const DashBoard = ({ role }) => {
       setItems([
         getItem("Manage accounts", "/dashboard/admin/manage-accounts", <TeamOutlined />),
         getItem("Report Admin", "/dashboard/admin/report-admin", <BarChartOutlined />),
+        getItem("Manage Orders", "/dashboard/admin/manage-orders", <TableOutlined />),
+
       ]);
     }
   }
