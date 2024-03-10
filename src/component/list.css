@@ -108,7 +108,7 @@ a{
 
   .list{
     margin: 0 3%;
-    margin-top:  85px;
+    /* margin-top:  85px; */
     padding: 3%;
     /* background-color: #D4F2FF; */
     /* border: 2px solid #D4F2FF; */
@@ -121,11 +121,15 @@ a{
     border-radius: 20px;
     border: 0;
     width: 5em;
+    z-index: 100000000000;
+
   }
 
   .servicee button:nth-child(1){
     background-color: #F0C6E7;
     color: black;
+    z-index: 100000000000;
+
   }
   .servicee button:nth-child(2){
     background-color: #C2F4B1;
@@ -157,7 +161,8 @@ a{
   
   .Detail img{
     width: 550px;
-    height: 600px;
+    /* height: 600px; */
+    height: 400px;
     object-fit: cover;
     /* contain; */
     margin: 1em 1.5em;
@@ -219,3 +224,38 @@ a{
   textarea{
     width: 23vw;
   }
+
+  .Display{
+  background-color: #ADC9FF;
+  height: 2em;
+  margin: 0.5em;
+  /* margin-top: 12em; */
+  border-radius: 20px;
+  border: 0;
+  width: 10em;
+  }
+
+  .choose{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 100px ;
+    margin-bottom: 0;
+  }
+
+  .dash button{
+  background-color: #C2F4B1;
+  height: 2em;
+  /* margin-bottom: 1em; */
+  /* margin-top: 12em; */
+  border-radius: 20px;
+  border: 0;
+  width: 8em;
+  }
+
+  .dash {
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    /* margin-top: 20px;  */
+}

@@ -209,7 +209,8 @@ export const HomePage = () => {
                                 <Link
                                     className="btn"
                                     // className='active'
-                                    to={"/ManageService"}
+                                    // to={"/ManageService"}
+                                    to={'/ViewListService'}
                                 >
                                     All Services
                                 </Link>

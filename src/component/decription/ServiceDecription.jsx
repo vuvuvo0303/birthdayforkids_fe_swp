@@ -8,6 +8,7 @@ import { Header } from '../Header';
 export default function ServiceDecription() {
     const [service, setService] = useState(null);
     const userName = useParams();
+    const [feedback, setFeedback] = useState(null);
     const [data, setData] = useState({
         id: 0,
         name: '',
@@ -39,8 +40,35 @@ export default function ServiceDecription() {
     }
 
 
+
     const hanldeGetService = async (id = userName.id) => {
         const url = 'http://birthdayblitzhub.online:8080/api/services/' + id;
+        await fetch(url, {
+            method: 'GET',
+            headers: { 'content-type': 'application/json' },
+        }).then(res => {
+            if (!res.ok) {
+                throw new Error('Failed to fetch data')
+            }
+            if (res.ok) {
+                // console.log('checkData: ', res.json());
+                // setService(res.json());
+                return res.json();
+            }
+            // handle error
+        })
+            .then(data => {
+                // Do something with the list of tasks
+                // console.log('real data: ', data);
+                setService(data);
+                return data;
+            })
+            .catch(error => {
+                // handle error
+            })
+    }
+    const hanldeGetFeedBackService = async (id = userName.id) => {
+        const url = `http://birthdayblitzhub.online:8080/api/feedbacks/service/${id}`;
         await fetch(url, {
             method: 'GET',
             headers: { 'content-type': 'application/json' },
@@ -58,9 +86,9 @@ export default function ServiceDecription() {
         })
             .then(data => {
                 // Do something with the list of tasks
-                // console.log('real data: ', data);
-                setService(data);
-                return data;
+                console.log('real data: ', data[0]);
+                setFeedback(data[0]);
+                return data[0];
             })
             .catch(error => {
                 // handle error
@@ -69,16 +97,22 @@ export default function ServiceDecription() {
 
     useEffect(() => {
         hanldeGetService();
+        hanldeGetFeedBackService();
     }, [])
 
     return (
         <Box>
             <Header />
             <div className='Detail'>
-                <img src={service?.picture} alt='Service Picture' />
+                <div>
+                    <img src={service?.picture} alt='Service Picture' />
+                    <p>User: {feedback?.account.name} </p>
+                    <p>FeedBack: {feedback?.description} </p>
+                    <p>Date: {feedback?.feedbackDate} </p>
+                </div>
                 <div className='content'>
                     <h3>Service Name: {service?.name} </h3>
-                    <p>Host: {service?.account.name}</p>
+                    {/* <p>Host: {service?.account.name}</p> */}
                     <p>Description:<br /> {service?.description}</p>
                     <p className='price'>Price: {service?.price}$</p>
                     <div>
