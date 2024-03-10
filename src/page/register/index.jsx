@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import "./index.css";
+import React from "react";
 // import { getAuth, signInWithPopup } from "firebase/auth";
 // import { provider } from "../../config/firebase";
 import { Button, Form, Input, Modal, Radio, Upload } from "antd";
@@ -9,7 +10,9 @@ import { PlusOutlined } from "@ant-design/icons";
 import api from "../../config/axios";
 import { toast } from "react-toastify";
 import uploadFile from "../../utils/upload";
-import { Box, Text } from "@chakra-ui/layout";
+import { Box, Text, Flex } from "@chakra-ui/layout";
+import { Checkbox, CheckboxGroup } from "@chakra-ui/react";
+import PolicyButton from "./PolicyButton";
 const Register = () => {
   const navigate = useNavigate();
 
@@ -179,12 +182,12 @@ const Register = () => {
             <Form.Item
               label="Avatar"
               name="avatar"
-            // rules={[
-            //   {
-            //     required: true,
-            //     message: "Please upload your Avatar",
-            //   },
-            // ]}
+              // rules={[
+              //   {
+              //     required: true,
+              //     message: "Please upload your Avatar",
+              //   },
+              // ]}
             >
               <Upload
                 action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
@@ -197,22 +200,32 @@ const Register = () => {
                 {fileList.length >= 8 ? null : uploadButton}
               </Upload>
             </Form.Item>
+            <Flex justifyContent="center" mb={5}>
+              <Checkbox w="fit-content" size="lg" fontWeight="normal">
+                Agree to Terms and Conditions
+              </Checkbox>
+              &nbsp; <PolicyButton />
+            </Flex>
 
-            <Form.Item
-              wrapperCol={{
-                span: 16,
-              }}
-            >
-              <Button type="primary" htmlType="submit"  style={{ width: "300px" }}>
-                Sign up
-              </Button>
-            </Form.Item>
+            <Flex justifyContent="center">
+              <Form.Item
+                wrapperCol={{
+                  span: 16,
+                }}
+              >
+                <Button type="primary" htmlType="submit" style={{ width: "300px" }}>
+                  Sign up
+                </Button>
+              </Form.Item>
+            </Flex>
           </Form>
           <div>
             <Text fontSize="small" textAlign="center">
               Have an account?&nbsp;
               <Link to="/login">
-                <Box as="strong" cursor="pointer">Login Here</Box>
+                <Box as="strong" cursor="pointer">
+                  Login Here
+                </Box>
               </Link>
             </Text>
           </div>
