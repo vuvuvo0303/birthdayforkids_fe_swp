@@ -1,5 +1,7 @@
 /* Policy Content Styles */
-
+.user-policy {
+    margin-top: 5px;
+}
 .policy-content {
     border: 5px solid #d4f2ff;
     border-radius: 10px;

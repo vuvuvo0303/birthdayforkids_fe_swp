@@ -44,6 +44,7 @@ export const Wallet = () => {
                             Add Money
                         </button>
                         <button className="wallet-button">Withdraw</button>
+                        
                     </div>
                 </div>
                 <div className="transaction-history">

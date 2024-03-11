@@ -1,108 +1,217 @@
 import {
-  Box,
-  Button,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  useDisclosure,
+    Box,
+    Button,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    ModalOverlay,
+    useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
 
 const PolicyButton = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  return (
-    <>
-      <Button fontSize="small" onClick={onOpen} bg="none" _hover={{ bg: "none", shadow: "none" }}>
-        (see more)
-      </Button>
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent maxW="900px">
-          <ModalHeader>Modal Title</ModalHeader>
-          <ModalBody>
-            <Box p={10}>
-              <div>
-                <h2>Terms and Conditions</h2>
-                <p>
-                  By accessing and using this website, you accept and agree to be bound by the terms and provision of
-                  this agreement. In addition, when using this website's particular services, you shall be subject to
-                  any posted guidelines or rules applicable to such services, which may be posted and modified from time
-                  to time. All such guidelines or rules are hereby incorporated by reference into the T&C.
-                </p>
-                <h3>Use License</h3>
-                <ol>
-                  <li>
-                    Permission is granted to temporarily download one copy of the materials (information or software) on
-                    our website for personal, non-commercial transitory viewing only. This is the grant of a license,
-                    not a transfer of title, and under this license you may not:
-                    <ol type="a">
-                      <li>modify or copy the materials;</li>
-                      <li>
-                        use the materials for any commercial purpose, or for any public display (commercial or
-                        non-commercial);
-                      </li>
-                      <li>attempt to decompile or reverse engineer any software contained on our website;</li>
-                      <li>remove any copyright or other proprietary notations from the materials; or</li>
-                      <li>transfer the materials to another person or "mirror" the materials on any other server.</li>
-                    </ol>
-                  </li>
-                  <li>
-                    This license shall automatically terminate if you violate any of these restrictions and may be
-                    terminated by our website at any time. Upon terminating your viewing of these materials or upon the
-                    termination of this license, you must destroy any downloaded materials in your possession whether in
-                    electronic or printed format.
-                  </li>
-                </ol>
-                <h3>Disclaimer</h3>
-                <p>
-                  The materials on our website are provided on an 'as is' basis. We make no warranties, expressed or
-                  implied, and hereby disclaims and negates all other warranties including, without limitation, implied
-                  warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of
-                  intellectual property or other violation of rights. Further, we do not warrant or make any
-                  representations concerning the accuracy, likely results, or reliability of the use of the materials on
-                  its website or otherwise relating to such materials or on any sites linked to this site.
-                </p>
-                <h3>Limitations</h3>
-                <p>
-                  In no event shall we or our suppliers be liable for any damages (including, without limitation,
-                  damages for loss of data or profit, or due to business interruption) arising out of the use or
-                  inability to use the materials on our website, even if we or an authorized representative has been
-                  notified orally or in writing of the possibility of such damage. Because some jurisdictions do not
-                  allow limitations on implied warranties, or limitations of liability for consequential or incidental
-                  damages, these limitations may not apply to you.
-                </p>
-                <h3>Accuracy of materials</h3>
-                <p>
-                  The materials appearing on our website could include technical, typographical, or photographic errors.
-                  We do not warrant that any of the materials on its website are accurate, complete, or current. We may
-                  make changes to the materials contained on its website at any time without notice. However, we do not
-                  make any commitment to update the materials.
-                </p>
-                <h3>Modifications</h3>
-                <p>
-                  We may revise these terms of service for its website at any time without notice. By using this website
-                  you are agreeing to be bound by the then current version of these terms of service.
-                </p>
-                <h3>Governing Law</h3>
-                <p>
-                  These terms and conditions are governed by and construed in accordance with the laws of [Your Country]
-                  and you irrevocably submit to the exclusive jurisdiction of the courts in that State or location.
-                </p>
-              </div>
-            </Box>
-          </ModalBody>
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Close
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    return (
+        <>
+            <Button
+                fontSize="small"
+                onClick={onOpen}
+                bg="none"
+                _hover={{ bg: "none", shadow: "none" }}
+            >
+                (see more)
             </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </>
-  );
+            <Modal isOpen={isOpen} onClose={onClose}>
+                <ModalOverlay />
+                <ModalContent maxW="900px">
+                    <ModalHeader>Term and Condition</ModalHeader>
+                    <ModalBody>
+                        <Box p={10}>
+                            <div className="container ">
+                                <section className="user-policy">
+                                    <div className="policy-content">
+                                        <p className="policy-title">
+                                            Welcome to Birthday Blitz Hub
+                                            Website! We are thrilled to have you
+                                            celebrate your special day with us.
+                                            Before you proceed with booking and
+                                            enjoying our services, please take a
+                                            moment to review our policies
+                                            outlined below.
+                                        </p>
+
+                                        <div className="policy-desc">
+                                            <div className="policy-container">
+                                                <p className="policy-desc__header">
+                                                    1. Reservation and Booking
+                                                </p>
+                                                <p className="policy-desc__content">
+                                                    - To make a reservation, you
+                                                    must be at least 18 years
+                                                    old.
+                                                </p>
+                                                <p className="policy-desc__content">
+                                                    - Booking requests can be
+                                                    made through our website.
+                                                </p>
+                                                <p className="policy-desc__content">
+                                                    - A valid email address and
+                                                    contact number are required
+                                                    for reservation
+                                                    confirmation.
+                                                </p>
+                                            </div>
+                                            <div className="policy-container">
+                                                <p className="policy-desc__header">
+                                                    2. Payment and Fees:
+                                                </p>
+                                                <p className="policy-desc__content">
+                                                    - All bookings require a
+                                                    full payment while booking,
+                                                    payable at the time of
+                                                    reservation.
+                                                </p>
+                                                <p className="policy-desc__content">
+                                                    - Full payment must be
+                                                    received before the event
+                                                    date.
+                                                </p>
+                                                <p className="policy-desc__content">
+                                                    - Additional charges may
+                                                    apply for extra services
+                                                    requested after the initial
+                                                    booking.
+                                                </p>
+                                            </div>
+                                            <div className="policy-container">
+                                                <p className="policy-desc__header">
+                                                    3. Cancellation and Refund:
+                                                </p>
+                                                <p className="policy-desc__content">
+                                                    - Cancellations must be made
+                                                    at least 10 days before the
+                                                    event to receive a partial
+                                                    refund.
+                                                </p>
+                                                <p className="policy-desc__content">
+                                                    - Refunds are processed
+                                                    within 5 business days.
+                                                </p>
+                                            </div>
+                                            <div className="policy-container">
+                                                <p className="policy-desc__header">
+                                                    4. Changes and
+                                                    Modifications:
+                                                </p>
+                                                <p className="policy-desc__content">
+                                                    - Changes to the booking
+                                                    details, such as the number
+                                                    of guests or event date, are
+                                                    subject to availability.
+                                                </p>
+                                                <p className="policy-desc__content">
+                                                    - Requests for modifications
+                                                    should be made at least 10
+                                                    days before the event.
+                                                </p>
+                                            </div>
+                                            <div className="policy-container">
+                                                <p className="policy-desc__header">
+                                                    5. Damages and Liabilities:
+                                                </p>
+                                                <p className="policy-desc__content">
+                                                    - The customer is
+                                                    responsible for any damages
+                                                    caused to the premises or
+                                                    equipment during the event.
+                                                </p>
+                                                <p className="policy-desc__content">
+                                                    - Birthday Blitz Hub and our
+                                                    Associated Host is not
+                                                    liable for any injuries,
+                                                    accidents, or loss of
+                                                    personal belongings.
+                                                </p>
+                                            </div>
+                                            <div className="policy-container">
+                                                <p className="policy-desc__header">
+                                                    6. Privacy Policy:
+                                                </p>
+                                                <p className="policy-desc__content">
+                                                    - We respect your privacy.
+                                                    Personal information
+                                                    provided during the booking
+                                                    process will only be used
+                                                    for reservation purposes and
+                                                    will not be shared with
+                                                    third parties.
+                                                </p>
+                                            </div>
+                                            <div className="policy-container">
+                                                <p className="policy-desc__header">
+                                                    7. Force Majeure:
+                                                </p>
+                                                <p className="policy-desc__content">
+                                                    - Birthday Blitz Hub is not
+                                                    liable for any failure or
+                                                    delay in performance due to
+                                                    circumstances beyond our
+                                                    control, such as natural
+                                                    disasters, strikes, or
+                                                    government actions. If any
+                                                    of the above circumstances
+                                                    does occurred, you can
+                                                    contact our associated host
+                                                    to make changes.
+                                                </p>
+                                            </div>
+                                            <div className="policy-container">
+                                                <p className="policy-desc__header">
+                                                    8. Feedback and Reviews:
+                                                </p>
+                                                <p className="policy-desc__content">
+                                                    - We encourage guests to
+                                                    provide feedback and reviews
+                                                    about their experience. Your
+                                                    insights help us improve our
+                                                    services.
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <p className="policy-end">
+                                            By proceeding with the booking, you
+                                            agree to adhere to the policies
+                                            outlined above. Birthday Blitz Hub
+                                            reserves the right to modify these
+                                            policies at any time, with the
+                                            updated version being effective
+                                            immediately.
+                                        </p>
+                                        <p className="policy-end">
+                                            Thank you for choosing Birthday
+                                            Blitz Hub to celebrate your special
+                                            occasion! If you have any questions
+                                            or concerns, please contact our
+                                            customer service team at
+                                            birtdayblitzhub@gmail.com.
+                                        </p>
+                                    </div>
+                                </section>
+                            </div>
+                        </Box>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button colorScheme="blue" mr={3} onClick={onClose}>
+                            Close
+                        </Button>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
+        </>
+    );
 };
 
 export default PolicyButton;

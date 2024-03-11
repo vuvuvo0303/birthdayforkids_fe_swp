@@ -6,8 +6,8 @@ export const Policy = () => {
         <div>
             <HeaderLogin />
             <div className="container ">
-                <section class="user-profile">
-                    <h1 class="heading">Privacy Policy</h1>
+                <section className="user-policy">
+                    <h1 className="heading">Privacy Policy</h1>
                     <div className="policy-content">
                         <p className="policy-title">
                             Welcome to Birthday Blitz Hub Website! We are

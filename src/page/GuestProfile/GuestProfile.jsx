@@ -46,14 +46,12 @@ export const GuestProfile = () => {
 
     const fetchUserProfile = async () => {
         try {
-            
             const response = await fetch(
                 "http://birthdayblitzhub.online:8080/auth/getAlluser",
                 {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
-                        
                     },
                 }
             );
@@ -72,13 +70,13 @@ export const GuestProfile = () => {
         <div>
             <HeaderLogin />
             <div className="container ">
-                <section class="user-profile">
-                    <h1 class="heading">your profile</h1>
+                <section className="user-profile">
+                    <h1 className="heading">your profile</h1>
                     <section className="form-container">
-                        <div class="info">
+                        <div className="info">
                             {/* Display user profile data */}
-                            <div class="user">
-                                <img src={`${userData.avatar}`} alt="" />
+                            <div className="user">
+                                <img src="" alt="" />
                                 <h3>{userData.name}</h3>
                                 <p>{userData.email}</p>
                                 <Checkbox
@@ -150,7 +148,7 @@ export const GuestProfile = () => {
                                     </Form.Item>
                                 </Form>
 
-                                <a href="#!" class="btn">
+                                <a href="#!" className="btn">
                                     update profile
                                 </a>
                             </div>
