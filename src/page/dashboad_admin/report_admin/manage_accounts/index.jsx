@@ -121,13 +121,16 @@ const ManageAccounts = () => {
   };
 
   const handleRefuse = async (record) => {
-    const reponse = await api.delete(`/auth/${record.accountID}`);
+    const reponse = await api.delete(`/auth/refuse/${record.accountID}`);
     console.log(reponse.data);
 
-    const newData = dataSource.filter((item) => item.key !== record.key);
-    setDataSource(newData);
+    // const newData = dataSource.filter((item) => item.key !== record.key);
+    // setDataSource(newData);
+    fetchAccount();
+
     message.error(`Host account "${record.name}" has been denied`);
   };
+
 
   return (
     <>

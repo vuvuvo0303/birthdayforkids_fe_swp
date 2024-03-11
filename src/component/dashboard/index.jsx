@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { DesktopOutlined, TeamOutlined, ClockCircleOutlined, BarChartOutlined, EditOutlined } from "@ant-design/icons";
+import { DesktopOutlined, TeamOutlined, ClockCircleOutlined, BarChartOutlined, EditOutlined, TableOutlined } from "@ant-design/icons";
 import { Avatar, Breadcrumb, Button, Dropdown, Layout, Menu, Row, theme } from "antd";
 import Table from "../table";
 import { Link, Outlet, useNavigate } from "react-router-dom";
@@ -31,17 +31,17 @@ const DashBoard = ({ role }) => {
   function loadItems() {
     if (role === "PARTY_HOST") {
       setItems([
-        // getItem("Manage package", "/dashboard/party-host/package", <PieChartOutlined />),
-        // getItem("Manage services", "/dashboard/party-host/service", <DesktopOutlined />),
         getItem("Manage Package and service", "/dashboard/party-host/manage-package-service", <DesktopOutlined />),
         getItem("Manage Report", "/dashboard/party-host/report", <BarChartOutlined />),
         getItem("Update Profile", "/dashboard/party-host/edit-ptofile-hosts", <EditOutlined />),
-        getItem("Manage Schedule", "/dashboard/party-host/schedule/manage", <ClockCircleOutlined />),
+        getItem("Manage Schedule", "/dashboard/party-host/manage-schedule", <ClockCircleOutlined />),
       ]);
     } else if (role === "ADMIN") {
       setItems([
         getItem("Manage accounts", "/dashboard/admin/manage-accounts", <TeamOutlined />),
         getItem("Report Admin", "/dashboard/admin/report-admin", <BarChartOutlined />),
+        getItem("Manage Orders", "/dashboard/admin/manage-orders", <TableOutlined />),
+
       ]);
     }
   }

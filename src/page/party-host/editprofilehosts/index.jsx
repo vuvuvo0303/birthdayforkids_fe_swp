@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Breadcrumb, List, Avatar, Skeleton, Button, Modal, Form, Upload, Input } from "antd";
+import { Breadcrumb, List, Avatar, Skeleton, Button, Modal, Form, Upload, Input, Radio } from "antd";
 import { HomeOutlined, UploadOutlined } from "@ant-design/icons";
 import "./index.css"; // Import tập tin CSS
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import api from "../../../config/axios";
+import { login } from "../../../redux/features/userSlice";
 
 const EditProfileHosts = () => {
   const [data, setData] = useState([]);
@@ -13,7 +15,7 @@ const EditProfileHosts = () => {
   const [avatarFile, setAvatarFile] = useState(null);
   const loggedUser = useSelector((store) => store.user);
   const [editUser, setEditUser] = useState({});
-
+  const dispatch = useDispatch();
   useEffect(() => {
     fetchData();
   }, []);
@@ -50,13 +52,7 @@ const EditProfileHosts = () => {
   };
 
   const handleSave = () => {
-    form.validateFields().then((values) => {
-      const newData = data.map((item) => (item.id === values.id ? { ...item, ...values } : item));
-      setData(newData);
-      setModalVisible(false);
-    });
-    setLoggedUser(editUser);
-    localStorage.setItem("logged-user", JSON.stringify(editUser));
+    form.submit();
   };
 
   const handleAvatarChange = (info) => {
@@ -77,6 +73,28 @@ const EditProfileHosts = () => {
       return { ...state, avatar: URL.createObjectURL(avatarFile) };
     });
   }
+
+  const onSubmit = async (values) => {
+    try {
+      const response = await api.push(`auth/${accountID}`, {
+        ...values,
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const handleUpdateProfile = async (values) => {
+    const response = await api.put(`auth/${loggedUser.accountID}`, values);
+    setModalVisible(false);
+    dispatch(login(response.data));
+  };
+
+  useEffect(() => {
+    onSubmit();
+  }, []);
+
   return (
     <>
       <Breadcrumb
@@ -110,7 +128,7 @@ const EditProfileHosts = () => {
                     <div className="description-container">
                       <div className="description-item Name">Name: {loggedUser.name}</div>
                       <div className="description-item email">Email: {loggedUser.email}</div>
-                      <div className="description-item password">Password: {item.password}</div>
+
                       <div className="description-item gender">Gender: {loggedUser.gender}</div>
                       <div className="description-item phone">Phone: {loggedUser.phone}</div>
                     </div>
@@ -126,7 +144,7 @@ const EditProfileHosts = () => {
             form={form}
             labelCol={{ span: 8 }}
             wrapperCol={{ span: 16 }}
-            onFinish={(values) => console.log("Received values:", values)}
+            onFinish={(values) => handleUpdateProfile(values)}
           >
             <Form.Item label="Name" name="name">
               <Input name="name" />
@@ -143,18 +161,7 @@ const EditProfileHosts = () => {
             >
               <Input name="email" />
             </Form.Item>
-            <Form.Item
-              label="Password"
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your password!",
-                },
-              ]}
-            >
-              <Input.Password />
-            </Form.Item>
+
             <Form.Item
               label="Gender"
               name="gender"
@@ -165,7 +172,10 @@ const EditProfileHosts = () => {
                 },
               ]}
             >
-              <Input name="gender" />
+              <Radio.Group defaultValue={"MALE"}>
+                <Radio value={"MALE"}>Male</Radio>
+                <Radio value={"FEMALE"}>Female</Radio>
+              </Radio.Group>
             </Form.Item>
             <Form.Item
               label="Phone Number"

@@ -23,75 +23,9 @@ import api from "../../config/axios";
 import "./checkout.css";
 import { Image } from "antd";
 
-const cartItemsData = [
-  {
-    id: 1,
-    name: "Package 5",
-    imageURL: "https://livforcake.com/wp-content/uploads/2017/02/chocolate-strawberry-cake-3.jpg",
-    quantity: 1,
-    price: 110.99,
-  },
-  {
-    id: 2,
-    name: "Package 3",
-    imageURL: "https://livforcake.com/wp-content/uploads/2017/02/chocolate-strawberry-cake-3.jpg",
-    quantity: 2,
-    price: 259.99,
-  },
-  {
-    id: 3,
-    name: "Package 1",
-    imageURL: "https://livforcake.com/wp-content/uploads/2017/02/chocolate-strawberry-cake-3.jpg",
-    quantity: 1,
-    price: 109.99,
-  },
-  {
-    id: 4,
-    name: "Package 2",
-    imageURL: "https://livforcake.com/wp-content/uploads/2017/02/chocolate-strawberry-cake-3.jpg",
-    quantity: 1,
-    price: 110.99,
-  },
-  {
-    id: 5,
-    name: "Package 2",
-    imageURL: "https://livforcake.com/wp-content/uploads/2017/02/chocolate-strawberry-cake-3.jpg",
-    quantity: 1,
-    price: 110.99,
-  },
-  {
-    id: 6,
-    name: "Package 2",
-    imageURL: "https://livforcake.com/wp-content/uploads/2017/02/chocolate-strawberry-cake-3.jpg",
-    quantity: 1,
-    price: 110.99,
-  },
-  {
-    id: 7,
-    name: "Package 2",
-    imageURL: "https://livforcake.com/wp-content/uploads/2017/02/chocolate-strawberry-cake-3.jpg",
-    quantity: 1,
-    price: 110.99,
-  },
-  {
-    id: 8,
-    name: "Package 2",
-    imageURL: "https://livforcake.com/wp-content/uploads/2017/02/chocolate-strawberry-cake-3.jpg",
-    quantity: 1,
-    price: 110.99,
-  },
-  {
-    id: 9,
-    name: "Package 2",
-    imageURL: "https://livforcake.com/wp-content/uploads/2017/02/chocolate-strawberry-cake-3.jpg",
-    quantity: 1,
-    price: 110.99,
-  },
-];
-
-const Checkout = () => {
+const Checkout = ({ setCartItemsIndex }) => {
   const booking = useSelector((store) => store.booking);
-  const [cartItems, setCartItems] = useState(cartItemsData);
+  const [cartItems, setCartItems] = useState([]);
   const handleDeleteItem = (index) => {
     cartItems.splice(index, 1);
 
@@ -139,9 +73,10 @@ const Checkout = () => {
   useEffect(() => {
     const fetch = async () => {
       let services = [];
-      const response = await api.get(`/api/services/${booking.package.packageID}`);
+      const response = await api.get(`/api/services/package/${booking.package.packageID}`);
+      console.log(response.data);
       services = [
-        ...response.data.map((item) => {
+        ...response.data?.map((item) => {
           return {
             ...item,
             type: "package",
@@ -167,10 +102,16 @@ const Checkout = () => {
     // data.push(booking.services);
     // console.log(data);
   }, []);
+
+  useEffect(() => {
+    if (cartItems) setCartItemsIndex(cartItems);
+  }, [cartItems]);
+
   var subtotal = 0;
   cartItems.forEach((item) => {
     subtotal += item.price * item.quantity;
   });
+
   return (
     <Flex w="full" mt="50px" gap={10}>
       <Box w="full">
@@ -193,7 +134,6 @@ const Checkout = () => {
             </Thead>
             <Tbody>
               {cartItems.map((item, index) => {
-                console.log(item);
                 return (
                   <Tr
                     key={`cart-item-${index} `}
@@ -223,7 +163,7 @@ const Checkout = () => {
                         )}
                       </Flex>
                     </Td>
-                    <Td>${(item.price * item.quantity).toFixed(2)}</Td>
+                    <Td>{(item.price * item.quantity).toFixed(2)} VND </Td>
                     <Td>
                       {item.type !== "package" && (
                         <Button
@@ -242,7 +182,7 @@ const Checkout = () => {
           </Table>
         </TableContainer>
         <Text textAlign="right" mt={10}>
-          Total: ${subtotal.toFixed(2)}
+          Total: {subtotal.toFixed(2)} VND
         </Text>
         <Divider my={10} />
       </Box>
