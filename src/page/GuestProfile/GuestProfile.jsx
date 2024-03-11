@@ -1,219 +1,235 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { HeaderLogin } from "../../component/HeaderLogin";
-import { Footer } from "../../component/Footer";
-import { PlusOutlined } from "@ant-design/icons";
-
+import React, { useState, useEffect } from "react";
 import {
+    Breadcrumb,
+    List,
+    Avatar,
+    Skeleton,
     Button,
-    Cascader,
-    Checkbox,
-    ColorPicker,
-    DatePicker,
+    Modal,
     Form,
-    Input,
-    InputNumber,
-    Radio,
-    Select,
-    Slider,
-    Switch,
-    TreeSelect,
     Upload,
+    Input,
+    Radio,
 } from "antd";
-import { red } from "@mui/material/colors";
-const { RangePicker } = DatePicker;
-const { TextArea } = Input;
-
-const normFile = (e) => {
-    if (Array.isArray(e)) {
-        return e;
-    }
-    return e?.fileList;
-};
+import { HomeOutlined, UploadOutlined } from "@ant-design/icons";
+import { useDispatch, useSelector } from "react-redux";
+import api from "../../config/axios";
+import { login } from "../../redux/features/userSlice";
+import { HeaderLogin } from "../../component/HeaderLogin";
 export const GuestProfile = () => {
-    const [componentDisabled, setComponentDisabled] = useState(false);
-    const [userData, setUserData] = useState({
-        name: "",
-        password: "",
-        email: "",
-        phone: "",
-        gender: "",
-        avatar: "",
-    });
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [initLoading, setInitLoading] = useState(true);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [form] = Form.useForm();
+    const [avatarFile, setAvatarFile] = useState(null);
+    const loggedUser = useSelector((store) => store.user);
+    const [editUser, setEditUser] = useState({});
+    const dispatch = useDispatch();
+    const fetchData = () => {
+        setLoading(true);
+        setTimeout(() => {
+            const mockData = [
+                {
+                    id: 1,
+                    name: "John Doe",
+                    avatar: "https://via.placeholder.com/150",
+                    username: "john.doe",
+                    email: "john.doe@example.com",
+                    password: "password123",
+                    phone: "xxxxxxxxxx",
+                    gender: "Male",
+                },
+            ];
+            setData(mockData);
+            setLoading(false);
+            setInitLoading(false);
+        }, 1000);
+    };
+    const handleEdit = () => {
+        form.setFieldsValue(loggedUser);
+        setEditUser(loggedUser);
+        setModalVisible(true);
+    };
+
+    const handleCancel = () => {
+        setModalVisible(false);
+    };
+
+    const handleSave = () => {
+        form.submit();
+    };
+
+    const handleAvatarChange = (info) => {
+        if (info.file.status === "done") {
+            setAvatarFile(info.file.originFileObj);
+        }
+    };
+
+    const uploadProps = {
+        name: "avatar",
+        action: "#",
+        onChange: handleAvatarChange,
+        showUploadList: false,
+    };
+
+    if (avatarFile) {
+        setEditUser((state) => {
+            return { ...state, avatar: URL.createObjectURL(avatarFile) };
+        });
+    }
+
+    const handleUpdateProfile = async (values) => {
+        const response = await api.put(`auth/${loggedUser.accountID}`, values);
+        setModalVisible(false);
+        dispatch(login(response.data));
+    };
 
     useEffect(() => {
-        if (!componentDisabled) {
-            fetchUserProfile();
-        }
-    }, [componentDisabled]);
-
-    const fetchUserProfile = async () => {
-        try {
-            const response = await fetch(
-                "http://birthdayblitzhub.online:8080/auth/getUser/97",
-                {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
-
-            if (response.ok) {
-                const userDataFromApi = await response.json();
-                setUserData(userDataFromApi);
-            } else {
-                console.error("Can't use the info of User");
-            }
-        } catch (error) {
-            console.error("Error", error);
-        }
-    };
-
-    const handleUpdateProfile = async () => {
-        try {
-            const response = await fetch(
-                "http://birthdayblitzhub.online:8080/auth/updateUser/97",
-                {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(userData),
-                }
-            );
-
-            if (response.ok) {
-                console.log("Update Success");
-            } else {
-                console.error("Can't use the info of User");
-            }
-        } catch (error) {
-            console.error("Error", error);
-        }
-    };
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setUserData((prevUserData) => ({
-            ...prevUserData,
-            [name]: value,
-        }));
-    };
+        fetchData();
+    }, []);
     return (
         <div>
             <HeaderLogin />
-            <div className="container ">
-                <section className="user-profile">
-                    <h1 className="heading">your profile</h1>
-                    <section className="form-container">
-                        <div className="info">
-                            {/* Display user profile data */}
-                            <div className="user">
-                                <img src={`${userData.avatar}`} alt="" />
-                                <h3>{userData.name}</h3>
-                                <p>{userData.email}</p>
-                                <Checkbox
-                                    checked={componentDisabled}
-                                    onChange={(e) =>
-                                        setComponentDisabled(e.target.checked)
-                                    }
-                                >
-                                    Form disabled
-                                </Checkbox>
-                                <Form
-                                    labelCol={{
-                                        span: 4,
-                                    }}
-                                    wrapperCol={{
-                                        span: 14,
-                                    }}
-                                    layout="horizontal"
-                                    disabled={componentDisabled}
-                                    style={{
-                                        maxWidth: 1000,
-                                    }}
-                                >
-                                    <Form.Item label="Name">
-                                        <Input
-                                            name="name"
-                                            value={userData.name}
-                                            onChange={handleInputChange}
-                                        />
-                                    </Form.Item>
-                                    <Form.Item label="Password">
-                                        <Input
-                                            name="password"
-                                            value={userData.password}
-                                            onChange={handleInputChange}
-                                        />
-                                    </Form.Item>
-                                    <Form.Item label="Email">
-                                        <Input
-                                            name="email"
-                                            value={userData.email}
-                                            onChange={handleInputChange}
-                                        />
-                                    </Form.Item>
-                                    <Form.Item label="Phone Numb ">
-                                        <Input
-                                            name="phone"
-                                            value={userData.phone}
-                                            onChange={handleInputChange}
-                                        />
-                                    </Form.Item>
-                                    <Form.Item label="Gender">
-                                        <Radio.Group
-                                            name="gender"
-                                            value={userData.gender}
-                                            onChange={handleInputChange}
-                                        >
-                                            <Radio value="apple"> Male </Radio>
-                                            <Radio value="pear"> Female </Radio>
-                                        </Radio.Group>
-                                    </Form.Item>
-
-                                    <Form.Item
-                                        label="Upload"
-                                        valuePropName="fileList"
-                                        getValueFromEvent={normFile}
+            <div className="container update-userProfile">
+                <Breadcrumb
+                    style={{ margin: "16px 0" }}
+                    items={[
+                        { href: "/homepage", title: <HomeOutlined /> },
+                        { href: "", title: "Hosts" },
+                        { title: "Update Profile" },
+                    ]}
+                />
+                <div style={{ padding: "0 24px" }}>
+                    <h1>Update Profile</h1>
+                    <List
+                        className="demo-loadmore-list"
+                        loading={initLoading}
+                        itemLayout="horizontal"
+                        dataSource={data}
+                        renderItem={(item) => (
+                            <List.Item
+                                actions={[
+                                    <Button
+                                        key="edit"
+                                        onClick={() => handleEdit(item)}
                                     >
-                                        <Upload
-                                            action="/upload.do"
-                                            listType="picture-card"
-                                        >
-                                            <button
-                                                style={{
-                                                    border: 0,
-                                                    background: "none",
-                                                }}
-                                                type="button"
-                                            >
-                                                <PlusOutlined />
-                                                <div
-                                                    style={{
-                                                        marginTop: 8,
-                                                    }}
-                                                >
-                                                    Upload
-                                                </div>
-                                            </button>
-                                        </Upload>
-                                    </Form.Item>
-                                </Form>
-
-                                <Button
-                                    type="primary"
-                                    onClick={handleUpdateProfile}
+                                        Edit
+                                    </Button>,
+                                ]}
+                            >
+                                <Skeleton
+                                    avatar
+                                    title={false}
+                                    loading={loading}
+                                    active
                                 >
-                                    Update Profile
+                                    <List.Item.Meta
+                                        avatar={
+                                            <Avatar src={loggedUser.avatar} />
+                                        }
+                                        title={loggedUser.name} // Thay đổi phần này
+                                        description={
+                                            <div className="description-container">
+                                                <div className="description-item Name">
+                                                    Name: {loggedUser.name}
+                                                </div>
+                                                <div className="description-item email">
+                                                    Email: {loggedUser.email}
+                                                </div>
+
+                                                <div className="description-item gender">
+                                                    Gender: {loggedUser.gender}
+                                                </div>
+                                                <div className="description-item phone">
+                                                    Phone: {loggedUser.phone}
+                                                </div>
+                                            </div>
+                                        }
+                                    />
+                                </Skeleton>
+                                <img
+                                    src={loggedUser.avatar}
+                                    alt="Avatar"
+                                    style={{ width: 100, marginLeft: 20 }}
+                                />
+                            </List.Item>
+                        )}
+                    />
+                    <Modal
+                        title="Edit Profile"
+                        visible={modalVisible}
+                        onCancel={handleCancel}
+                        onOk={handleSave}
+                    >
+                        <Form
+                            form={form}
+                            labelCol={{ span: 8 }}
+                            wrapperCol={{ span: 16 }}
+                            onFinish={(values) => handleUpdateProfile(values)}
+                        >
+                            <Form.Item label="Name" name="name">
+                                <Input name="name" />
+                            </Form.Item>
+                            <Form.Item
+                                label="Email"
+                                name="email"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "Please input your email!",
+                                    },
+                                ]}
+                            >
+                                <Input name="email" />
+                            </Form.Item>
+
+                            <Form.Item
+                                label="Gender"
+                                name="gender"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "Please input your Gender!",
+                                    },
+                                ]}
+                            >
+                                <Radio.Group defaultValue={"MALE"}>
+                                    <Radio value={"MALE"}>Male</Radio>
+                                    <Radio value={"FEMALE"}>Female</Radio>
+                                </Radio.Group>
+                            </Form.Item>
+                            <Form.Item
+                                label="Phone Number"
+                                name="phone"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "Please input your phone!",
+                                    },
+                                ]}
+                            >
+                                <Input name="phone" />
+                            </Form.Item>
+                            <Upload {...uploadProps}>
+                                <Button icon={<UploadOutlined />}>
+                                    Upload Avatar
                                 </Button>
-                            </div>
-                        </div>
-                    </section>
-                </section>
+                            </Upload>
+                            {avatarFile && (
+                                <img
+                                    src={URL.createObjectURL(avatarFile)}
+                                    alt="Avatar Preview"
+                                    style={{ width: 100, marginTop: 10 }}
+                                />
+                            )}
+                            <Form.Item name="id" noStyle>
+                                <Input type="hidden" />
+                            </Form.Item>
+                        </Form>
+                    </Modal>
+                </div>
             </div>
-            <Footer />
         </div>
     );
 };

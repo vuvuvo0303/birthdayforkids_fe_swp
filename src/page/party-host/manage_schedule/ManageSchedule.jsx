@@ -24,7 +24,7 @@ import {
 } from "@chakra-ui/react";
 import { toast } from "react-toastify";
 import api from "../../../config/axios";
-import { format } from "date-and-time";
+import { format } from "date-fns";
 import date from "date-and-time";
 const schedulesData = [
     {

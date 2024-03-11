@@ -30,7 +30,7 @@ import ManageService from "./component/list/ManageServices.jsx";
 import ViewListServices from "./component/list/ViewListServices.jsx";
 import ServiceDecription from "./component/decription/ServiceDecription.jsx";
 import PackageDecription from "./component/decription/PackageDecription.jsx";
-// import ManageSchedule from "./page/party-host/manage_schedule/ManageSchedule.jsx";
+import ManageSchedule from "./page/party-host/manage_schedule/ManageSchedule.jsx";
 import StepProgress from "./page/step_progress/index.jsx";
 import SuccessPage from "./page/success/index.jsx";
 import ManageOrder from "./page/dashboad_admin/report_admin/manage-orders/ManageOrder";
@@ -82,7 +82,7 @@ function App() {
                         },
                         {
                             path: "manage-schedule",
-                            // element: <ManageSchedule />,
+                            element: <ManageSchedule />,
                         },
                     ],
                 },
@@ -143,7 +143,7 @@ function App() {
             element: <GuestDetail />,
         },
         {
-            path: "/guestProfile",
+            path: "/guestProfile/:id",
             element: <GuestProfile />,
         },
         {

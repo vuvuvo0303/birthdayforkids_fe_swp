@@ -135,19 +135,25 @@ export const HeaderLoginOfHost = () => {
 
                             <nav className="navbar">
                                 <a href="/about">
-                                    <i class="fa-solid fa-address-card"></i>
+                                    <i className="fa-solid fa-address-card"></i>
                                     <span>About</span>
                                 </a>
                             </nav>
                             <nav className="navbar">
+                                <a href="/dashboard/party-host">
+                                    <i className="fa-solid fa-table-columns"></i>
+                                    <span>DashBoard</span>
+                                </a>
+                            </nav>
+                            <nav className="navbar">
                                 <a href="/package">
-                                    <i class="fa-solid fa-boxes-stacked"></i>
+                                    <i className="fa-solid fa-boxes-stacked"></i>
                                     <span>Package</span>
                                 </a>
                             </nav>
                             <nav className="navbar">
                                 <a href="/service">
-                                    <i class="fa-solid fa-box"></i>
+                                    <i className="fa-solid fa-box"></i>
                                     <span>Service</span>
                                 </a>
                             </nav>
@@ -163,7 +169,7 @@ export const HeaderLoginOfHost = () => {
                                     left: 274,
                                 }}
                             >
-                                <i class="fa-solid fa-right-from-bracket"></i>
+                                <i className="fa-solid fa-right-from-bracket"></i>
                                 Logout
                             </Button>
                         </Drawer>

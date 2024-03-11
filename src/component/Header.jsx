@@ -60,7 +60,7 @@ export const Header = () => {
                     Service
                   </a>
                 </li>
-                <li classNames="navbar__item">
+                <li className="navbar__item">
                   <a href="#work1" className="navbar__link">
                     Work
                   </a>
@@ -79,7 +79,7 @@ export const Header = () => {
             </nav>
 
             {/* <!-- Action --> */}
-            <div classNames="action">
+            <div className="action">
               <a href="/login" className="action__login">
                 Login
               </a>
