@@ -244,3 +244,7 @@ const Register = () => {
   );
 };
 export default Register;
+
+function getBase64(originFileObj) {
+  throw new Error("Function not implemented.");
+}

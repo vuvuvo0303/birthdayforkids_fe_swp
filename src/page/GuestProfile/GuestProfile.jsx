@@ -20,8 +20,10 @@ import {
     TreeSelect,
     Upload,
 } from "antd";
+import { red } from "@mui/material/colors";
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
+
 const normFile = (e) => {
     if (Array.isArray(e)) {
         return e;
@@ -36,6 +38,7 @@ export const GuestProfile = () => {
         email: "",
         phone: "",
         gender: "",
+        avatar: "",
     });
 
     useEffect(() => {
@@ -47,7 +50,7 @@ export const GuestProfile = () => {
     const fetchUserProfile = async () => {
         try {
             const response = await fetch(
-                "http://birthdayblitzhub.online:8080/auth/getAlluser",
+                "http://birthdayblitzhub.online:8080/auth/getUser/97",
                 {
                     method: "GET",
                     headers: {
@@ -60,11 +63,42 @@ export const GuestProfile = () => {
                 const userDataFromApi = await response.json();
                 setUserData(userDataFromApi);
             } else {
-                console.error("Không thể lấy thông tin người dùng");
+                console.error("Can't use the info of User");
             }
         } catch (error) {
-            console.error("Lỗi khi lấy thông tin người dùng:", error);
+            console.error("Error", error);
         }
+    };
+
+    const handleUpdateProfile = async () => {
+        try {
+            const response = await fetch(
+                "http://birthdayblitzhub.online:8080/auth/updateUser/97",
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(userData),
+                }
+            );
+
+            if (response.ok) {
+                console.log("Update Success");
+            } else {
+                console.error("Can't use the info of User");
+            }
+        } catch (error) {
+            console.error("Error", error);
+        }
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setUserData((prevUserData) => ({
+            ...prevUserData,
+            [name]: value,
+        }));
     };
     return (
         <div>
@@ -76,7 +110,7 @@ export const GuestProfile = () => {
                         <div className="info">
                             {/* Display user profile data */}
                             <div className="user">
-                                <img src="" alt="" />
+                                <img src={`${userData.avatar}`} alt="" />
                                 <h3>{userData.name}</h3>
                                 <p>{userData.email}</p>
                                 <Checkbox
@@ -101,19 +135,39 @@ export const GuestProfile = () => {
                                     }}
                                 >
                                     <Form.Item label="Name">
-                                        <Input />
+                                        <Input
+                                            name="name"
+                                            value={userData.name}
+                                            onChange={handleInputChange}
+                                        />
                                     </Form.Item>
                                     <Form.Item label="Password">
-                                        <Input />
+                                        <Input
+                                            name="password"
+                                            value={userData.password}
+                                            onChange={handleInputChange}
+                                        />
                                     </Form.Item>
                                     <Form.Item label="Email">
-                                        <Input />
+                                        <Input
+                                            name="email"
+                                            value={userData.email}
+                                            onChange={handleInputChange}
+                                        />
                                     </Form.Item>
                                     <Form.Item label="Phone Numb ">
-                                        <Input />
+                                        <Input
+                                            name="phone"
+                                            value={userData.phone}
+                                            onChange={handleInputChange}
+                                        />
                                     </Form.Item>
                                     <Form.Item label="Gender">
-                                        <Radio.Group>
+                                        <Radio.Group
+                                            name="gender"
+                                            value={userData.gender}
+                                            onChange={handleInputChange}
+                                        >
                                             <Radio value="apple"> Male </Radio>
                                             <Radio value="pear"> Female </Radio>
                                         </Radio.Group>
@@ -148,9 +202,12 @@ export const GuestProfile = () => {
                                     </Form.Item>
                                 </Form>
 
-                                <a href="#!" className="btn">
-                                    update profile
-                                </a>
+                                <Button
+                                    type="primary"
+                                    onClick={handleUpdateProfile}
+                                >
+                                    Update Profile
+                                </Button>
                             </div>
                         </div>
                     </section>
