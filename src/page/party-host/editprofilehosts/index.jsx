@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Breadcrumb, List, Avatar, Skeleton, Button, Modal, Form, Upload, Input, Radio } from "antd";
+import { Breadcrumb, List, Avatar, Skeleton, Button, Modal, Form, Upload, Input, Radio, Image } from "antd";
 import { HomeOutlined, UploadOutlined } from "@ant-design/icons";
 import "./index.css"; // Import tập tin CSS
 import { useDispatch, useSelector } from "react-redux";
 import api from "../../../config/axios";
 import { login } from "../../../redux/features/userSlice";
+import uploadFile from "../../../utils/upload";
 
 const EditProfileHosts = () => {
   const [data, setData] = useState([]);
@@ -56,7 +57,8 @@ const EditProfileHosts = () => {
   };
 
   const handleAvatarChange = (info) => {
-    if (info.file.status === "done") {
+    console.log(info);
+    if (info.file.status === "uploading") {
       setAvatarFile(info.file.originFileObj);
     }
   };
@@ -68,31 +70,40 @@ const EditProfileHosts = () => {
     showUploadList: false,
   };
 
-  if (avatarFile) {
-    setEditUser((state) => {
-      return { ...state, avatar: URL.createObjectURL(avatarFile) };
-    });
-  }
+  // if (avatarFile) {
+  //   setEditUser((state) => {
+  //     return { ...state, avatar: URL.createObjectURL(avatarFile) };
+  //   });
+  // }
 
-  const onSubmit = async (values) => {
-    try {
-      const response = await api.push(`auth/${accountID}`, {
-        ...values,
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
+  // const onSubmit = async (values) => {
+  // if (values.picture.file) {
+  //   const url = await uploadFile(values.picture.file.originFileObj);
+  //   values.picture = url;
+  // // }
+  // try {
+  //   const response = await api.put(`auth/${loggedUser.accountID}`, {
+  //     ...values,
+  //   });
+  //   console.log(response.data);
+  // } catch (error) {
+  //   console.error("Error:", error);
+  // }
+  // };
 
   const handleUpdateProfile = async (values) => {
+    console.log(values);
+    if (values.avatar.file) {
+      const url = await uploadFile(values.avatar.file.originFileObj);
+      values.avatar = url;
+    }
     const response = await api.put(`auth/${loggedUser.accountID}`, values);
     setModalVisible(false);
     dispatch(login(response.data));
   };
 
   useEffect(() => {
-    onSubmit();
+    handleUpdateProfile();
   }, []);
 
   return (
@@ -123,7 +134,7 @@ const EditProfileHosts = () => {
               <Skeleton avatar title={false} loading={loading} active>
                 <List.Item.Meta
                   avatar={<Avatar src={loggedUser.avatar} />}
-                  title={loggedUser.name} // Thay đổi phần này
+                  title={loggedUser.name}
                   description={
                     <div className="description-container">
                       <div className="description-item Name">Name: {loggedUser.name}</div>
@@ -189,11 +200,23 @@ const EditProfileHosts = () => {
             >
               <Input name="phone" />
             </Form.Item>
-            <Upload {...uploadProps}>
-              <Button icon={<UploadOutlined />}>Upload Avatar</Button>
-            </Upload>
-            {avatarFile && (
-              <img src={URL.createObjectURL(avatarFile)} alt="Avatar Preview" style={{ width: 100, marginTop: 10 }} />
+            <Form.Item
+              label="avatar"
+              name="avatar"
+              rules={[
+                {
+                  required: false,
+                },
+              ]}
+            >
+              <Upload {...uploadProps}>
+                <Button icon={<UploadOutlined />}>Upload Avatar</Button>
+              </Upload>
+            </Form.Item>
+            {avatarFile ? (
+              <Image src={URL.createObjectURL(avatarFile)} alt="Avatar Preview" width="30" />
+            ) : (
+              <Image src={loggedUser.avatar} width="30" />
             )}
             <Form.Item name="id" noStyle>
               <Input type="hidden" />

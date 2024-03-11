@@ -2,9 +2,9 @@ import { HomeOutlined, UserOutlined } from "@ant-design/icons";
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { Breadcrumb } from "antd";
 import React from "react";
-import DataTable from "./DataTable";
+import DataTableOfHost from "./DataTableOfHost";
 
-const ManageOrder = () => {
+const ManageOrdersOfHost = () => {
   return (
     <>
       <Breadcrumb
@@ -34,9 +34,9 @@ const ManageOrder = () => {
         </Text>
         <Box>{/* <AddButton /> */}</Box>
       </Flex>
-      <DataTable></DataTable>
+      <DataTableOfHost></DataTableOfHost>
     </>
   );
 };
 
-export default ManageOrder;
+export default ManageOrdersOfHost;
