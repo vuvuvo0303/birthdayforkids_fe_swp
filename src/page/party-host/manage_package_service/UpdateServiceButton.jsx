@@ -3,12 +3,13 @@ import { Flex, Image } from "@chakra-ui/react";
 import { Button, Form, Input, Modal, Upload } from "antd";
 import React, { useEffect, useState } from "react";
 import api from "../../../config/axios";
-import uploadFile from "../../../utils/upload";
 import { toast } from "react-toastify";
+import uploadFile from "../../../utils/upload";
 
-const UpdatePackageButton = ({ record, forceRerender }) => {
+const UpdateServiceButton = ({ record, forceRerender }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [pictureFile, setPictureFile] = useState(null);
+  const [servicePictureFile, setServicePictureFile] = useState(null);
+
   const [form] = Form.useForm();
   const showModal = () => {
     setIsModalOpen(true);
@@ -29,25 +30,25 @@ const UpdatePackageButton = ({ record, forceRerender }) => {
         const url = await uploadFile(e.picture.file.originFileObj);
         e.picture = url;
       }
-      const response = await api.put(`api/packages/${record.packageID}`, e);
-      console.log("Success:", response);
+      const response = await api.put(`api/services/${record.serviceID}`, e);
       forceRerender();
       toast.success("Update successfully!");
     } catch (error) {
       toast.error(e.message);
     }
+    forceRerender();
   };
 
-  const handlePackageImageChange = (e) => {
+  const handleServiceImageChange = (e) => {
     if (e.file.status === "uploading") {
-      setPictureFile(e.file.originFileObj);
+      setServicePictureFile(e.file.originFileObj);
     }
   };
 
   const uploadProps = {
     name: "picture",
     action: "#",
-    onChange: handlePackageImageChange,
+    onChange: handleServiceImageChange,
     showUploadList: false,
   };
 
@@ -56,15 +57,14 @@ const UpdatePackageButton = ({ record, forceRerender }) => {
       <Button type="primary" onClick={showModal}>
         Update
       </Button>
-      <Modal title="Update package" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
         <Flex justifyContent={"center"} p={5} mb={5}>
-          {pictureFile ? (
-            <Image src={URL.createObjectURL(pictureFile)} alt="Package Image Preview" width="100%" />
+          {servicePictureFile ? (
+            <Image src={URL.createObjectURL(servicePictureFile)} alt="Serivce Image Preview" width="100%" />
           ) : (
             <Image src={record.picture} width="100%" />
           )}
         </Flex>
-
         <Form
           form={form}
           labelCol={{ span: 8 }}
@@ -73,9 +73,9 @@ const UpdatePackageButton = ({ record, forceRerender }) => {
             onFinish(e);
           }}
         >
-          <Form.Item label="Package image" name="picture" initialValue={record.name}>
+          <Form.Item label="Serivce image" name="picture" initialValue={record.name}>
             <Upload {...uploadProps}>
-              <Button icon={<UploadOutlined />}>Upload new package image</Button>
+              <Button icon={<UploadOutlined />}>Upload new service image</Button>
             </Upload>
           </Form.Item>
 
@@ -117,4 +117,4 @@ const UpdatePackageButton = ({ record, forceRerender }) => {
   );
 };
 
-export default UpdatePackageButton;
+export default UpdateServiceButton;

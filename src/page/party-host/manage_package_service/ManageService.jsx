@@ -5,12 +5,15 @@ import { useEffect, useState } from "react";
 import api from "../../../config/axios";
 import uploadFile from "../../../utils/upload";
 import { toast } from "react-toastify";
-
+import UpdateServiceButton from "./UpdateServiceButton";
 const ManageService = ({ packageID }) => {
   const [form] = Form.useForm();
   const [showAddPackage, setShowService] = useState(false);
   const [dataSource, setDataSource] = useState([]);
-
+  const [rerenderKey, setRerenderKey] = useState(0);
+  const forceRerender = () => {
+    setRerenderKey(rerenderKey + 1);
+  };
   // const data = [
   //   {
   //     key: "1",
@@ -70,7 +73,7 @@ const ManageService = ({ packageID }) => {
 
   useEffect(() => {
     fetchService();
-  }, []);
+  }, [rerenderKey]);
 
   const handleDelete = async (record) => {
     try {
@@ -120,7 +123,7 @@ const ManageService = ({ packageID }) => {
           <Button type="primary" danger onClick={() => handleDelete(record)}>
             Delete
           </Button>
-          <Button type="primary">Update</Button>
+          <UpdateServiceButton record={record} forceRerender={forceRerender} />
         </Space>
       ),
     },

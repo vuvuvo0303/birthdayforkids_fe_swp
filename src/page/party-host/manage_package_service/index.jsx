@@ -8,6 +8,7 @@ import uploadFile from "../../../utils/upload";
 import { toast } from "react-toastify";
 import ManageService from "./ManageService";
 import UpdatePackageButton from "./UpdatePackageButton";
+
 export const ManagePackageAndService = () => {
   const [form] = useForm();
   const [showAddPackage, setShowPackage] = useState(false);
@@ -209,7 +210,7 @@ export const ManagePackageAndService = () => {
           >
             <Input.TextArea />
           </Form.Item>
-          <Form.Item label="Picture" name="picture" rules={[{ required: true, message: "Image must not be blank" }]}>
+          <Form.Item label="Picture" name="picture"  >
             <Dragger maxCount={1} {...props}>
               <p className="ant-upload-drag-icon">
                 <InboxOutlined />
