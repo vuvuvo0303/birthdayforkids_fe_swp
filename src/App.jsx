@@ -112,7 +112,7 @@ function App() {
       ],
     },
     {
-      path: "/step-progress",
+      path: "/step-progress/:accountID",
       element: <StepProgress />,
     },
     {

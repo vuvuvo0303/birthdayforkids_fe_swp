@@ -4,13 +4,14 @@ import "./package.css";
 import api from "../../config/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePackage } from "../../redux/features/bookingSlice";
+import { useParams } from "react-router-dom";
 
 export const ChoosePackage = () => {
   const [packages, setPackages] = useState([]);
   const selectedPackages = useSelector((store) => store?.booking?.package);
-
+  const params = useParams();
   const fetchPackages = async () => {
-    const response = await api.get(`/api/packages/packages-of-host/${68}`);
+    const response = await api.get(`/api/packages/packages-of-host/${params.accountID}`);
     setPackages(response.data);
   };
 
@@ -29,6 +30,16 @@ export const ChoosePackage = () => {
 
 const Package = ({ isSelected, data }) => {
   const dispatch = useDispatch();
+  const [services, setServices] = useState([]);
+  const fetchServices = async () => {
+    const response = await api.get(`/api/services/package/${data.packageID}`);
+    setServices(response.data);
+    console.log(response);
+  };
+
+  useEffect(() => {
+    fetchServices();
+  }, []);
 
   const handleSelectPackage = () => {
     dispatch(updatePackage(data));
@@ -38,30 +49,22 @@ const Package = ({ isSelected, data }) => {
     <div className={`package ${isSelected ? "select" : ""}`} onClick={handleSelectPackage}>
       <Row>
         <Col span={5}>
-          <Image
-            width={200}
-            src="https://parade.com/.image/t_share/MjAzMzU3NzQxMzU4NTIzOTgz/happy-birthday-wishes-messages.jpg"
-          />
+          <Image width={150} height={150} src={data.picture} />
         </Col>
         <Col span={19}>
-          <h1>Package name</h1>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident, quo! Labore deserunt illum cupiditate
-            doloremque ducimus, assumenda suscipit adipisci provident!
-          </p>
+          <h1>{data.name}</h1>
+          <p>{data.description}</p>
+          <strong>Price: {data.price} VND</strong>
 
           <ul>
-            <li>Item 1</li>
-            <li>Item 1</li>
-            <li>Item 1</li>
-            <li>Item 1</li>
-            <li>Item 1</li>
-            <li>Item 1</li>
-            <li>Item 1</li>
-            <li>Item 1</li>
-            <li>Item 1</li>
-            <li>Item 1</li>
-            <li>Item 1</li>
+            {services.map((item) => (
+              <li>
+                <strong> {item.name} </strong>- Price: ${item.price}
+                <Col span={8}>
+                  <Image width={150} height={150} src={item.picture} />
+                </Col>
+              </li>
+            ))}
           </ul>
         </Col>
       </Row>

@@ -1,22 +1,36 @@
 import React, { useEffect } from "react";
-import { Space, Table, Tag } from "antd";
-import { Button } from "@chakra-ui/react";
+import { Space, Table, Tag, Button } from "antd";
 import { useState } from "react";
 
 import { format } from "date-fns";
 import api from "../../../config/axios";
+import { useSelector } from "react-redux";
+import { login } from "../../../redux/features/userSlice";
 
 const DataTableOfHost = () => {
   const [data, setData] = useState([]);
+
   const [rerenderKey, setRerenderKey] = useState(0);
+  const handleAccept = async (orderID) => {
+    const response = await api.post(`api/orders/host/accept-order/${orderID}`);
+    console.log(response.data);
+    forceRerender();
+  };
+  const handleRefuse = async (orderID) => {
+    const response = await api.post(`api/orders/host/refuse-orders/${orderID}`);
+    console.log(response.data);
+    forceRerender();
+  };
+  const loggedUser = useSelector((store) => store.user);
   const forceRerender = () => {
     setRerenderKey(rerenderKey + 1);
   };
+
   const columns = [
     {
       title: "Customer",
       dataIndex: "customer",
-      key: "customerName",
+      key: "customer",
     },
     {
       title: "Phone",
@@ -67,37 +81,41 @@ const DataTableOfHost = () => {
       title: "Action",
       key: "action",
       render: (_, record) => (
-        <Space size="middle">
-          <Button
-            type="primary"
-            onClick={() => {
-              handleAccept(record.id);
-            }}
-          >
-            accept
-          </Button>
-          <Button
-            onClick={() => {
-              handleRefuse(record.id);
-            }}
-          >
-            Refuse
-          </Button>
-        </Space>
+        <>
+          {record.status === "ORDERED" && (
+            <Space size="middle">
+              <Button
+                type="primary"
+                onClick={() => {
+                  handleAccept(record.id);
+                }}
+              >
+                accept
+              </Button>
+              <Button
+                onClick={() => {
+                  handleRefuse(record.id);
+                }}
+              >
+                Refuse
+              </Button>
+            </Space>
+          )}
+        </>
       ),
     },
   ];
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await api.get("api/orders");
+      const response = await api.get(`api/orders/host/${loggedUser.accountID}`);
       const responseData = response.data;
       setData(
         responseData.map((item) => {
           return {
             id: item.orderID,
-            customer: item.customerName,
-            phone: item.phone,
+            customer: item.account.name,
+            phone: item.account.phone,
             package: item.packageEntity.name,
             quantity: item.quantity,
             totalPrice: item.totalPrice,

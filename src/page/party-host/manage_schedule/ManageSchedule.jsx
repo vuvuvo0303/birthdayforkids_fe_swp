@@ -49,7 +49,6 @@ const schedulesData = [
 
 const ManageSchedule = () => {
   const [schedules, setSchedules] = useState(schedulesData);
-
   const handleDelete = (id) => {
     if (confirm("Do you want to delete this schedule?")) {
       setSchedules((prev) => {

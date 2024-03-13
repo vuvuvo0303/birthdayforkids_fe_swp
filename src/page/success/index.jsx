@@ -7,7 +7,7 @@ const SuccessPage = () => {
   const fetchOrder = async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const orderId = urlParams.get("vnp_TxnRef");
-    const response = await api.get(`/api/orders/${orderId}`);
+    const response = await api.get(`/api/orders/update-order?orderId=${orderId}`);
     console.log(response);
     setOrder(response.data);
   };
