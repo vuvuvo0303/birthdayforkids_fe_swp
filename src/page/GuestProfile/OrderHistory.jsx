@@ -3,10 +3,11 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 import axios from "axios";
-import { Button } from "antd";
+import { Button, Form, Input, Modal, Rate } from "antd";
 import { useSelector } from "react-redux";
 
 export const OrderHistory = () => {
+    const [modalVisible, setModalVisible] = useState(false);
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const loggedUser = useSelector((store) => store.user);
@@ -22,6 +23,20 @@ export const OrderHistory = () => {
     useEffect(() => {
         fetchData(loggedUser.accountID);
     }, []);
+
+    const [form] = Form.useForm();
+
+    const handleOk = () => {
+        form.submit();
+    };
+
+    const handleCancel = () => {
+        setModalVisible(false);
+    };
+
+    const onSubmit = (values) => {
+        console.log(values);
+    };
 
     return (
         <div className="container table-orderHistory">
@@ -47,12 +62,53 @@ export const OrderHistory = () => {
                             <td>{item.packageEntity.description}</td>
                             <td>
                                 <Button>Detail</Button>
-                                <Button>FeedBack</Button>
+                                {item.status === "DONE" && (
+                                    <Button
+                                        onClick={() => setModalVisible(true)}
+                                    >
+                                        FeedBack
+                                    </Button>
+                                )}
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
+
+            <Modal
+                title="Rating and Feedback"
+                open={modalVisible}
+                onOk={handleOk}
+                onCancel={handleCancel}
+            >
+                <Form form={form} layout="vertical" onFinish={onSubmit}>
+                    <Form.Item
+                        label="Rating"
+                        name="rating"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Please rate this item!",
+                            },
+                        ]}
+                    >
+                        <Rate />
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Feedback"
+                        name="feedback"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Please provide feedback!",
+                            },
+                        ]}
+                    >
+                        <Input.TextArea rows={4} />
+                    </Form.Item>
+                </Form>
+            </Modal>
         </div>
     );
 };

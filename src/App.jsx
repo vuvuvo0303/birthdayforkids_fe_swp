@@ -109,6 +109,10 @@ function App() {
                             path: "manage-orders",
                             element: <ManageOrder />,
                         },
+                        {
+                            path: "wallet",
+                            element: <Wallet />,
+                        },
                     ],
                 },
             ],
