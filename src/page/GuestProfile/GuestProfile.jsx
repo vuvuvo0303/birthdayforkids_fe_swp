@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { PlusOutlined } from "@ant-design/icons";
 import {
     Breadcrumb,
     List,
@@ -11,11 +12,23 @@ import {
     Input,
     Radio,
 } from "antd";
+import {
+    Cascader,
+    Checkbox,
+    ColorPicker,
+    DatePicker,
+    InputNumber,
+    Select,
+    Slider,
+    Switch,
+    TreeSelect,
+} from "antd";
 import { HomeOutlined, UploadOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import api from "../../config/axios";
 import { login } from "../../redux/features/userSlice";
 import { HeaderLogin } from "../../component/HeaderLogin";
+import { Image } from "antd";
 export const GuestProfile = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -26,6 +39,19 @@ export const GuestProfile = () => {
     const loggedUser = useSelector((store) => store.user);
     const [editUser, setEditUser] = useState({});
     const dispatch = useDispatch();
+
+    const { RangePicker } = DatePicker;
+    const { TextArea } = Input;
+
+    const [componentDisabled, setComponentDisabled] = useState(true);
+
+    const normFile = (e) => {
+        if (Array.isArray(e)) {
+            return e;
+        }
+        return e?.fileList;
+    };
+
     const fetchData = () => {
         setLoading(true);
         setTimeout(() => {
@@ -88,6 +114,7 @@ export const GuestProfile = () => {
     useEffect(() => {
         fetchData();
     }, []);
+
     return (
         <div>
             <HeaderLogin />
@@ -95,139 +122,177 @@ export const GuestProfile = () => {
                 <Breadcrumb
                     style={{ margin: "16px 0" }}
                     items={[
-                        { href: "/homepage", title: <HomeOutlined /> },
-                        { href: "", title: "Hosts" },
+                        { href: "/", title: <HomeOutlined /> },
+
                         { title: "Update Profile" },
                     ]}
                 />
                 <div style={{ padding: "0 24px" }}>
-                    <h1>Update Profile</h1>
-                    <List
-                        className="demo-loadmore-list"
-                        loading={initLoading}
-                        itemLayout="horizontal"
-                        dataSource={data}
-                        renderItem={(item) => (
-                            <List.Item
-                                actions={[
-                                    <Button
-                                        key="edit"
-                                        onClick={() => handleEdit(item)}
-                                    >
-                                        Edit
-                                    </Button>,
-                                ]}
-                            >
-                                <Skeleton
-                                    avatar
-                                    title={false}
-                                    loading={loading}
-                                    active
+                    <h1 className="heading">Your Profile</h1>
+                    <div className="list-infoProfile">
+                        <List
+                            className="demo-loadmore-list"
+                            loading={initLoading}
+                            itemLayout="horizontal"
+                            dataSource={data}
+                            renderItem={(item) => (
+                                <List.Item
+                                    actions={[
+                                        <Button
+                                            key="edit"
+                                            onClick={() => handleEdit(item)}
+                                        >
+                                            Edit
+                                        </Button>,
+                                    ]}
                                 >
-                                    <List.Item.Meta
-                                        avatar={
-                                            <Avatar src={loggedUser.avatar} />
+                                    {/* <Skeleton
+                                        avatar
+                                        title={false}
+                                        loading={loading}
+                                        active
+                                    >
+                                        <List.Item.Meta
+                                            avatar={
+                                                <Avatar src={loggedUser.avatar} />
+                                            }
+                                            title={loggedUser.name} // Thay đổi phần này
+                                            description={
+                                                <div className="description-container">
+                                                    <div className="description-item Name">
+                                                        Name: {loggedUser.name}
+                                                    </div>
+                                                    <div className="description-item email">
+                                                        Email: {loggedUser.email}
+                                                    </div>
+    
+                                                    <div className="description-item gender">
+                                                        Gender: {loggedUser.gender}
+                                                    </div>
+                                                    <div className="description-item phone">
+                                                        Phone: {loggedUser.phone}
+                                                    </div>
+                                                </div>
+                                            }
+                                        />
+                                    </Skeleton> */}
+                                    {/* <Checkbox
+                                        checked={componentDisabled}
+                                        onChange={(e) =>
+                                            setComponentDisabled(e.target.checked)
                                         }
-                                        title={loggedUser.name} // Thay đổi phần này
-                                        description={
-                                            <div className="description-container">
-                                                <div className="description-item Name">
-                                                    Name: {loggedUser.name}
-                                                </div>
-                                                <div className="description-item email">
-                                                    Email: {loggedUser.email}
-                                                </div>
-
-                                                <div className="description-item gender">
-                                                    Gender: {loggedUser.gender}
-                                                </div>
-                                                <div className="description-item phone">
-                                                    Phone: {loggedUser.phone}
-                                                </div>
-                                            </div>
-                                        }
+                                    >
+                                        Form disabled
+                                    </Checkbox> */}
+                                    <Form
+                                        labelCol={{
+                                            span: 4,
+                                        }}
+                                        wrapperCol={{
+                                            span: 14,
+                                        }}
+                                        layout="horizontal"
+                                        disabled={componentDisabled}
+                                        style={{
+                                            maxWidth: 600,
+                                        }}
+                                    >
+                                        <Form.Item label="Name">
+                                            <Input value={loggedUser.name} />
+                                        </Form.Item>
+                                        <Form.Item label="Email">
+                                            <Input value={loggedUser.email} />
+                                        </Form.Item>
+                                        <Form.Item label="Gender">
+                                            <Input value={loggedUser.gender} />
+                                        </Form.Item>
+                                        <Form.Item label="Phone">
+                                            <Input value={loggedUser.phone} />
+                                        </Form.Item>
+                                    </Form>
+                                    <Image
+                                        width={200}
+                                        src={loggedUser.avatar}
+                                        alt="Avatar"
+                                        // style={{ width: 100, marginLeft: 20 }}
                                     />
-                                </Skeleton>
-                                <img
-                                    src={loggedUser.avatar}
-                                    alt="Avatar"
-                                    style={{ width: 100, marginLeft: 20 }}
-                                />
-                            </List.Item>
-                        )}
-                    />
-                    <Modal
-                        title="Edit Profile"
-                        visible={modalVisible}
-                        onCancel={handleCancel}
-                        onOk={handleSave}
-                    >
-                        <Form
-                            form={form}
-                            labelCol={{ span: 8 }}
-                            wrapperCol={{ span: 16 }}
-                            onFinish={(values) => handleUpdateProfile(values)}
-                        >
-                            <Form.Item label="Name" name="name">
-                                <Input name="name" />
-                            </Form.Item>
-                            <Form.Item
-                                label="Email"
-                                name="email"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: "Please input your email!",
-                                    },
-                                ]}
-                            >
-                                <Input name="email" />
-                            </Form.Item>
-
-                            <Form.Item
-                                label="Gender"
-                                name="gender"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: "Please input your Gender!",
-                                    },
-                                ]}
-                            >
-                                <Radio.Group defaultValue={"MALE"}>
-                                    <Radio value={"MALE"}>Male</Radio>
-                                    <Radio value={"FEMALE"}>Female</Radio>
-                                </Radio.Group>
-                            </Form.Item>
-                            <Form.Item
-                                label="Phone Number"
-                                name="phone"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: "Please input your phone!",
-                                    },
-                                ]}
-                            >
-                                <Input name="phone" />
-                            </Form.Item>
-                            <Upload {...uploadProps}>
-                                <Button icon={<UploadOutlined />}>
-                                    Upload Avatar
-                                </Button>
-                            </Upload>
-                            {avatarFile && (
-                                <img
-                                    src={URL.createObjectURL(avatarFile)}
-                                    alt="Avatar Preview"
-                                    style={{ width: 100, marginTop: 10 }}
-                                />
+                                    <img />
+                                </List.Item>
                             )}
-                            <Form.Item name="id" noStyle>
-                                <Input type="hidden" />
-                            </Form.Item>
-                        </Form>
-                    </Modal>
+                        />
+                        <Modal
+                            title="Edit Profile"
+                            visible={modalVisible}
+                            onCancel={handleCancel}
+                            onOk={handleSave}
+                        >
+                            <Form
+                                form={form}
+                                labelCol={{ span: 8 }}
+                                wrapperCol={{ span: 16 }}
+                                onFinish={(values) => handleUpdateProfile(values)}
+                            >
+                                <Form.Item label="Name" name="name">
+                                    <Input name="name" />
+                                </Form.Item>
+                                <Form.Item
+                                    label="Email"
+                                    name="email"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: "Please input your email!",
+                                        },
+                                    ]}
+                                >
+                                    <Input name="email" />
+                                </Form.Item>
+    
+                                <Form.Item
+                                    label="Gender"
+                                    name="gender"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: "Please input your Gender!",
+                                        },
+                                    ]}
+                                >
+                                    <Radio.Group defaultValue={"MALE"}>
+                                        <Radio value={"MALE"}>Male</Radio>
+                                        <Radio value={"FEMALE"}>Female</Radio>
+                                    </Radio.Group>
+                                </Form.Item>
+                                <Form.Item
+                                    label="Phone Number"
+                                    name="phone"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: "Please input your phone!",
+                                        },
+                                    ]}
+                                >
+                                    <Input name="phone" />
+                                </Form.Item>
+                                <Upload {...uploadProps}>
+                                    <Button icon={<UploadOutlined />}>
+                                        Upload Avatar
+                                    </Button>
+                                </Upload>
+                                {avatarFile && (
+                                    <img
+                                        src={URL.createObjectURL(avatarFile)}
+                                        alt="Avatar Preview"
+                                        style={{ width: 100, marginTop: 10 }}
+                                    />
+                                )}
+                                <Form.Item name="id" noStyle>
+                                    <Input type="hidden" />
+                                </Form.Item>
+                            </Form>
+                        </Modal>
+                    </div>
                 </div>
             </div>
         </div>
