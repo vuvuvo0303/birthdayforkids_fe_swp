@@ -86,9 +86,9 @@ export default function ServiceDecription() {
         })
             .then(data => {
                 // Do something with the list of tasks
-                console.log('real data: ', data[0]);
-                setFeedback(data[0]);
-                return data[0];
+                console.log('real data: ', data);
+                setFeedback(data);
+                return data;
             })
             .catch(error => {
                 // handle error
@@ -104,12 +104,7 @@ export default function ServiceDecription() {
         <Box>
             <Header />
             <div className='Detail'>
-                <div>
-                    <img src={service?.picture} alt='Service Picture' />
-                    <p>User: {feedback?.account.name} </p>
-                    <p>FeedBack: {feedback?.description} </p>
-                    <p>Date: {feedback?.feedbackDate} </p>
-                </div>
+                <img src={service?.picture} alt='Service Picture' />
                 <div className='content'>
                     <h3>Service Name: {service?.name} </h3>
                     {/* <p>Host: {service?.account.name}</p> */}
@@ -130,6 +125,22 @@ export default function ServiceDecription() {
                     </div>
                 </div>
             </div>
+            <div className='container_feedback'>
+                {feedback && feedback.length > 0 ? (
+                    feedback.map((item) => (
+                        <div className='feedback' key={item?.serviceID}>
+                            <div className='head'>
+                                <p>User: {item?.account.name}</p>
+                                <p>Date: {item?.feedbackDate} </p>
+                            </div>
+                            <p className='Reviewed'>Reviewed: {item?.description} </p>
+                        </div>
+                    ))
+                ) : (
+                    <strong className='feedback' >HAVE NO FEEDBACK</strong>
+                )}
+            </div>
+
             <div id="popup1" className="overlay">
                 <div className="popup">
                     <a className="close" href="#">&times;</a>
@@ -188,7 +199,7 @@ export default function ServiceDecription() {
                     </form>
                 </div>
             </div>
-        </Box>
+        </Box >
     )
 
 }

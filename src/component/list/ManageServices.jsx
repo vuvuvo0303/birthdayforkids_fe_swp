@@ -21,7 +21,7 @@ export default function ViewListServices() {
     });
 
     const hanldeGetService = () => {
-        fetch('http://birthdayblitzhub.online:8080/api/services', {
+        fetch('http://birthdayblitzhub.online:8080/api/services/available', {
             method: 'GET',
             headers: { 'content-type': 'application/json' },
         }).then(res => {
@@ -36,7 +36,7 @@ export default function ViewListServices() {
             // handle error
         }).then(data => {
             // Do something with the list of tasks
-            // console.log('real data: ', data);
+            console.log('real data: ', data);
             setService(data);
             return data;
         }).catch(error => {
@@ -45,10 +45,9 @@ export default function ViewListServices() {
     }
 
     const handleUpdate = (ID) => {
-        // if (Object.keys(updatedData).length === 0) {
-        //     alert('Please provide at least one field to update.');
-        //     return;
-        // }
+        if (!window.confirm("Are you sure you want to update this item?")) {
+            return; // Nếu người dùng không xác nhận, dừng việc cập nhật
+        }
         fetch(`http://birthdayblitzhub.online:8080/api/services/${ID}`, {
             method: "PUT", // or PATCH
             headers: { "content-type": "application/json" },
@@ -58,30 +57,39 @@ export default function ViewListServices() {
                 if (res.ok) {
                     return res.json();
                 }
-                // handle error
+                throw new Error('Failed to update data');
             })
-            .then((task) => {
-                // Do something with updated task
-                console.log("check data: ", task);
+            .then((updatedData) => {
+                // Hiển thị thông báo thành công
+                console.log("Data updated successfully: ", updatedData);
+                alert("Data updated successfully");
+                // Làm mới dữ liệu
+                hanldeGetService();
             })
             .catch((error) => {
                 // handle error
+                console.error("Error updating data: ", error);
+                // alert("Failed to update data");
             });
     };
 
     const handleDeleteService = (ServiceID) => {
         // alert('Do you want to Delete?');
-        const url =
-            "http://birthdayblitzhub.online:8080/api/services/" + ServiceID;
-        fetch(url, {
+        // if (!window.confirm("Are you sure you want to Delete this item?")) {
+        //     return; // Nếu người dùng không xác nhận, dừng việc cập nhật
+        // }
+        // const url = "http://birthdayblitzhub.online:8080/api/services/" + ServiceID;
+        fetch(`http://birthdayblitzhub.online:8080/api/services/${ServiceID}`, {
             method: "DELETE",
         })
             .then(async (data) => {
-                console.log(ServiceID);
+                // console.log(ServiceID);
                 const newArray = service.filter(
                     (item) => item.serviceID !== ServiceID
                 );
                 setService(newArray);
+                // alert("delete successfully")
+                return data;
             })
             .catch((error) => {
                 // handle error
@@ -89,7 +97,7 @@ export default function ViewListServices() {
     };
 
     const hanldeGetPackage = () => {
-        fetch('http://birthdayblitzhub.online:8080/api/packages/allPackages', {
+        fetch('http://birthdayblitzhub.online:8080/api/packages/available', {
             method: 'GET',
             headers: { 'content-type': 'application/json' },
         }).then(res => {
@@ -104,7 +112,7 @@ export default function ViewListServices() {
             // handle error
         }).then(data => {
             // Do something with the list of tasks
-            // console.log('real data: ', data);
+            console.log('real data: ', data);
             setPackage(data);
             return data;
         }).catch(error => {
@@ -126,11 +134,14 @@ export default function ViewListServices() {
                 if (res.ok) {
                     return res.json();
                 }
-                // handle error
+                throw new Error('Failed to update data');
             })
-            .then((task) => {
-                // Do something with updated task
-                console.log("check data: ", task);
+            .then((updatedData) => {
+                // Hiển thị thông báo thành công
+                console.log("Data updated successfully: ", updatedData);
+                alert("Data updated successfully");
+                // Làm mới dữ liệu
+                hanldeGetPackage();
             })
             .catch((error) => {
                 // handle error
@@ -230,6 +241,10 @@ export default function ViewListServices() {
         <Box>
             <Header />
             <div className='choose'>
+                <div className='choose_button'>
+                    <button className='Display' onClick={handleDisplayService}>List all service</button>
+                    <button className='Display' onClick={handleDisplayPackage}>List all package</button>
+                </div>
                 <Select
                     // defaultValue="Desc"
                     style={{
@@ -255,8 +270,6 @@ export default function ViewListServices() {
                         },
                     ]}
                 />
-                <button className='Display' onClick={handleDisplayService} >List all service</button>
-                <button className='Display' onClick={handleDisplayPackage}>List all package</button>
             </div>
             {/* {
                 service.length !== 0 ?
@@ -363,7 +376,7 @@ export default function ViewListServices() {
                             type="submit"
                             onClick={() => {
                                 handleUpdate(data?.serviceID);
-                                hanldeGetService();
+                                // hanldeGetService();
                             }}
                         >
                             Update
@@ -486,7 +499,7 @@ export default function ViewListServices() {
                             onClick={() => {
                                 handleUpdatePackage(data?.packageID);
                                 // setIsOpen(false);
-                                hanldeGetService();
+                                // hanldeGetPackage();
                             }}
                         >
                             Update
