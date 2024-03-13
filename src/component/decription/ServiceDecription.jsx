@@ -8,6 +8,7 @@ import { Header } from '../Header';
 export default function ServiceDecription() {
     const [service, setService] = useState(null);
     const userName = useParams();
+    const [feedback, setFeedback] = useState(null);
     const [data, setData] = useState({
         id: 0,
         name: '',
@@ -39,8 +40,35 @@ export default function ServiceDecription() {
     }
 
 
+
     const hanldeGetService = async (id = userName.id) => {
         const url = 'http://birthdayblitzhub.online:8080/api/services/' + id;
+        await fetch(url, {
+            method: 'GET',
+            headers: { 'content-type': 'application/json' },
+        }).then(res => {
+            if (!res.ok) {
+                throw new Error('Failed to fetch data')
+            }
+            if (res.ok) {
+                // console.log('checkData: ', res.json());
+                // setService(res.json());
+                return res.json();
+            }
+            // handle error
+        })
+            .then(data => {
+                // Do something with the list of tasks
+                // console.log('real data: ', data);
+                setService(data);
+                return data;
+            })
+            .catch(error => {
+                // handle error
+            })
+    }
+    const hanldeGetFeedBackService = async (id = userName.id) => {
+        const url = `http://birthdayblitzhub.online:8080/api/feedbacks/service/${id}`;
         await fetch(url, {
             method: 'GET',
             headers: { 'content-type': 'application/json' },
@@ -58,8 +86,8 @@ export default function ServiceDecription() {
         })
             .then(data => {
                 // Do something with the list of tasks
-                // console.log('real data: ', data);
-                setService(data);
+                console.log('real data: ', data);
+                setFeedback(data);
                 return data;
             })
             .catch(error => {
@@ -69,6 +97,7 @@ export default function ServiceDecription() {
 
     useEffect(() => {
         hanldeGetService();
+        hanldeGetFeedBackService();
     }, [])
 
     return (
@@ -78,7 +107,7 @@ export default function ServiceDecription() {
                 <img src={service?.picture} alt='Service Picture' />
                 <div className='content'>
                     <h3>Service Name: {service?.name} </h3>
-                    <p>Host: {service?.account.name}</p>
+                    {/* <p>Host: {service?.account.name}</p> */}
                     <p>Description:<br /> {service?.description}</p>
                     <p className='price'>Price: {service?.price}$</p>
                     <div>
@@ -96,6 +125,22 @@ export default function ServiceDecription() {
                     </div>
                 </div>
             </div>
+            <div className='container_feedback'>
+                {feedback && feedback.length > 0 ? (
+                    feedback.map((item) => (
+                        <div className='feedback' key={item?.serviceID}>
+                            <div className='head'>
+                                <p>User: {item?.account.name}</p>
+                                <p>Date: {item?.feedbackDate} </p>
+                            </div>
+                            <p className='Reviewed'>Reviewed: {item?.description} </p>
+                        </div>
+                    ))
+                ) : (
+                    <strong className='feedback' >HAVE NO FEEDBACK</strong>
+                )}
+            </div>
+
             <div id="popup1" className="overlay">
                 <div className="popup">
                     <a className="close" href="#">&times;</a>
@@ -154,7 +199,7 @@ export default function ServiceDecription() {
                     </form>
                 </div>
             </div>
-        </Box>
+        </Box >
     )
 
 }

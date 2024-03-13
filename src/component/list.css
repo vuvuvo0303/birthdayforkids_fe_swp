@@ -108,7 +108,7 @@ a{
 
   .list{
     margin: 0 3%;
-    margin-top:  85px;
+    /* margin-top:  85px; */
     padding: 3%;
     /* background-color: #D4F2FF; */
     /* border: 2px solid #D4F2FF; */
@@ -121,11 +121,15 @@ a{
     border-radius: 20px;
     border: 0;
     width: 5em;
+    z-index: 100000000000;
+
   }
 
   .servicee button:nth-child(1){
     background-color: #F0C6E7;
     color: black;
+    z-index: 100000000000;
+
   }
   .servicee button:nth-child(2){
     background-color: #C2F4B1;
@@ -147,20 +151,23 @@ a{
   }
   
   .Detail{
-    margin: 85px 0;
+    margin: 85px 150px;
     padding: 3%;
     /* background-color: rgba(91, 134, 229, 0.51); */
-    /* background-color:  rgb(237, 235, 235); */
+    background-color:  rgb(245, 245, 245);
     display: flex;
     border-radius: 20px;
+    /* border: 2px solid red; */
   }
   
   .Detail img{
     width: 550px;
-    height: 600px;
+    /* height: 600px; */
+    height: 400px;
     object-fit: cover;
     /* contain; */
     margin: 1em 1.5em;
+    /* margin-left: 10%; */
     background-color: azure;
     border-radius: 20px;
   }
@@ -211,11 +218,75 @@ a{
   width: 5em;
   }
   
-  label{
+  .content label{
     font-weight: bold;
     width: 140px;
   }
 
-  textarea{
+  .content textarea{
     width: 23vw;
   }
+
+  .Display{
+  background-color: #ADC9FF;
+  height: 2em;
+  margin: 0.5em;
+  /* margin-top: 12em; */
+  border-radius: 20px;
+  border: 0;
+  width: 10em;
+  }
+
+  .choose{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 100px ;
+    margin-bottom: 0;
+  }
+
+  .dash button{
+  background-color: #C2F4B1;
+  height: 2em;
+  /* margin-bottom: 1em; */
+  /* margin-top: 12em; */
+  border-radius: 20px;
+  border: 0;
+  width: 8em;
+  }
+
+  .dash {
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    /* margin-top: 20px;  */
+}
+.feedback{
+  /* margin: 5%; */
+  margin: 5% 150px;
+  padding: 2% 5%;
+  border-radius: 10px;
+  border: 2px solid #e2e8f0; 
+}
+
+.head{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5%;
+}
+
+.choose_button{
+  display: flex;
+}
+
+.choose_button button:active{
+  border: 3px inset rgb(85, 85, 255);
+  color: rgb(85, 85, 255);
+}
+
+.Reviewed{
+  text-align: left;
+}
+/* .container_feedback{
+  justify-content: space-around;
+} */
