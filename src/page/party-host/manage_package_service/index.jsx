@@ -20,7 +20,7 @@ export const ManagePackageAndService = () => {
 
   const fetchPackage = async () => {
     try {
-      const response = await api.get("api/packages/hostPackages");
+      const response = await api.get("api/packages/packages-of-host/no-variable");
       setDataSource(
         response.data.map((item) => {
           return {
@@ -92,7 +92,7 @@ export const ManagePackageAndService = () => {
       ),
     },
   ];
-  
+
   const handleDelete = async (record) => {
     try {
       const response = await api.delete(`/api/packages/${record.packageID}`);
@@ -181,7 +181,7 @@ export const ManagePackageAndService = () => {
           >
             <Input.TextArea />
           </Form.Item>
-          <Form.Item label="Picture" name="picture"  >
+          <Form.Item label="Picture" name="picture">
             <Dragger maxCount={1} {...props}>
               <p className="ant-upload-drag-icon">
                 <InboxOutlined />
