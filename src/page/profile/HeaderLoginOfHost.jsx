@@ -10,13 +10,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/features/userSlice";
 export const HeaderLoginOfHost = () => {
     const [isSticky, setSticky] = useState(false);
+    const [isProfileActive, setProfileActive] = useState(false);
+    const [isSearchActive, setSearchActive] = useState(false);
+    const [isMenuActive, setMenuActive] = useState(false);
+    const [hosts, setHosts] = useState([]);
+    const loggedUser = useSelector((store) => store.user);
+    const user = useSelector((store) => store.user);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!user) {
+            navigate("/");
+        }
+    }, [user]);
 
     useEffect(() => {
         const handleScroll = () => {
             const offset = window.scrollY;
             setSticky(offset > 50);
 
-            // Thực hiện các thay đổi trạng thái ở đây
             setProfileActive(false);
             setSearchActive(false);
         };
@@ -29,10 +42,6 @@ export const HeaderLoginOfHost = () => {
         };
     }, []);
 
-    const handleLogout = () => {
-        setLogoutClicked(true);
-    };
-
     const [open, setOpen] = useState(false);
     const showDrawer = () => {
         setOpen(true);
@@ -40,6 +49,30 @@ export const HeaderLoginOfHost = () => {
     const onClose = () => {
         setOpen(false);
     };
+    const [openWallet, setOpenWallet] = useState(false);
+    const hide = () => {
+        setOpenWallet(false);
+    };
+    const handleOpenChange = (openWallet) => {
+        setOpenWallet(openWallet);
+    };
+
+    const fetchData = async (id) => {
+        try {
+            const response = await fetch(
+                `http://birthdayblitzhub.online:8080/auth/getUser/${id}`
+            );
+            const data = await response.json();
+            console.log(data);
+            setHosts(data);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchData(loggedUser.accountID);
+    }, []);
 
     return (
         <div>
@@ -56,7 +89,7 @@ export const HeaderLoginOfHost = () => {
                 <div className="container">
                     {/* <!-- Header top --> */}
                     <div className="header-top">
-                        <a href="/">
+                        <a href="/HomepageHost">
                             <div className="logo">
                                 <img
                                     src="/img/Logo.svg"
@@ -123,26 +156,14 @@ export const HeaderLoginOfHost = () => {
                         >
                             <div className="avatar">
                                 <img
-                                    src="img/pic-1.jpg"
+                                    src={`${hosts.avatar}`}
                                     className="image"
                                     alt=""
                                 />
-                                <h3 className="name">shaikh anas</h3>
-                                <p className="role">student</p>
-                                <a
-                                    href="/GuestProfile"
-                                    className="btn btn-sidebar"
-                                >
-                                    View Profile
-                                </a>
+                                <h3 className="name">{hosts.name}</h3>
+                                <p className="role">{hosts.email}</p>
                             </div>
 
-                            <nav className="navbar">
-                                <a href="/about">
-                                    <i className="fa-solid fa-address-card"></i>
-                                    <span>About</span>
-                                </a>
-                            </nav>
                             <nav className="navbar">
                                 <a href="/dashboard/party-host">
                                     <i className="fa-solid fa-table-columns"></i>
@@ -150,22 +171,28 @@ export const HeaderLoginOfHost = () => {
                                 </a>
                             </nav>
                             <nav className="navbar">
-                                <a href="/package">
+                                <Link to={`/package/${loggedUser?.accountID}`}>
                                     <i className="fa-solid fa-boxes-stacked"></i>
                                     <span>Package</span>
-                                </a>
+                                </Link>
+                                {/* <a href="/package">
+                                    <i className="fa-solid fa-boxes-stacked"></i>
+                                    <span>Package</span>
+                                </a> */}
                             </nav>
                             <nav className="navbar">
-                                <a href="/service">
+                                <Link to={`/service/${loggedUser?.accountID}`}>
                                     <i className="fa-solid fa-box"></i>
                                     <span>Service</span>
-                                </a>
+                                </Link>
                             </nav>
 
                             {/* Logout Button */}
                             <Button
                                 type="default"
-                                onClick={handleLogout}
+                                onClick={() => {
+                                    dispatch(logout());
+                                }}
                                 className="logout-button"
                                 style={{
                                     position: "fixed",
@@ -177,6 +204,29 @@ export const HeaderLoginOfHost = () => {
                                 Logout
                             </Button>
                         </Drawer>
+                        <Popover
+                            content={
+                                <div>
+                                    <p style={{ color: "#07221C" }}>
+                                        <strong>
+                                            Wallet balance: 1.000.000.000 VND
+                                        </strong>
+                                    </p>
+                                    <a href="/Wallet">Add Money</a> <br />
+                                    <a onClick={hide} style={{ color: "red" }}>
+                                        close
+                                    </a>
+                                </div>
+                            }
+                            title={
+                                <span style={{ color: "gray" }}>My Wallet</span>
+                            }
+                            trigger="click"
+                            open={openWallet}
+                            onOpenChange={handleOpenChange}
+                        >
+                            <Button icon={<WalletOutlined />}></Button>
+                        </Popover>
                     </div>
                 </div>
             </header>

@@ -38,10 +38,12 @@ const LoginForm = () => {
             localStorage.setItem("token", JSON.stringify(response.data.tokens));
             dispatch(login(response.data));
             toast.success("Login successfully");
-            if (response.data.role == "Guest") {
+            if (response.data.role === "Guest") {
                 navigate("/homepageLogin");
-            } else if (response.data.role == "Host") {
-                navigate("/dashboard/party-host/manage-package-service");
+            } else if (response.data.role === "Host") {
+                navigate("/HomepageHost");
+            } else if (response.data.role === "Admin") {
+                navigate("/dashboard/admin");
             }
         } catch (e) {
             toast.error("Login fail");

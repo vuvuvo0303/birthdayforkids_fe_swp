@@ -39,6 +39,7 @@ import { Policy } from "./page/Privacy Policy/Policy.jsx";
 import ManageOrdersOfHost from "./page/party-host/ManageOrdersOfHost/ManageOrderOfHost";
 
 import { ViewInfoOfHost } from "./page/HostPage/ViewInfoOfHost";
+import { HomepageHost } from "./page/homepage/HomepageHost";
 function App() {
     const router = createBrowserRouter([
         {
@@ -117,15 +118,15 @@ function App() {
             element: <StepProgress />,
         },
         {
-            path: "/about",
+            path: "/about/:id",
             element: <ViewProfile />,
         },
         {
-            path: "/package",
+            path: "/package/:id",
             element: <Package />,
         },
         {
-            path: "/service",
+            path: "/service/:id",
             element: <Service />,
         },
         {
@@ -200,6 +201,11 @@ function App() {
         {
             path: "/Wallet",
             element: <Wallet />,
+        },
+        //Ta dao
+        {
+            path: "/HomepageHost",
+            element: <HomepageHost />,
         },
     ]);
     return (

@@ -124,7 +124,6 @@ export default function ViewListServices() {
 
     return (
         <Box>
-            <Header />
             <div className="choose">
                 <div className="choose_button">
                     <button className="Display" onClick={handleDisplayService}>
