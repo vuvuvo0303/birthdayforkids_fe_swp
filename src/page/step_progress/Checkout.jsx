@@ -211,7 +211,7 @@ const Checkout = ({ setCartItemsIndex }) => {
             w="200px"
             mb={10}
           />
-
+          <FormLabel fontSize="15px">Customer's Name</FormLabel>
           <Input
             disabled
             value={booking.information.username}

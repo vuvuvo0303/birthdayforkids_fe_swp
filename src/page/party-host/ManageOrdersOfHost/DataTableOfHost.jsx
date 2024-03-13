@@ -2,19 +2,16 @@ import React, { useEffect } from "react";
 import { Space, Table, Tag } from "antd";
 import { Button } from "@chakra-ui/react";
 import { useState } from "react";
-import api from "../../../../config/axios";
-import { format } from "date-fns";
 
-const DataTable = () => {
+import { format } from "date-fns";
+import api from "../../../config/axios";
+
+const DataTableOfHost = () => {
   const [data, setData] = useState([]);
   const [rerenderKey, setRerenderKey] = useState(0);
   const forceRerender = () => {
     setRerenderKey(rerenderKey + 1);
   };
-  // const handleDelete = async (id) => {
-  //   const response = await api.delete(`api/orders/${id}`);
-  //   forceRerender();
-  // };
   const columns = [
     {
       title: "Customer",
@@ -66,21 +63,29 @@ const DataTable = () => {
         );
       },
     },
-    // {
-    //   title: "Action",
-    //   key: "action",
-    //   render: (_, record) => (
-    //     <Space size="middle">
-    //       <Button
-    //         onClick={() => {
-    //           handleDelete(record.id);
-    //         }}
-    //       >
-    //         Delete
-    //       </Button>
-    //     </Space>
-    //   ),
-    // },
+    {
+      title: "Action",
+      key: "action",
+      render: (_, record) => (
+        <Space size="middle">
+          <Button
+            type="primary"
+            onClick={() => {
+              handleAccept(record.id);
+            }}
+          >
+            accept
+          </Button>
+          <Button
+            onClick={() => {
+              handleRefuse(record.id);
+            }}
+          >
+            Refuse
+          </Button>
+        </Space>
+      ),
+    },
   ];
 
   useEffect(() => {
@@ -106,4 +111,4 @@ const DataTable = () => {
   }, [rerenderKey, setRerenderKey]);
   return <Table columns={columns} dataSource={data} />;
 };
-export default DataTable;
+export default DataTableOfHost;

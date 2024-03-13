@@ -14,11 +14,12 @@ export const FillInformation = ({ form, setCurrent, current }) => {
   const info = useSelector((store) => store.booking.information);
   const fetchSchedule = async () => {
     const response = await api.get(`/api/schedules/68`);
+    console.log(response);
     setSchedule(
       response.data.map((item) => {
         return {
           label: item.time,
-          value: item.scheduleID,
+          value: item.id,
         };
       })
     );
@@ -62,7 +63,7 @@ export const FillInformation = ({ form, setCurrent, current }) => {
         <Form.Item label="Note" name="note" rules={[{ required: true, message: "Please input your Note" }]}>
           <Input.TextArea />
         </Form.Item>
-        <Form.Item label="time" name={"scheduleId"} rules={[{ required: true, message: "Please input your date" }]}>
+        <Form.Item label="time" name={"scheduleId"} rules={[{ required: true, message: "Please input your time" }]}>
           {/* <Calendar
             onChange={(value) => {
               console.log(value);
