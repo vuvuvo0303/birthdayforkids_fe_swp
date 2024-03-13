@@ -4,21 +4,23 @@ import { useState, useEffect } from "react";
 
 import axios from "axios";
 import { Button } from "antd";
+import { useSelector } from "react-redux";
 
 export const OrderHistory = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const loggedUser = useSelector((store) => store.user);
 
-    const fetchData = async () => {
+    const fetchData = async (id) => {
         const response = await axios.get(
-            "http://birthdayblitzhub.online:8080/api/orders/guest/112"
+            `http://birthdayblitzhub.online:8080/api/orders/guest/${id}`
         );
         console.log("data :", response.data);
         setData(response.data);
     };
 
     useEffect(() => {
-        fetchData();
+        fetchData(loggedUser.accountID);
     }, []);
 
     return (

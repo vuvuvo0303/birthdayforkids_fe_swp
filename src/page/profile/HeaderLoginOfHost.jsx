@@ -2,8 +2,12 @@ import React from "react";
 import "./index.css";
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
-import { Button, Drawer } from "antd";
 
+import { Button, Drawer, Popover } from "antd";
+import { WalletOutlined } from "@ant-design/icons";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../redux/features/userSlice";
 export const HeaderLoginOfHost = () => {
     const [isSticky, setSticky] = useState(false);
 

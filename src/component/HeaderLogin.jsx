@@ -4,8 +4,9 @@ import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { Button, Drawer, Popover } from "antd";
 import { WalletOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../redux/features/userSlice";
 
 export const HeaderLogin = () => {
     const [isSticky, setSticky] = useState(false);
@@ -14,6 +15,15 @@ export const HeaderLogin = () => {
     const [isMenuActive, setMenuActive] = useState(false);
     const [users, setUsers] = useState([]);
     const loggedUser = useSelector((store) => store.user);
+    const user = useSelector((store) => store.user);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!user) {
+            navigate("/");
+        }
+    }, [user]);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -32,10 +42,6 @@ export const HeaderLogin = () => {
             window.removeEventListener("scroll", handleScroll);
         };
     }, []);
-
-    const handleLogout = () => {
-        setLogoutClicked(true);
-    };
 
     const [open, setOpen] = useState(false);
     const showDrawer = () => {
@@ -173,7 +179,9 @@ export const HeaderLogin = () => {
                             {/* Logout Button */}
                             <Button
                                 type="default"
-                                onClick={handleLogout}
+                                onClick={() => {
+                                    dispatch(logout());
+                                }}
                                 className="logout-button"
                                 style={{
                                     position: "fixed",
