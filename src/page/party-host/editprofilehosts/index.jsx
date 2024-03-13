@@ -8,53 +8,52 @@ import { login } from "../../../redux/features/userSlice";
 import uploadFile from "../../../utils/upload";
 
 const EditProfileHosts = () => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [initLoading, setInitLoading] = useState(true);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [form] = Form.useForm();
-  const [avatarFile, setAvatarFile] = useState(null);
-  const loggedUser = useSelector((store) => store.user);
-  const [editUser, setEditUser] = useState({});
-  const dispatch = useDispatch();
-  useEffect(() => {
-    fetchData();
-  }, []);
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [initLoading, setInitLoading] = useState(true);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [form] = Form.useForm();
+    const [avatarFile, setAvatarFile] = useState(null);
+    const loggedUser = useSelector((store) => store.user);
+    const [editUser, setEditUser] = useState({});
+    const dispatch = useDispatch();
+    useEffect(() => {
+      fetchData();
+    }, []);
+    const fetchData = () => {
+        setLoading(true);
+        setTimeout(() => {
+            const mockData = [
+                {
+                    id: 1,
+                    name: "John Doe",
+                    avatar: "https://via.placeholder.com/150",
+                    username: "john.doe",
+                    email: "john.doe@example.com",
+                    password: "password123",
+                    phone: "xxxxxxxxxx",
+                    gender: "Male",
+                },
+            ];
+            setData(mockData);
+            setLoading(false);
+            setInitLoading(false);
+        }, 1000);
+    };
 
-  const fetchData = () => {
-    setLoading(true);
-    setTimeout(() => {
-      const mockData = [
-        {
-          id: 1,
-          name: "John Doe",
-          avatar: "https://via.placeholder.com/150",
-          username: "john.doe",
-          email: "john.doe@example.com",
-          password: "password123",
-          phone: "xxxxxxxxxx",
-          gender: "Male",
-        },
-      ];
-      setData(mockData);
-      setLoading(false);
-      setInitLoading(false);
-    }, 1000);
-  };
+    const handleEdit = () => {
+        form.setFieldsValue(loggedUser);
+        setEditUser(loggedUser);
+        setModalVisible(true);
+    };
 
-  const handleEdit = () => {
-    form.setFieldsValue(loggedUser);
-    setEditUser(loggedUser);
-    setModalVisible(true);
-  };
+    const handleCancel = () => {
+        setModalVisible(false);
+    };
 
-  const handleCancel = () => {
-    setModalVisible(false);
-  };
-
-  const handleSave = () => {
-    form.submit();
-  };
+    const handleSave = () => {
+        form.submit();
+    };
 
   const handleAvatarChange = (info) => {
     console.log(info);
@@ -63,12 +62,12 @@ const EditProfileHosts = () => {
     }
   };
 
-  const uploadProps = {
-    name: "avatar",
-    action: "#",
-    onChange: handleAvatarChange,
-    showUploadList: false,
-  };
+    const uploadProps = {
+        name: "avatar",
+        action: "#",
+        onChange: handleAvatarChange,
+        showUploadList: false,
+    };
 
   // if (avatarFile) {
   //   setEditUser((state) => {
@@ -140,38 +139,51 @@ const EditProfileHosts = () => {
                       <div className="description-item Name">Name: {loggedUser.name}</div>
                       <div className="description-item email">Email: {loggedUser.email}</div>
 
-                      <div className="description-item gender">Gender: {loggedUser.gender}</div>
-                      <div className="description-item phone">Phone: {loggedUser.phone}</div>
-                    </div>
-                  }
+                                            <div className="description-item gender">
+                                                Gender: {loggedUser.gender}
+                                            </div>
+                                            <div className="description-item phone">
+                                                Phone: {loggedUser.phone}
+                                            </div>
+                                        </div>
+                                    }
+                                />
+                            </Skeleton>
+                            <img
+                                src={loggedUser.avatar}
+                                alt="Avatar"
+                                style={{ width: 100, marginLeft: 20 }}
+                            />
+                        </List.Item>
+                    )}
                 />
-              </Skeleton>
-              <img src={loggedUser.avatar} alt="Avatar" style={{ width: 100, marginLeft: 20 }} />
-            </List.Item>
-          )}
-        />
-        <Modal title="Edit Profile" visible={modalVisible} onCancel={handleCancel} onOk={handleSave}>
-          <Form
-            form={form}
-            labelCol={{ span: 8 }}
-            wrapperCol={{ span: 16 }}
-            onFinish={(values) => handleUpdateProfile(values)}
-          >
-            <Form.Item label="Name" name="name">
-              <Input name="name" />
-            </Form.Item>
-            <Form.Item
-              label="Email"
-              name="email"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your email!",
-                },
-              ]}
-            >
-              <Input name="email" />
-            </Form.Item>
+                <Modal
+                    title="Edit Profile"
+                    visible={modalVisible}
+                    onCancel={handleCancel}
+                    onOk={handleSave}
+                >
+                    <Form
+                        form={form}
+                        labelCol={{ span: 8 }}
+                        wrapperCol={{ span: 16 }}
+                        onFinish={(values) => handleUpdateProfile(values)}
+                    >
+                        <Form.Item label="Name" name="name">
+                            <Input name="name" />
+                        </Form.Item>
+                        <Form.Item
+                            label="Email"
+                            name="email"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Please input your email!",
+                                },
+                            ]}
+                        >
+                            <Input name="email" />
+                        </Form.Item>
 
             <Form.Item
               label="Gender"
@@ -200,6 +212,8 @@ const EditProfileHosts = () => {
             >
               <Input name="phone" />
             </Form.Item>
+
+            
             <Form.Item
               label="avatar"
               name="avatar"

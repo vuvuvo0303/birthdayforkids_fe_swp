@@ -2,8 +2,12 @@ import React from "react";
 import "./index.css";
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
-import { Button, Drawer } from "antd";
 
+import { Button, Drawer, Popover } from "antd";
+import { WalletOutlined } from "@ant-design/icons";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../redux/features/userSlice";
 export const HeaderLoginOfHost = () => {
     const [isSticky, setSticky] = useState(false);
 
@@ -135,19 +139,25 @@ export const HeaderLoginOfHost = () => {
 
                             <nav className="navbar">
                                 <a href="/about">
-                                    <i class="fa-solid fa-address-card"></i>
+                                    <i className="fa-solid fa-address-card"></i>
                                     <span>About</span>
                                 </a>
                             </nav>
                             <nav className="navbar">
+                                <a href="/dashboard/party-host">
+                                    <i className="fa-solid fa-table-columns"></i>
+                                    <span>DashBoard</span>
+                                </a>
+                            </nav>
+                            <nav className="navbar">
                                 <a href="/package">
-                                    <i class="fa-solid fa-boxes-stacked"></i>
+                                    <i className="fa-solid fa-boxes-stacked"></i>
                                     <span>Package</span>
                                 </a>
                             </nav>
                             <nav className="navbar">
                                 <a href="/service">
-                                    <i class="fa-solid fa-box"></i>
+                                    <i className="fa-solid fa-box"></i>
                                     <span>Service</span>
                                 </a>
                             </nav>
@@ -163,7 +173,7 @@ export const HeaderLoginOfHost = () => {
                                     left: 274,
                                 }}
                             >
-                                <i class="fa-solid fa-right-from-bracket"></i>
+                                <i className="fa-solid fa-right-from-bracket"></i>
                                 Logout
                             </Button>
                         </Drawer>

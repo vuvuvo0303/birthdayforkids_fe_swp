@@ -1,86 +1,58 @@
 import React from "react";
-import { Space, Table, Tag } from "antd";
-import { Button, Flex } from "antd";
+
+import { useState, useEffect } from "react";
+
+import axios from "axios";
+import { Button } from "antd";
+import { useSelector } from "react-redux";
+
 export const OrderHistory = () => {
-    const columns = [
-        {
-            title: "Name",
-            dataIndex: "name",
-            key: "name",
-            render: (text) => <a>{text}</a>,
-        },
-        {
-            title: "Quantity",
-            dataIndex: "quantity",
-            key: "quantity",
-        },
-        {
-            title: "Address",
-            dataIndex: "address",
-            key: "address",
-        },
-        {
-            title: "Tags",
-            key: "tags",
-            dataIndex: "tags",
-            render: (_, { tags }) => (
-                <>
-                    {tags.map((tag) => {
-                        let color = tag.length > 5 ? "geekblue" : "green";
-                        if (tag === "Cancel") {
-                            color = "volcano";
-                        }
-                        return (
-                            <Tag color={color} key={tag}>
-                                {tag.toUpperCase()}
-                            </Tag>
-                        );
-                    })}
-                </>
-            ),
-        },
-        {
-            title: "Action",
-            key: "action",
-            render: (_, record) => (
-                <Space size="middle">
-                    <Flex gap="small" wrap="wrap">
-                        <Button>
-                            <a>Detail</a>
-                        </Button>
-                    </Flex>
-                </Space>
-            ),
-        },
-    ];
-    const data = [
-        {
-            key: "1",
-            name: "John Brown",
-            quantity: 32,
-            address: "New York No. 1 Lake Park",
-            tags: ["Done"],
-        },
-        {
-            key: "2",
-            name: "Jim Green",
-            quantity: 42,
-            address: "London No. 1 Lake Park",
-            tags: ["Cancel"],
-        },
-        {
-            key: "3",
-            name: "Joe Black",
-            quantity: 32,
-            address: "Sydney No. 1 Lake Park",
-            tags: ["Done"],
-        },
-    ];
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const loggedUser = useSelector((store) => store.user);
+
+    const fetchData = async (id) => {
+        const response = await axios.get(
+            `http://birthdayblitzhub.online:8080/api/orders/guest/${id}`
+        );
+        console.log("data :", response.data);
+        setData(response.data);
+    };
+
+    useEffect(() => {
+        fetchData(loggedUser.accountID);
+    }, []);
+
     return (
-        <div className="container">
-            <div className="table-orderHistory">
-                <Table columns={columns} dataSource={data} />
-            </div>
+        <div className="container table-orderHistory">
+            <table className="table">
+                <thead>
+                    <tr>
+                        <th scope="col">NO</th>
+                        <th scope="col">Name</th>
+                        {/* <th scope="col">Quantity</th> */}
+                        <th scope="col">Total Price</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {data.map((item, index) => (
+                        <tr key={index}>
+                            <th scope="row">{index}</th>
+                            {/* <td>{data.id}</td> */}
+                            <td>{item.packageEntity.name}</td>
+                            {/* <td>{item.quantity}</td> */}
+                            <td>{item.totalPrice}</td>
+                            <td>{item.packageEntity.description}</td>
+                            <td>
+                                <Button>Detail</Button>
+                                <Button>FeedBack</Button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 };
