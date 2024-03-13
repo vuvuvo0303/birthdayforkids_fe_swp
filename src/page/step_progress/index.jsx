@@ -10,7 +10,8 @@ import ChoosePackage from "./choose-package";
 import ChooseServices from "./choose-services";
 import { toast } from "react-toastify";
 import api from "../../config/axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { reset } from "../../redux/features/bookingSlice";
 
 const { Step } = Steps;
 const { Item } = Form;
@@ -22,7 +23,7 @@ const StepProgress = () => {
   const [form] = Form.useForm();
   const [cartItems, setCartItems] = useState();
   const booking = useSelector((store) => store.booking);
-
+  const dispatch = useDispatch();
   const steps = [
     {
       title: "Package",
@@ -77,7 +78,7 @@ const StepProgress = () => {
       schedule: booking?.information?.scheduleId,
     });
     const response = await api.post("api/orders/create-payment", {
-      totalPrice: calcTotal() * 25000,
+      totalPrice: calcTotal(),
       packageId: booking.package.packageID,
       nameReceiver: booking?.information?.username,
       phone: booking?.information?.phoneNumber,
@@ -89,7 +90,8 @@ const StepProgress = () => {
       orderDetailDTOList: booking.services.map((item) => item.serviceID),
     });
     console.log(response);
-    window.open(response.data);
+    dispatch(reset());
+    window.open(response.data, "_self");
   };
   return (
     <div>

@@ -29,7 +29,7 @@ export const bookingSlice = createSlice({
       state.information = action.payload;
       return state;
     },
-    reset: () => {
+    reset: (state, action) => {
       return initialState;
     },
   },

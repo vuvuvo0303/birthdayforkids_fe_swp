@@ -114,7 +114,7 @@ function App() {
             ],
         },
         {
-            path: "/step-progress",
+            path: "/booking/:accountID",
             element: <StepProgress />,
         },
         {

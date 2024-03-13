@@ -163,7 +163,7 @@ const Checkout = ({ setCartItemsIndex }) => {
                         )}
                       </Flex>
                     </Td>
-                    <Td>{(item.price * item.quantity).toFixed(2)} VND </Td>
+                    <Td>{(item.price * item.quantity).toFixed(0)} VND </Td>
                     <Td>
                       {item.type !== "package" && (
                         <Button
@@ -182,7 +182,7 @@ const Checkout = ({ setCartItemsIndex }) => {
           </Table>
         </TableContainer>
         <Text textAlign="right" mt={10}>
-          Total: {subtotal.toFixed(2)} VND
+          Total: {subtotal.toFixed(0)} VND
         </Text>
         <Divider my={10} />
       </Box>
