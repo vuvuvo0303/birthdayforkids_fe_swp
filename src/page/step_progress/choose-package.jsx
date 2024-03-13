@@ -8,21 +8,29 @@ import { useParams } from "react-router-dom";
 
 export const ChoosePackage = () => {
   const [packages, setPackages] = useState([]);
-  const selectedPackages = useSelector((store) => store?.booking?.package);
+  const selectedPackages = useSelector((store) => store?.booking);
+  // const selectedPackages = useSelector((store) => store?.booking.package.packageID);
+
   const params = useParams();
   const fetchPackages = async () => {
     const response = await api.get(`/api/packages/packages-of-host/${params.accountID}`);
+    // const response = await api.get(`/api/packages/packages-of-host/${selectedPackages}`);
+    console.log(response);
     setPackages(response.data);
   };
 
+  const handleLogRedux = (redux) => {
+    console.log("reduxbooking", selectedPackages);
+  }
   useEffect(() => {
     fetchPackages();
+    handleLogRedux(selectedPackages);
   }, []);
 
   return (
     <>
       {packages.map((item) => (
-        <Package data={item} isSelected={item?.packageID === selectedPackages?.packageID} />
+        <Package data={item} isSelected={item?.packageID === selectedPackages?.package?.packageID} />
       ))}
     </>
   );
@@ -61,7 +69,7 @@ const Package = ({ isSelected, data }) => {
               <li>
                 <strong> {item.name} </strong>- Price: ${item.price}
                 <Col span={8}>
-                  <Image width={150} height={150} src={item.picture} />
+                  {/* <Image width={150} height={150} src={item.picture} /> */}
                 </Col>
               </li>
             ))}

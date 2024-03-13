@@ -1,9 +1,12 @@
 import "../list.css";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Box } from "@mui/material";
-import { Header } from "../Header";
+// import { Header } from "../Header";
+import { HeaderLogin } from "../HeaderLogin";
+import { useDispatch, useSelector } from "react-redux";
+import { updatePackage } from "../../redux/features/bookingSlice";
 
 export default function PackageDecription() {
   const [packages, setPackage] = useState(null);
@@ -16,6 +19,14 @@ export default function PackageDecription() {
     description: "",
     picture: "",
   });
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const loggedUser = useSelector((store) => store.user);
+  const handleLogRedux = (redux) => {
+    // console.log("redux", redux);
+    console.log('account', packages?.account.accountID);
+
+  }
 
   const handleUpdatePackage = (ID) => {
     // if (Object.keys(updatedData).length === 0) {
@@ -61,7 +72,7 @@ export default function PackageDecription() {
       })
       .then((data) => {
         // Do something with the list of tasks
-        // console.log('real data: ', data);
+        console.log('real data: ', data);
         setPackage(data);
         return data;
       })
@@ -101,11 +112,12 @@ export default function PackageDecription() {
   useEffect(() => {
     hanldeGetPackage();
     hanldeGetServiceByPackageId();
+    handleLogRedux(loggedUser);
   }, []);
 
   return (
     <Box>
-      <Header />
+      <HeaderLogin />
       <div className="Detail">
         <img src={packages?.picture} alt="package Picture" />
         <div className="content">
@@ -123,9 +135,15 @@ export default function PackageDecription() {
           <p className="price">Price: {packages?.price}$</p>
           <div>
             <button>
-              <Link to={"/booking"}>Buy Now</Link>
+              <Link onClick={() => {
+                dispatch(updatePackage(packages))
+                navigate(`/booking/${packages?.account.accountID}`)
+              }}
+              >
+                Buy Now
+              </Link>
             </button>
-            <button
+            {/* <button
               onClick={() => {
                 // setIsOpen(true)
                 setData(packages);
@@ -134,7 +152,7 @@ export default function PackageDecription() {
               <a href="#popup2" id="openPopUp">
                 Update
               </a>
-            </button>
+            </button> */}
             <button>
               <Link to={"/ManageService"}>Cancel</Link>
             </button>
@@ -190,7 +208,7 @@ export default function PackageDecription() {
                 }}
               />
             </div>
-            <button
+            {/* <button
               className="buttUpdate"
               type="submit"
               onClick={() => {
@@ -199,8 +217,8 @@ export default function PackageDecription() {
               }}
             >
               Update
-            </button>
-            {/* <button onClick={() => { setIsOpen(false) }}>Close</button> */}
+            </button> */}
+            <button onClick={() => { setIsOpen(false) }}>Close</button>
           </form>
         </div>
       </div>
