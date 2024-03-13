@@ -212,6 +212,8 @@ const EditProfileHosts = () => {
             >
               <Input name="phone" />
             </Form.Item>
+
+            
             <Form.Item
               label="avatar"
               name="avatar"

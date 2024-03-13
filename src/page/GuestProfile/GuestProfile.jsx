@@ -29,6 +29,7 @@ import api from "../../config/axios";
 import { login } from "../../redux/features/userSlice";
 import { HeaderLogin } from "../../component/HeaderLogin";
 import { Image } from "antd";
+import uploadFile from "../../utils/upload";
 export const GuestProfile = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -51,6 +52,10 @@ export const GuestProfile = () => {
         }
         return e?.fileList;
     };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     const fetchData = () => {
         setLoading(true);
@@ -87,7 +92,8 @@ export const GuestProfile = () => {
     };
 
     const handleAvatarChange = (info) => {
-        if (info.file.status === "done") {
+        console.log(info);
+        if (info.file.status === "uploading") {
             setAvatarFile(info.file.originFileObj);
         }
     };
@@ -99,20 +105,25 @@ export const GuestProfile = () => {
         showUploadList: false,
     };
 
-    if (avatarFile) {
-        setEditUser((state) => {
-            return { ...state, avatar: URL.createObjectURL(avatarFile) };
-        });
-    }
+    // if (avatarFile) {
+    //     setEditUser((state) => {
+    //         return { ...state, avatar: URL.createObjectURL(avatarFile) };
+    //     });
+    // }
 
     const handleUpdateProfile = async (values) => {
+        console.log(values);
+        if (values.avatar.file) {
+            const url = await uploadFile(values.avatar.file.originFileObj);
+            values.avatar = url;
+        }
         const response = await api.put(`auth/${loggedUser.accountID}`, values);
         setModalVisible(false);
         dispatch(login(response.data));
     };
 
     useEffect(() => {
-        fetchData();
+        handleUpdateProfile();
     }, []);
 
     return (
@@ -146,44 +157,6 @@ export const GuestProfile = () => {
                                         </Button>,
                                     ]}
                                 >
-                                    {/* <Skeleton
-                                        avatar
-                                        title={false}
-                                        loading={loading}
-                                        active
-                                    >
-                                        <List.Item.Meta
-                                            avatar={
-                                                <Avatar src={loggedUser.avatar} />
-                                            }
-                                            title={loggedUser.name} // Thay đổi phần này
-                                            description={
-                                                <div className="description-container">
-                                                    <div className="description-item Name">
-                                                        Name: {loggedUser.name}
-                                                    </div>
-                                                    <div className="description-item email">
-                                                        Email: {loggedUser.email}
-                                                    </div>
-    
-                                                    <div className="description-item gender">
-                                                        Gender: {loggedUser.gender}
-                                                    </div>
-                                                    <div className="description-item phone">
-                                                        Phone: {loggedUser.phone}
-                                                    </div>
-                                                </div>
-                                            }
-                                        />
-                                    </Skeleton> */}
-                                    {/* <Checkbox
-                                        checked={componentDisabled}
-                                        onChange={(e) =>
-                                            setComponentDisabled(e.target.checked)
-                                        }
-                                    >
-                                        Form disabled
-                                    </Checkbox> */}
                                     <Form
                                         labelCol={{
                                             span: 4,
@@ -230,7 +203,9 @@ export const GuestProfile = () => {
                                 form={form}
                                 labelCol={{ span: 8 }}
                                 wrapperCol={{ span: 16 }}
-                                onFinish={(values) => handleUpdateProfile(values)}
+                                onFinish={(values) =>
+                                    handleUpdateProfile(values)
+                                }
                             >
                                 <Form.Item label="Name" name="name">
                                     <Input name="name" />
@@ -247,14 +222,15 @@ export const GuestProfile = () => {
                                 >
                                     <Input name="email" />
                                 </Form.Item>
-    
+
                                 <Form.Item
                                     label="Gender"
                                     name="gender"
                                     rules={[
                                         {
                                             required: true,
-                                            message: "Please input your Gender!",
+                                            message:
+                                                "Please input your Gender!",
                                         },
                                     ]}
                                 >
@@ -275,17 +251,30 @@ export const GuestProfile = () => {
                                 >
                                     <Input name="phone" />
                                 </Form.Item>
-                                <Upload {...uploadProps}>
-                                    <Button icon={<UploadOutlined />}>
-                                        Upload Avatar
-                                    </Button>
-                                </Upload>
-                                {avatarFile && (
-                                    <img
+
+                                <Form.Item
+                                    label="avatar"
+                                    name="avatar"
+                                    rules={[
+                                        {
+                                            required: false,
+                                        },
+                                    ]}
+                                >
+                                    <Upload {...uploadProps}>
+                                        <Button icon={<UploadOutlined />}>
+                                            Upload Avatar
+                                        </Button>
+                                    </Upload>
+                                </Form.Item>
+                                {avatarFile ? (
+                                    <Image
                                         src={URL.createObjectURL(avatarFile)}
                                         alt="Avatar Preview"
-                                        style={{ width: 100, marginTop: 10 }}
+                                        width="30"
                                     />
+                                ) : (
+                                    <Image src={loggedUser.avatar} width="30" />
                                 )}
                                 <Form.Item name="id" noStyle>
                                     <Input type="hidden" />

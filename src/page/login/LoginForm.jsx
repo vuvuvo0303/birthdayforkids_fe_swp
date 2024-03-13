@@ -38,7 +38,11 @@ const LoginForm = () => {
             localStorage.setItem("token", JSON.stringify(response.data.tokens));
             dispatch(login(response.data));
             toast.success("Login successfully");
-            navigate("/dashboard/party-host/manage-package-service");
+            if (response.data.role == "Guest") {
+                navigate("/homepageLogin");
+            } else if (response.data.role == "Host") {
+                navigate("/dashboard/party-host/manage-package-service");
+            }
         } catch (e) {
             toast.error("Login fail");
         }
