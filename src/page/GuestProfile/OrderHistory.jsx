@@ -5,9 +5,12 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Button, Form, Input, Modal, Rate } from "antd";
 import { useSelector } from "react-redux";
+import api from "../../config/axios";
+import { toast } from "react-toastify";
 
 export const OrderHistory = () => {
     const [modalVisible, setModalVisible] = useState(false);
+    const [orderId, setOrderId] = useState();
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const loggedUser = useSelector((store) => store.user);
@@ -26,7 +29,7 @@ export const OrderHistory = () => {
 
     const [form] = Form.useForm();
 
-    const handleOk = () => {
+    const handleOk = async () => {
         form.submit();
     };
 
@@ -34,8 +37,12 @@ export const OrderHistory = () => {
         setModalVisible(false);
     };
 
-    const onSubmit = (values) => {
+    const onSubmit = async (values) => {
         console.log(values);
+        await api.post(`/api/feedbacks/addFeedback/${orderId}`, values);
+        toast.success("Success!!!");
+        form.resetFields();
+        setModalVisible(false);
     };
 
     return (
@@ -64,7 +71,10 @@ export const OrderHistory = () => {
                                 <Button>Detail</Button>
                                 {item.status === "DONE" && (
                                     <Button
-                                        onClick={() => setModalVisible(true)}
+                                        onClick={() => {
+                                            setModalVisible(true);
+                                            setOrderId(item.orderID);
+                                        }}
                                     >
                                         FeedBack
                                     </Button>
@@ -96,8 +106,8 @@ export const OrderHistory = () => {
                     </Form.Item>
 
                     <Form.Item
-                        label="Feedback"
-                        name="feedback"
+                        label="description"
+                        name="description"
                         rules={[
                             {
                                 required: true,
