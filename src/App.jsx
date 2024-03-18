@@ -39,6 +39,7 @@ import { Policy } from "./page/Privacy Policy/Policy.jsx";
 import ManageOrdersOfHost from "./page/party-host/ManageOrdersOfHost/ManageOrderOfHost";
 
 import { ViewInfoOfHost } from "./page/HostPage/ViewInfoOfHost";
+import FailedPage from "./page/failpayment/index";
 function App() {
   const router = createBrowserRouter([
     {
@@ -193,6 +194,11 @@ function App() {
       path: "/success",
       element: <SuccessPage />,
     },
+    {
+      path: "/failed",
+      element: <FailedPage />,
+    },
+
     {
       path: "/Policy",
       element: <Policy />,
