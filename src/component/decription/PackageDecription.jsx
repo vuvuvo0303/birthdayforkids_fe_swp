@@ -119,20 +119,34 @@ export default function PackageDecription() {
     <Box>
       <HeaderLogin />
       <div className="Detail">
-        <img src={packages?.picture} alt="package Picture" />
+        <img src={packages?.picture} alt="Package Picture" />
         <div className="content">
-          <h3>Package Name: {packages?.name} </h3>
-          <p>Provided by: {packages?.account.name}</p>
-          <p>Name: {packages?.description}</p>
-          <div>
-            {/* <p>Including services:</p> */}
-            <ul>
-              Including services:
-              {services &&
-                services.map((item) => (item?.serviceID ? <li key={item?.serviceID}>{item?.name}</li> : <p>None</p>))}
-            </ul>
-          </div>
-          <p className="price">Price: {packages?.price}$</p>
+          <h3 className='Name'>Package Name: {packages?.name} </h3>
+          <br />
+          <h2 className="descrip">Description:</h2>
+          <ul className="descrip_cont">
+            <li>Provided by: {packages?.account.name}</li>
+            <li>Detail: {packages?.description}</li>
+            {services?.length !== 0 &&
+              <li className='summ'><details>
+                <summary>Including services:</summary>
+                <ul className='details'>
+                  {services && services.map((item) => (
+                    item?.serviceID
+                      ?
+                      <li key={item?.serviceID}>
+                        {item?.name}
+                      </li>
+                      :
+                      <p>None</p>
+                  ))}
+                </ul>
+              </details>
+              </li>
+            }
+
+          </ul>
+          <p className="price">Price: {packages?.price} VNĐ</p>
           <div>
             <button>
               <Link onClick={() => {
@@ -187,13 +201,12 @@ export default function PackageDecription() {
                 id="newPrice"
                 value={data.price}
                 onChange={(e) => {
-                  setData((State) => ({
-                    ...State,
+                  setData((prevState) => ({
+                    ...prevState,
                     price: e.target.value,
                   }));
                 }}
               />
-              $
             </div>
             <div>
               <label htmlFor="newDescription">Description:</label>
@@ -222,6 +235,6 @@ export default function PackageDecription() {
           </form>
         </div>
       </div>
-    </Box>
+    </Box >
   );
 }
