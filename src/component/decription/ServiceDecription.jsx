@@ -109,13 +109,16 @@ export default function ServiceDecription() {
             <div className="Detail">
                 <img src={service?.picture} alt="Service Picture" />
                 <div className="content">
-                    <h3>Service Name: {service?.name} </h3>
+                    <h3 className='Name'>Service Name: {service?.name} </h3>
                     {/* <p>Host: {service?.account.name}</p> */}
-                    <p>
-                        Description:
-                        <br /> {service?.description}
-                    </p>
-                    <p className="price">Price: {service?.price}$</p>
+                    <br/>
+                    <h2 className="descrip">Description:</h2>
+                    <ul className="descrip_cont">
+                        <li>Provided by: {service?.account.name}</li>
+                        <li>Detail: {service?.description}</li>
+                    </ul>
+
+                    <p className="price">Price: {service?.price} VNĐ</p>
                     <div>
                         {/* <button>Buy now</button> */}
                         <button
