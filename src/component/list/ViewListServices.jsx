@@ -41,7 +41,7 @@ export default function ViewListServices() {
     };
 
     const hanldeGetPackage = () => {
-        fetch("http://birthdayblitzhub.online:8080/api/packages/allPackages", {
+        fetch("http://birthdayblitzhub.online:8080/api/packages/available", {
             method: "GET",
             headers: { "content-type": "application/json" },
         })

@@ -194,7 +194,7 @@ const Checkout = ({ setCartItemsIndex }) => {
           <FormLabel fontSize="15px">Email address</FormLabel>
           <Input
             disabled
-            value={booking.information.email}
+            value={booking?.information?.email}
             fontSize="15px"
             p={8}
             border="1px solid black"
@@ -204,7 +204,7 @@ const Checkout = ({ setCartItemsIndex }) => {
           <FormLabel fontSize="15px">Phone Number</FormLabel>
           <Input
             disabled
-            value={booking.information.phoneNumber}
+            value={booking?.information?.phoneNumber}
             fontSize="15px"
             p={8}
             border="1px solid black"
@@ -214,7 +214,7 @@ const Checkout = ({ setCartItemsIndex }) => {
           <FormLabel fontSize="15px">Customer's Name</FormLabel>
           <Input
             disabled
-            value={booking.information.username}
+            value={booking?.information?.username}
             fontSize="15px"
             p={8}
             border="1px solid black"
@@ -224,7 +224,7 @@ const Checkout = ({ setCartItemsIndex }) => {
           <FormLabel fontSize="15px">Venue</FormLabel>
           <Input
             disabled
-            value={booking.information.venue}
+            value={booking?.information?.venue}
             fontSize="15px"
             p={8}
             border="1px solid black"
@@ -245,7 +245,7 @@ const Checkout = ({ setCartItemsIndex }) => {
           <FormLabel fontSize="15px">Time</FormLabel>
           <Input
             disabled
-            value={booking.information.time}
+            value={booking?.information?.time}
             fontSize="15px"
             p={8}
             border="1px solid black"

@@ -68,7 +68,7 @@ const StepProgress = () => {
     console.log(booking);
     console.log({
       totalPrice: calcTotal(),
-      packageId: booking.package.packageID,
+      packageId: booking?.package?.packageID,
       nameReceiver: booking?.information?.username,
       phone: booking?.information?.phoneNumber,
       email: booking?.information?.email,
@@ -79,7 +79,7 @@ const StepProgress = () => {
     });
     const response = await api.post("api/orders/create-payment", {
       totalPrice: calcTotal(),
-      packageId: booking.package.packageID,
+      packageId: booking?.package?.packageID,
       nameReceiver: booking?.information?.username,
       phone: booking?.information?.phoneNumber,
       email: booking?.information?.email,
@@ -87,11 +87,11 @@ const StepProgress = () => {
       slot: booking?.information?.slot,
       additionalNotes: booking?.information?.note,
       scheduleId: booking?.information?.scheduleId,
-      orderDetailDTOList: booking.services.map((item) => item.serviceID),
+      orderDetailDTOList: booking?.services?.map((item) => item.serviceID),
     });
     console.log(response);
     dispatch(reset());
-    window.open(response.data, "_self");
+    // window.open(response.data, "_self");
   };
   return (
     <div>
