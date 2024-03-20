@@ -159,37 +159,7 @@ export default function ViewListServices() {
                     ]}
                 />
             </div>
-            {/* {
-                service.length !== 0 ?
-                    <p></p>
-                    :
-                    <h2>Waiting...</h2>
-            } */}
-            {(displayType === "all" || displayType === "service") && (
-                <div className="list">
-                    {service.map((item, index) =>
-                        item?.serviceID ? (
-                            <div className="servicee" key={item.serviceID}>
-                                <img src={item.picture} alt="Service Picture" />
-                                <div className="content">
-                                    <h5>Service Name: {item.name} </h5>
-                                    <p>Host: {item.account.name}</p>
-                                    <p className="price">
-                                        Price: {item.price}$
-                                    </p>
-                                    <Link
-                                        to={`http://localhost:5173/serviceDetail/${item.serviceID}`}
-                                    >
-                                        <button>Detail</button>
-                                    </Link>
-                                </div>
-                            </div>
-                        ) : (
-                            <p>None</p>
-                        )
-                    )}
-                </div>
-            )}
+
 
             {/* {
                 packages.length !== 0 ?
@@ -204,14 +174,45 @@ export default function ViewListServices() {
                             <div className="servicee" key={item.packageID}>
                                 <img src={item.picture} alt="Service Picture" />
                                 <div className="content">
-                                    <h5>Package Name: {item.name} </h5>
+                                    <h5 className='NameIntoList'>Package Name: {item.name} </h5>
                                     <p>Host: {item.account.name}</p>
                                     {/* <p>{item.description}</p> */}
                                     <p className="price">
-                                        Price: {item.price}$
+                                        Price: {item.price} VNĐ
                                     </p>
                                     <Link
                                         to={`http://localhost:5173/packageDetail/${item.packageID}`}
+                                    >
+                                        <button>Detail</button>
+                                    </Link>
+                                </div>
+                            </div>
+                        ) : (
+                            <p>None</p>
+                        )
+                    )}
+                </div>
+            )}
+            {/* {
+                service.length !== 0 ?
+                    <p></p>
+                    :
+                    <h2>Waiting...</h2>
+            } */}
+            {(displayType === "all" || displayType === "service") && (
+                <div className="list">
+                    {service.map((item, index) =>
+                        item?.serviceID ? (
+                            <div className="servicee" key={item.serviceID}>
+                                <img src={item.picture} alt="Service Picture" />
+                                <div className="content">
+                                    <h5 className='NameIntoList'>Service Name: {item.name} </h5>
+                                    <p>Host: {item.account.name}</p>
+                                    <p className="price">
+                                        Price: {item.price} VNĐ
+                                    </p>
+                                    <Link
+                                        to={`http://localhost:5173/serviceDetail/${item.serviceID}`}
                                     >
                                         <button>Detail</button>
                                     </Link>

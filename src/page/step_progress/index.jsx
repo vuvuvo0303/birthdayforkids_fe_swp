@@ -91,7 +91,7 @@ const StepProgress = () => {
     });
     console.log(response);
     dispatch(reset());
-    // window.open(response.data, "_self");
+    window.open(response.data, "_self");
   };
   return (
     <div>
