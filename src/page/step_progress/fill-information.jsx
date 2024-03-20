@@ -55,8 +55,8 @@ export const FillInformation = ({ form, setCurrent, current }) => {
           name="phoneNumber"
           rules={[{ required: true, message: "Please input your password!" }]}
         >
-          <Input />
-        </Form.Item>
+          <Input type="number"/>
+        </Form.Item >
         <Form.Item label="Venue" name="venue" rules={[{ required: true, message: "Please input your Venue" }]}>
           <Input />
         </Form.Item>

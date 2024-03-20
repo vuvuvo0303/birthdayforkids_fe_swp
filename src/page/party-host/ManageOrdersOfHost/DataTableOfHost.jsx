@@ -14,12 +14,12 @@ const DataTableOfHost = () => {
   const handleAccept = async (orderID) => {
     const response = await api.post(`api/orders/host/accept-order/${orderID}`);
     console.log(response.data);
-    forceRerender();
+    fetchData();
   };
   const handleRefuse = async (orderID) => {
-    const response = await api.post(`api/orders/host/refuse-orders/${orderID}`);
+    const response = await api.post(`api/orders/host/refuse-order/${orderID}`);
     console.log(response.data);
-    forceRerender();
+    fetchData();
   };
   const loggedUser = useSelector((store) => store.user);
   const forceRerender = () => {
@@ -87,6 +87,7 @@ const DataTableOfHost = () => {
               <Button
                 type="primary"
                 onClick={() => {
+                  console.log(record);
                   handleAccept(record.id);
                 }}
               >
@@ -105,26 +106,28 @@ const DataTableOfHost = () => {
       ),
     },
   ];
+  const fetchData = async () => {
+    const response = await api.get(`api/orders/host/${loggedUser.accountID}`);
+    console.table(response.data);
+
+    const responseData = response.data;
+    setData(
+      responseData.map((item) => {
+        return {
+          id: item.orderID,
+          customer: item.account.name,
+          phone: item.account.phone,
+          package: item.packageEntity.name,
+          quantity: item.quantity,
+          totalPrice: item.totalPrice,
+          orderDate: format(item.createAt, "dd/MM/yyyy"),
+          status: item.status,
+        };
+      })
+    );
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await api.get(`api/orders/host/${loggedUser.accountID}`);
-      const responseData = response.data;
-      setData(
-        responseData.map((item) => {
-          return {
-            id: item.orderID,
-            customer: item.account.name,
-            phone: item.account.phone,
-            package: item.packageEntity.name,
-            quantity: item.quantity,
-            totalPrice: item.totalPrice,
-            orderDate: format(item.createAt, "dd/MM/yyyy"),
-            status: item.status,
-          };
-        })
-      );
-    };
     fetchData();
   }, [rerenderKey, setRerenderKey]);
   return <Table columns={columns} dataSource={data} />;
