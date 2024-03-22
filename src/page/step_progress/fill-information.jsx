@@ -63,7 +63,7 @@ export const FillInformation = ({ form, setCurrent, current }) => {
         <Form.Item label="Note" name="note" rules={[{ required: true, message: "Please input your Note" }]}>
           <Input.TextArea />
         </Form.Item>
-        <Form.Item label="time" name={"scheduleId"} rules={[{ required: true, message: "Please input your time" }]}>
+        <Form.Item label="time" name={"scheduleId"} rules={[{ required: false, message: "Please input your time" }]}>
           {/* <Calendar
             onChange={(value) => {
               console.log(value);

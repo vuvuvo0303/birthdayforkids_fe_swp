@@ -6,6 +6,8 @@ import {
   BarChartOutlined,
   EditOutlined,
   TableOutlined,
+  CommentOutlined,
+  WalletOutlined,
 } from "@ant-design/icons";
 import { Avatar, Breadcrumb, Button, Dropdown, Layout, Menu, Row, theme } from "antd";
 import Table from "../table";
@@ -49,10 +51,8 @@ const DashBoard = ({ role }) => {
         getItem("Manage accounts", "/dashboard/admin/manage-accounts", <TeamOutlined />),
         getItem("Report Admin", "/dashboard/admin/report-admin", <BarChartOutlined />),
         getItem("Manage Orders", "/dashboard/admin/manage-orders", <TableOutlined />),
-        getItem("Manage FeedBacks", "/dashboard/admin/manage-feedbacks", <TableOutlined />),
-        getItem("Admin Wallet", "/dashboard/admin/admin-wallet", <TableOutlined />),
-
-
+        getItem("Manage FeedBacks", "/dashboard/admin/manage-feedbacks", <CommentOutlined />),
+        getItem("Admin Wallet", "/dashboard/admin/admin-wallet", <WalletOutlined />),
       ]);
     }
   }
