@@ -49,6 +49,10 @@ const DashBoard = ({ role }) => {
         getItem("Manage accounts", "/dashboard/admin/manage-accounts", <TeamOutlined />),
         getItem("Report Admin", "/dashboard/admin/report-admin", <BarChartOutlined />),
         getItem("Manage Orders", "/dashboard/admin/manage-orders", <TableOutlined />),
+        getItem("Manage FeedBacks", "/dashboard/admin/manage-feedbacks", <TableOutlined />),
+        getItem("Admin Wallet", "/dashboard/admin/admin-wallet", <TableOutlined />),
+
+
       ]);
     }
   }

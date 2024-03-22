@@ -82,7 +82,7 @@ const ManageService = ({ packageID }) => {
 
       const newData = dataSource.filter((item) => item.serviceID !== record.serviceID);
       setDataSource(newData);
-      toast.success("Delete schedule successfully!");
+      toast.success("Delete Service successfully!");
     } catch (error) {
       console.error("Error deleting serviceID:", error);
       message.error("Failed to delete serviceID");

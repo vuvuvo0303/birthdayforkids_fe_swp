@@ -40,6 +40,8 @@ import ManageOrdersOfHost from "./page/party-host/ManageOrdersOfHost/ManageOrder
 
 import { ViewInfoOfHost } from "./page/HostPage/ViewInfoOfHost";
 import FailedPage from "./page/failpayment/index";
+import ManageFeedBacks from "./page/dashboad_admin/report_admin/manage-feedbacks/index";
+import AdminWallet from "./page/dashboad_admin/report_admin/admin-wallet/index";
 function App() {
   const router = createBrowserRouter([
     {
@@ -108,6 +110,14 @@ function App() {
             {
               path: "manage-orders",
               element: <ManageOrder />,
+            },
+            {
+              path: "manage-feedbacks",
+              element: <ManageFeedBacks />,
+            },
+            {
+              path: "admin-wallet",
+              element: <AdminWallet />,
             },
           ],
         },
