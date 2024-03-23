@@ -1,13 +1,18 @@
 import React from "react";
 
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import axios from "axios";
-import { Button, Form, Input, Modal, Rate } from "antd";
+import { Button, Form, Input, Modal, Rate, Tag } from "antd";
 import { useSelector } from "react-redux";
 import api from "../../config/axios";
 import { toast } from "react-toastify";
+import {
+    CheckCircleOutlined,
+    CloseCircleOutlined,
+    SyncOutlined,
+} from "@ant-design/icons";
 
 export const OrderHistory = () => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -47,12 +52,6 @@ export const OrderHistory = () => {
         setModalVisible(false);
     };
 
-    const handleDetailClick = (packageId) => {
-        navigate(
-            `http://birthdayblitzhub.online:8080/api/packages/${packageId}`
-        );
-    };
-
     return (
         <div className="container table-orderHistory">
             <table className="table">
@@ -64,6 +63,7 @@ export const OrderHistory = () => {
                         <th scope="col">Total Price</th>
                         <th scope="col">Description</th>
                         <th scope="col">Action</th>
+                        <th scope="col">Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -75,13 +75,14 @@ export const OrderHistory = () => {
                             {/* <td>{item.quantity}</td> */}
                             <td>{item.totalPrice}</td>
                             <td>{item.packageEntity.description}</td>
+
                             <td>
-                                <Button
-                                    onClick={() =>
-                                        handleDetailClick(item.packageEntity.id)
-                                    }
-                                >
-                                    Detail
+                                <Button>
+                                    <Link
+                                        to={`http://localhost:5173/packageDetail/${item?.orderID}`}
+                                    >
+                                        Detail
+                                    </Link>
                                 </Button>
                                 {item.status === "DONE" && (
                                     <Button
@@ -92,6 +93,56 @@ export const OrderHistory = () => {
                                     >
                                         FeedBack
                                     </Button>
+                                )}
+                            </td>
+                            <td>
+                                {item.status === "DONE" && (
+                                    <Tag
+                                        icon={<CheckCircleOutlined />}
+                                        color="success"
+                                    >
+                                        DONE
+                                    </Tag>
+                                )}
+                                {item.status === "PAID" && (
+                                    <Tag
+                                        icon={<SyncOutlined spin />}
+                                        color="processing"
+                                    >
+                                        PAID
+                                    </Tag>
+                                )}
+                                {item.status === "ORDERED" && (
+                                    <Tag
+                                        icon={<SyncOutlined spin />}
+                                        color="processing"
+                                    >
+                                        ORDERED
+                                    </Tag>
+                                )}
+                                {item.status === "REFUSESD" && (
+                                    <Tag
+                                        icon={<CloseCircleOutlined />}
+                                        color="error"
+                                    >
+                                        REFUSED
+                                    </Tag>
+                                )}
+                                {item.status === "ACCEPTED" && (
+                                    <Tag
+                                        icon={<SyncOutlined spin />}
+                                        color="processing"
+                                    >
+                                        ACCEPTED
+                                    </Tag>
+                                )}
+                                {item.status === "CANCELLED" && (
+                                    <Tag
+                                        icon={<CloseCircleOutlined />}
+                                        color="error"
+                                    >
+                                        CANCELLED
+                                    </Tag>
                                 )}
                             </td>
                         </tr>
