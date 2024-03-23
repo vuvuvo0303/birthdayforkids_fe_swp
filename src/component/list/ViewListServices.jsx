@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { Header } from "../Header";
 import { HeaderLogin } from "../HeaderLogin";
 import { HeaderLoginOfHost } from "../../page/profile/HeaderLoginOfHost";
-import { Select } from "antd";
+import { Button, Select } from "antd";
 import { Footer } from "../Footer";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -127,112 +127,171 @@ export default function ViewListServices() {
     }, [displayType]);
 
     return (
-        <Box>
+        <div className="viewListServices">
             {!loggedUser?.role && <Header />}
             {loggedUser?.role === "Guest" && <HeaderLogin />}
             {loggedUser?.role === "Host" && <HeaderLoginOfHost />}
-            <div>
-                <div>
-                    <button onClick={handleDisplayService}>
-                        List all service
-                    </button>
-                    <button onClick={handleDisplayPackage}>
-                        List all package
-                    </button>
-                </div>
-                <Select
-                    // defaultValue="Desc"
-                    style={{
-                        width: 200,
-                        // marginTop: 100,
-                        // marginLeft: 100,
-                    }}
-                    onChange={handleChange}
-                    options={[
-                        {
-                            label: <span>Sort by Price</span>,
-                            title: "Sort by Price",
-                            options: [
-                                {
-                                    label: <span>Descending</span>,
-                                    value: "Desc",
-                                },
-                                {
-                                    label: <span>Ascending</span>,
-                                    value: "Asc",
-                                },
-                            ],
-                        },
-                    ]}
-                />
-            </div>
 
-            {/* {
-                packages.length !== 0 ?
-                    <p></p>
-                    :
-                    <h3></h3>
-            } */}
-            {(displayType === "all" || displayType === "package") && (
-                <div>
-                    {packages.map((item, index) =>
-                        item?.packageID ? (
-                            <div key={item.packageID}>
-                                <img src={item.picture} alt="Service Picture" />
-                                <div>
-                                    <h5>Package Name: {item.name} </h5>
-                                    <p>Host: {item.account.name}</p>
-                                    {item.maximumSlot &&
-                                        <p>Maximum Slot:{item.maximumSlot}</p>
-                                    }
-                                    <p>
-                                        Price: {item.price} VNĐ
-                                    </p>
-                                    <Link
-                                        to={`http://localhost:5173/packageDetail/${item.packageID}`}
-                                    >
-                                        <button>Detail</button>
-                                    </Link>
-                                </div>
-                            </div>
-                        ) : (
-                            <p>None</p>
-                        )
-                    )}
+            <div className="viewListServices__feature">
+                <div className="viewListServices__feature-container">
+                    <div>
+                        <button
+                            onClick={handleDisplayService}
+                            className="btn viewListServices__feature-button "
+                        >
+                            List all service
+                        </button>
+                        <button
+                            onClick={handleDisplayPackage}
+                            className="btn viewListServices__feature-button"
+                        >
+                            List all package
+                        </button>
+                    </div>
+                    <Select
+                        // defaultValue="Desc"
+                        style={{
+                            width: 200,
+                        }}
+                        onChange={handleChange}
+                        options={[
+                            {
+                                label: <span>Sort by Price</span>,
+                                title: "Sort by Price",
+                                options: [
+                                    {
+                                        label: <span>Descending</span>,
+                                        value: "Desc",
+                                    },
+                                    {
+                                        label: <span>Ascending</span>,
+                                        value: "Asc",
+                                    },
+                                ],
+                            },
+                        ]}
+                    />
                 </div>
-            )}
-            {/* {
-                service.length !== 0 ?
-                    <p></p>
-                    :
-                    <h2>Waiting...</h2>
-            } */}
-            {(displayType === "all" || displayType === "service") && (
-                <div>
-                    {service.map((item, index) =>
-                        item?.serviceID ? (
-                            <div key={item.serviceID}>
-                                <img src={item.picture} alt="Service Picture" />
-                                <div >
-                                    <h5>Service Name: {item.name} </h5>
-                                    <p>Host: {item.account.name}</p>
-                                    <p>
-                                        Price: {item.price} VNĐ
-                                    </p>
-                                    <Link
-                                        to={`http://localhost:5173/serviceDetail/${item.serviceID}`}
+            </div>
+            <div className="container">
+                {/* {
+                    packages.length !== 0 ?
+                        <p></p>
+                        :
+                        <h3></h3>
+                } */}
+                {(displayType === "all" || displayType === "package") && (
+                    <div className="viewListServices__list">
+                        {packages.map((item, index) =>
+                            item?.packageID ? (
+                                <div className="viewListServices__items">
+                                    <div
+                                        key={item.packageID}
+                                        className="viewListServices__content"
                                     >
-                                        <button>Detail</button>
-                                    </Link>
+                                        <img
+                                            src={item.picture}
+                                            alt="Service Picture"
+                                            className="viewListServices__img"
+                                        />
+                                        <div>
+                                            <h3 className="viewListServices__heading">
+                                                Package Name: {item.name}{" "}
+                                            </h3>
+                                            <div className="viewListServices__desc">
+                                                <p className="viewListServices__host">
+                                                    Host:{" "}
+                                                    <span className="viewListServices__host-name">
+                                                        {item.account.name}
+                                                    </span>
+                                                </p>
+                                                {item.maximumSlot && (
+                                                    <p>
+                                                        Maximum Slot:
+                                                        {item.maximumSlot}
+                                                    </p>
+                                                )}
+                                                <p className="viewListServices__price">
+                                                    {/* Price:{" "} */}
+                                                    <span className="viewListServices__price-value">
+                                                        {item.price}
+                                                    </span>
+                                                    VNĐ
+                                                </p>
+                                                <Link
+                                                    to={`http://localhost:5173/packageDetail/${item.packageID}`}
+                                                >
+                                                    <button className="btn viewListServices__button">
+                                                        Detail
+                                                    </button>
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        ) : (
-                            <p>None</p>
-                        )
-                    )}
-                </div>
-            )}
+                            ) : (
+                                <p>None</p>
+                            )
+                        )}
+                    </div>
+                )}
+                {/* {
+                    service.length !== 0 ?
+                        <p></p>
+                        :
+                        <h2>Waiting...</h2>
+                } */}
+                {(displayType === "all" || displayType === "service") && (
+                    <div className="viewListServices__list">
+                        {service.map((item, index) =>
+                            item?.serviceID ? (
+                                <div className="viewListServices__items">
+                                    <div
+                                        key={item.serviceID}
+                                        className="viewListServices__content"
+                                    >
+                                        <img
+                                            src={item.picture}
+                                            alt="Service Picture"
+                                            className="viewListServices__img"
+                                        />
+                                        <div>
+                                            <h3 className="viewListServices__heading">
+                                                Service Name: {item.name}{" "}
+                                            </h3>
+                                            <div className="viewListServices__desc">
+                                                <p className="viewListServices__host">
+                                                    Host:{" "}
+                                                    <span className="viewListServices__host-name">
+                                                        {item.account.name}
+                                                    </span>
+                                                </p>
+                                                <p className="viewListServices__price">
+                                                    {/* Price:{" "} */}
+                                                    <span className="viewListServices__price-value">
+                                                        {item.price}
+                                                    </span>
+                                                    VNĐ
+                                                </p>
+                                                <Link
+                                                    to={`http://localhost:5173/serviceDetail/${item.serviceID}`}
+                                                >
+                                                    <button className="btn viewListServices__button">
+                                                        Detail
+                                                    </button>
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ) : (
+                                <p>None</p>
+                            )
+                        )}
+                    </div>
+                )}
+            </div>
             <Footer />
-        </Box>
+        </div>
     );
 }
