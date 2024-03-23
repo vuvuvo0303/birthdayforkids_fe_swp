@@ -1,10 +1,12 @@
-import "../list.css";
+import "../decription/description.css";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Box } from "@mui/material";
 // import { Header } from "../Header";
+import { Header } from "../Header";
 import { HeaderLogin } from "../HeaderLogin";
+import { HeaderLoginOfHost } from "../../page/profile/HeaderLoginOfHost";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePackage } from "../../redux/features/bookingSlice";
 
@@ -117,7 +119,9 @@ export default function PackageDecription() {
 
   return (
     <Box>
-      <HeaderLogin />
+      {!loggedUser?.role && <Header />}
+      {loggedUser?.role === "Guest" && <HeaderLogin />}
+      {loggedUser?.role === "Host" && <HeaderLoginOfHost />}
       <div className="Detail">
         <img src={packages?.picture} alt="Package Picture" />
         <div className="content">
@@ -127,6 +131,9 @@ export default function PackageDecription() {
           <ul className="descrip_cont">
             <li>Provided by: {packages?.account.name}</li>
             <li>Detail: {packages?.description}</li>
+            {packages?.maximumSlot &&
+              <li>Maximum Slot:{packages?.maximumSlot}</li>
+            }
             {services?.length !== 0 &&
               <li className='summ'><details>
                 <summary>Including services:</summary>

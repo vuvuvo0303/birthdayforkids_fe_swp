@@ -1,9 +1,12 @@
-import "../list.css";
+import "../decription/description.css";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Box } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 import { Header } from "../Header";
+import { HeaderLogin } from "../HeaderLogin";
+import { HeaderLoginOfHost } from "../../page/profile/HeaderLoginOfHost";
 
 export default function ServiceDecription() {
     const [service, setService] = useState(null);
@@ -16,6 +19,7 @@ export default function ServiceDecription() {
         description: "",
         picture: "",
     });
+    const loggedUser = useSelector((store) => store.user);
 
     const handleUpdate = (ID) => {
         // if (Object.keys(updatedData).length === 0) {
@@ -105,13 +109,15 @@ export default function ServiceDecription() {
 
     return (
         <Box>
-            <Header />
+            {!loggedUser?.role && <Header />}
+            {loggedUser?.role === "Guest" && <HeaderLogin />}
+            {loggedUser?.role === "Host" && <HeaderLoginOfHost />}
             <div className="Detail">
                 <img src={service?.picture} alt="Service Picture" />
                 <div className="content">
                     <h3 className='Name'>Service Name: {service?.name} </h3>
                     {/* <p>Host: {service?.account.name}</p> */}
-                    <br/>
+                    <br />
                     <h2 className="descrip">Description:</h2>
                     <ul className="descrip_cont">
                         <li>Provided by: {service?.account.name}</li>

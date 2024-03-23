@@ -1,17 +1,21 @@
-// import "../list.css";
+import "../list/list.css";
 // import '../App.css'
 import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Header } from "../Header";
+import { HeaderLogin } from "../HeaderLogin";
+import { HeaderLoginOfHost } from "../../page/profile/HeaderLoginOfHost";
 import { Select } from "antd";
 import { Footer } from "../Footer";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function ViewListServices() {
     const [service, setService] = useState([]);
     const [packages, setPackage] = useState([]);
     const [sortBy, setSortBy] = useState("none");
     const [displayType, setDisplayType] = useState("all");
+    const loggedUser = useSelector((store) => store.user);
 
     const hanldeGetService = () => {
         fetch("http://birthdayblitzhub.online:8080/api/services", {
@@ -124,13 +128,15 @@ export default function ViewListServices() {
 
     return (
         <Box>
-            
-            <div className="choose">
-                <div className="choose_button">
-                    <button className="Display" onClick={handleDisplayService}>
+            {!loggedUser?.role && <Header />}
+            {loggedUser?.role === "Guest" && <HeaderLogin />}
+            {loggedUser?.role === "Host" && <HeaderLoginOfHost />}
+            <div>
+                <div>
+                    <button onClick={handleDisplayService}>
                         List all service
                     </button>
-                    <button className="Display" onClick={handleDisplayPackage}>
+                    <button onClick={handleDisplayPackage}>
                         List all package
                     </button>
                 </div>
@@ -168,18 +174,18 @@ export default function ViewListServices() {
                     <h3></h3>
             } */}
             {(displayType === "all" || displayType === "package") && (
-                <div className="list">
+                <div>
                     {packages.map((item, index) =>
                         item?.packageID ? (
-                            <div className="servicee" key={item.packageID}>
+                            <div key={item.packageID}>
                                 <img src={item.picture} alt="Service Picture" />
-                                <div className="content">
-                                    <h5 className="NameIntoList">
-                                        Package Name: {item.name}{" "}
-                                    </h5>
+                                <div>
+                                    <h5>Package Name: {item.name} </h5>
                                     <p>Host: {item.account.name}</p>
-                                    {/* <p>{item.description}</p> */}
-                                    <p className="price">
+                                    {item.maximumSlot &&
+                                        <p>Maximum Slot:{item.maximumSlot}</p>
+                                    }
+                                    <p>
                                         Price: {item.price} VNĐ
                                     </p>
                                     <Link
@@ -202,17 +208,15 @@ export default function ViewListServices() {
                     <h2>Waiting...</h2>
             } */}
             {(displayType === "all" || displayType === "service") && (
-                <div className="list">
+                <div>
                     {service.map((item, index) =>
                         item?.serviceID ? (
-                            <div className="servicee" key={item.serviceID}>
+                            <div key={item.serviceID}>
                                 <img src={item.picture} alt="Service Picture" />
-                                <div className="content">
-                                    <h5 className="NameIntoList">
-                                        Service Name: {item.name}{" "}
-                                    </h5>
+                                <div >
+                                    <h5>Service Name: {item.name} </h5>
                                     <p>Host: {item.account.name}</p>
-                                    <p className="price">
+                                    <p>
                                         Price: {item.price} VNĐ
                                     </p>
                                     <Link
