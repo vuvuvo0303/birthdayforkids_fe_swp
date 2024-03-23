@@ -139,9 +139,9 @@ a {
     color: white;
 }
 
-/* Box{
+Box{
     background-color: #D4F2FF;
-  } */
+  }
 
 .price {
     color: red;
@@ -290,8 +290,7 @@ button:hover {
     justify-content: space-around;
 } */
 
-
-.Name{
+.Name {
     font-weight: bold;
     text-transform: uppercase;
     font-size: 25px;
@@ -301,24 +300,28 @@ button:hover {
     margin-left: 50px;
   } */
 
-ul{ 
+ul {
     margin-left: 20px;
 }
 
-.summ{
+.summ {
     list-style-type: none;
 }
 
-.descrip{
+.descrip {
     font-weight: 500;
     font-size: 20px;
     margin-bottom: 10px;
 }
 
-.descrip_cont{
+.descrip_cont {
     margin-bottom: 20px;
 }
-.NameIntoList{
+.NameIntoList {
     font-weight: bold;
     font-size: larger;
+}
+
+.manageService {
+    background-color: #d4f2ff;
 }
