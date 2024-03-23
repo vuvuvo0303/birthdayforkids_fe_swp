@@ -47,7 +47,7 @@ const Checkout = ({ setCartItemsIndex }) => {
     // });
   };
   const handleDecrease = (index) => {
-    const quantity = cartItems[index].quantity;
+    const quantity = cartItems[index].quantity;B
     if (quantity > 1) {
       cartItems[index].quantity -= 1;
       setCartItems([...cartItems]);

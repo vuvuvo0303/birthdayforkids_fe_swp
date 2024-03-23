@@ -1,6 +1,7 @@
 import React from "react";
 
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 import { Button, Form, Input, Modal, Rate } from "antd";
@@ -14,6 +15,7 @@ export const OrderHistory = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const loggedUser = useSelector((store) => store.user);
+    const navigate = useNavigate();
 
     const fetchData = async (id) => {
         const response = await axios.get(
@@ -45,6 +47,12 @@ export const OrderHistory = () => {
         setModalVisible(false);
     };
 
+    const handleDetailClick = (packageId) => {
+        navigate(
+            `http://birthdayblitzhub.online:8080/api/packages/${packageId}`
+        );
+    };
+
     return (
         <div className="container table-orderHistory">
             <table className="table">
@@ -68,7 +76,13 @@ export const OrderHistory = () => {
                             <td>{item.totalPrice}</td>
                             <td>{item.packageEntity.description}</td>
                             <td>
-                                <Button>Detail</Button>
+                                <Button
+                                    onClick={() =>
+                                        handleDetailClick(item.packageEntity.id)
+                                    }
+                                >
+                                    Detail
+                                </Button>
                                 {item.status === "DONE" && (
                                     <Button
                                         onClick={() => {
