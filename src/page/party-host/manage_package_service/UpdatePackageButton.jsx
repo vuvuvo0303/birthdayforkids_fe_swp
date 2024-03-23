@@ -82,6 +82,9 @@ const UpdatePackageButton = ({ record, forceRerender }) => {
           <Form.Item label="Name" name="name" initialValue={record.name}>
             <Input name="name" />
           </Form.Item>
+          <Form.Item label="Number of Slot" name="slot" initialValue={record.slot}>
+            <Input type="number"/>
+          </Form.Item>
           <Form.Item
             label="Price"
             name="price"

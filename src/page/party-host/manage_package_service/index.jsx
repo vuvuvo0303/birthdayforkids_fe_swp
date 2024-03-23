@@ -1,14 +1,4 @@
-import {
-    Breadcrumb,
-    Button,
-    Form,
-    Input,
-    Modal,
-    Space,
-    Table,
-    Tag,
-    message,
-} from "antd";
+import { Breadcrumb, Button, Form, Input, Modal, Space, Table, Tag, message } from "antd";
 import Dragger from "antd/es/upload/Dragger";
 import React, { useEffect, useState } from "react";
 import { InboxOutlined, HomeOutlined, UserOutlined } from "@ant-design/icons";
@@ -20,13 +10,13 @@ import ManageService from "./ManageService";
 import UpdatePackageButton from "./UpdatePackageButton";
 
 export const ManagePackageAndService = () => {
-    const [form] = useForm();
-    const [showAddPackage, setShowPackage] = useState(false);
-    const [dataSource, setDataSource] = useState([]);
-    const [rerenderKey, setRerenderKey] = useState(0);
-    const forceRerender = () => {
-        setRerenderKey(rerenderKey + 1);
-    };
+  const [form] = useForm();
+  const [showAddPackage, setShowPackage] = useState(false);
+  const [dataSource, setDataSource] = useState([]);
+  const [rerenderKey, setRerenderKey] = useState(0);
+  const forceRerender = () => {
+    setRerenderKey(rerenderKey + 1);
+  };
 
   const fetchPackage = async () => {
     try {
@@ -44,25 +34,25 @@ export const ManagePackageAndService = () => {
     }
   };
 
-    const onSubmit = async (values) => {
-        if (values.picture.file) {
-            const url = await uploadFile(values.picture.file.originFileObj);
-            values.picture = url;
-        }
+  const onSubmit = async (values) => {
+    if (values.picture.file) {
+      const url = await uploadFile(values.picture.file.originFileObj);
+      values.picture = url;
+    }
 
-        try {
-            const response = await api.post("/api/packages/addPackage", {
-                ...values,
-            });
-            console.log(response.data);
-            form.resetFields();
-            setShowPackage(false);
-            fetchPackage();
-            toast.success("Add successfully");
-        } catch (error) {
-            console.error("Error submitting package:", error);
-        }
-    };
+    try {
+      const response = await api.post("/api/packages/addPackage", {
+        ...values,
+      });
+      console.log(response.data);
+      form.resetFields();
+      setShowPackage(false);
+      fetchPackage();
+      toast.success("Add successfully");
+    } catch (error) {
+      console.error("Error submitting package:", error);
+    }
+  };
 
   useEffect(() => {
     fetchPackage();
@@ -88,7 +78,7 @@ export const ManagePackageAndService = () => {
       dataIndex: "slot",
       key: "slot",
     },
-    
+
     {
       title: "Picture",
       dataIndex: "picture",
@@ -191,12 +181,14 @@ export const ManagePackageAndService = () => {
             <Input suffix="VND" />
           </Form.Item>
           <Form.Item
-            label="Description"
-            name="description"
-            rules={[{ required: true, message: "Description must not be blank" }]}
+            label="Number of slot"
+            name="slot"
+            rules={[{ required: true, message: "Number of SLot must not be blank" }]}
           >
-            <Input.TextArea />
-          </Form.Item><Form.Item
+            <Input type="number" />
+          </Form.Item>
+
+          <Form.Item
             label="Description"
             name="description"
             rules={[{ required: true, message: "Description must not be blank" }]}

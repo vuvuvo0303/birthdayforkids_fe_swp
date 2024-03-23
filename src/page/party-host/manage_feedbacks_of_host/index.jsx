@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Table, Space, Button, Modal, Rate, Breadcrumb } from "antd";
 import { HomeOutlined, UserOutlined } from "@ant-design/icons";
+import { useSelector } from "react-redux";
+import api from "../../../config/axios";
 
-import api from "../../../../config/axios";
-
-const ManageFeedBacks = () => {
+const ManageFeedbackOfHost = () => {
   const [data, setData] = useState([]);
-
+  const loggedUser = useSelector((store) => store.user);
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
     try {
-      const response = await api.get("/api/feedbacks");
+      const response = await api.get(`/api/feedbacks/host/${loggedUser.accountID}`);
+      console.log(response);
       setData(response.data);
+      
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -28,7 +30,7 @@ const ManageFeedBacks = () => {
       render: (guest) => guest.name,
     },
     {
-      title: "Host Name",
+      title: "Package Name",
       dataIndex: "host",
       key: "host",
       render: (host) => host.name,
@@ -48,37 +50,10 @@ const ManageFeedBacks = () => {
       dataIndex: "rating",
       key: "rating",
       render: (rating) => <Rate disabled defaultValue={rating} count={5} />,
-      width: "200px",
+      width: "200px"
     },
-    {
-      title: "Action",
-      key: "action",
-      render: (_, record) => (
-        <Space size="middle">
-          <Button type="primary" danger onClick={() => handleDelete(record.feedbackID)}>
-            Delete
-          </Button>
-        </Space>
-      ),
-    },
+    
   ];
-
-  const handleDelete = async (feedbackID) => {
-    Modal.confirm({
-      title: "Confirm",
-      content: "Are you sure you want to delete this feedback?",
-      onOk: async () => {
-        try {
-          await api.delete(`/api/feedbacks/${feedbackID}`);
-          const newData = data.filter((item) => item.feedbackID !== feedbackID);
-          setData(newData);
-          fetchData();
-        } catch (error) {
-          console.error("Error deleting feedback:", error);
-        }
-      },
-    });
-  };
 
   return (
     <>
@@ -103,10 +78,10 @@ const ManageFeedBacks = () => {
           },
         ]}
       />
-
+     
       <Table columns={columns} dataSource={data} />
     </>
   );
 };
 
-export default ManageFeedBacks;
+export default ManageFeedbackOfHost;
