@@ -7,7 +7,7 @@ const ManageFeedBacks = () => {
       key: "1",
       name: "John Brown",
       age: 32,
-      address: "New York No. 1 Lake Park",
+      address: "New York No",
       rating: 5,
     },
     {
