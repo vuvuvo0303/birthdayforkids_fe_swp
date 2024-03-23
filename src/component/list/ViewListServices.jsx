@@ -111,9 +111,10 @@ export default function ViewListServices() {
     const handleDisplayPackage = () => {
         setDisplayType("package");
     };
-    // const handleDisplayAll = () => {
-    //     setDisplayType('all');
-    // };
+
+    const handleDisplayAll = () => {
+        setDisplayType("all");
+    };
 
     useEffect(() => {
         if (displayType === "service") {
@@ -147,12 +148,21 @@ export default function ViewListServices() {
                         >
                             List all package
                         </button>
+
+                        <button
+                            onClick={handleDisplayAll}
+                            className="btn viewListServices__feature-button"
+                        >
+                            All
+                        </button>
                     </div>
                     <Select
                         // defaultValue="Desc"
                         style={{
                             width: 200,
                         }}
+                        status="warning"
+                        placeholder="Search to Select"
                         onChange={handleChange}
                         options={[
                             {
@@ -180,6 +190,7 @@ export default function ViewListServices() {
                         :
                         <h3></h3>
                 } */}
+
                 {(displayType === "all" || displayType === "package") && (
                     <div className="viewListServices__list">
                         {packages.map((item, index) =>

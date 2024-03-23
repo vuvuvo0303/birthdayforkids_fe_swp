@@ -1,6 +1,6 @@
 .viewListServices {
     padding: 65px 0;
-    background-color: #5fafff;
+    background-image: url("../../../public/img/sky-background.jpg");
 }
 
 .viewListServices__list {
@@ -100,7 +100,8 @@
 }
 
 .viewListServices__feature {
-    background-color: #ffcdd9;
+    background-color: #ec5392;
+    background-image: linear-gradient(62deg, #ec5392 0%, #ece4fd 100%);
 }
 .viewListServices__feature-container {
     display: flex;
@@ -114,6 +115,13 @@
     font-weight: 600;
     border: 1px solid #fff;
     background-color: #ec5392;
+    background-image: linear-gradient(
+        0deg,
+        #ec5392 0%,
+        #ec5392 46%,
+        #ffffff 100%
+    );
+
     margin-right: 10px;
 }
 
