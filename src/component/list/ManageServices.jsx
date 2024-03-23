@@ -1,4 +1,4 @@
-import '../list.css';
+import "../list/list.css";
 // import '../App.css'
 import { useEffect, useState } from "react";
 import { Box } from '@mui/material';
