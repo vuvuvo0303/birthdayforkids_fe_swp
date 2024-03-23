@@ -84,6 +84,12 @@ export const ManagePackageAndService = () => {
       key: "description",
     },
     {
+      title: "Number of Slot",
+      dataIndex: "slot",
+      key: "slot",
+    },
+    
+    {
       title: "Picture",
       dataIndex: "picture",
       key: "picture",
@@ -190,6 +196,12 @@ export const ManagePackageAndService = () => {
             rules={[{ required: true, message: "Description must not be blank" }]}
           >
             <Input.TextArea />
+          </Form.Item><Form.Item
+            label="Description"
+            name="description"
+            rules={[{ required: true, message: "Description must not be blank" }]}
+          >
+            <Input type="number" />
           </Form.Item>
           <Form.Item label="Picture" name="picture">
             <Dragger maxCount={1} {...props}>
