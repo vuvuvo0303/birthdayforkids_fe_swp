@@ -68,7 +68,7 @@ const StepProgress = () => {
     console.log(booking);
     console.log({
       totalPrice: calcTotal(),
-      packageId: booking.package.packageID,
+      packageId: booking?.package?.packageID,
       nameReceiver: booking?.information?.username,
       phone: booking?.information?.phoneNumber,
       email: booking?.information?.email,
@@ -79,7 +79,7 @@ const StepProgress = () => {
     });
     const response = await api.post("api/orders/create-payment", {
       totalPrice: calcTotal(),
-      packageId: booking.package.packageID,
+      packageId: booking?.package?.packageID,
       nameReceiver: booking?.information?.username,
       phone: booking?.information?.phoneNumber,
       email: booking?.information?.email,

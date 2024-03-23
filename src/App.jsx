@@ -42,188 +42,197 @@ import { ViewInfoOfHost } from "./page/HostPage/ViewInfoOfHost";
 import FailedPage from "./page/failpayment/index";
 import ManageFeedBacks from "./page/dashboad_admin/report_admin/manage-feedbacks/index";
 import AdminWallet from "./page/dashboad_admin/report_admin/admin-wallet/index";
+import { HomepageHost } from "./page/homepage/HomepageHost";
 function App() {
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Layout />,
-      children: [
+    const router = createBrowserRouter([
         {
-          path: "",
-          element: <HomePage />,
+            path: "/",
+            element: <Layout />,
+            children: [
+                {
+                    path: "",
+                    element: <HomePage />,
+                },
+                {
+                    path: "abc",
+                    element: <h1>abc</h1>,
+                },
+            ],
         },
         {
-          path: "abc",
-          element: <h1>abc</h1>,
-        },
-      ],
-    },
-    {
-      path: "/login",
-      element: <LoginPage />,
-    },
-    {
-      path: "/register",
-      element: <LoginPage isRegister />,
-    },
-    {
-      path: "/dashboard",
-      children: [
-        {
-          path: "party-host",
-          element: <DashBoard role={"PARTY_HOST"} />,
-          children: [
-            {
-              path: "manage-package-service",
-              element: <ManagePackageAndService />,
-            },
-            {
-              path: "report",
-              element: <ReportPage />,
-            },
-            {
-              path: "edit-ptofile-hosts",
-              element: <EditProfileHosts />,
-            },
-            {
-              path: "manage-schedule",
-              element: <ManageSchedule />,
-            },
-            {
-              path: "manage-orders-of-hosts",
-              element: <ManageOrdersOfHost />,
-            },
-          ],
+            path: "/login",
+            element: <LoginPage />,
         },
         {
-          path: "admin",
-          element: <DashBoard role={"ADMIN"} />,
-          children: [
-            {
-              path: "manage-accounts",
-              element: <ManageAccounts />,
-            },
-            {
-              path: "report-admin",
-              element: <ReportPageAdmin />,
-            },
-            {
-              path: "manage-orders",
-              element: <ManageOrder />,
-            },
-            {
-              path: "manage-feedbacks",
-              element: <ManageFeedBacks />,
-            },
-            {
-              path: "admin-wallet",
-              element: <AdminWallet />,
-            },
-          ],
+            path: "/register",
+            element: <LoginPage isRegister />,
         },
-      ],
-    },
-    {
-      path: "/booking/:accountID",
-      element: <StepProgress />,
-    },
-    {
-      path: "/about",
-      element: <ViewProfile />,
-    },
-    {
-      path: "/package",
-      element: <Package />,
-    },
-    {
-      path: "/service",
-      element: <Service />,
-    },
-    {
-      path: "/yourProfile",
-      element: <YourProfile />,
-    },
-    {
-      path: "/updateProfile",
-      element: <UpdateProfile />,
-    },
-    {
-      path: "/homepageLogin",
-      element: <HomepageLogin />,
-    },
-    {
-      path: "/hostpage",
-      element: <Hostpage />,
-    },
-    {
-      path: "/viewInfoOfHost",
-      element: <ViewInfoOfHost />,
-    },
-    {
-      path: "/guestDetail",
-      element: <GuestDetail />,
-    },
-    {
-      path: "/guestProfile/:id",
-      element: <GuestProfile />,
-    },
-    {
-      path: "/HostProfile",
-      element: <HostProfile />,
-    },
-    //Guest khi nhin about Profile cua Host
-    {
-      path: "/host/:id",
-      element: <AboutNoLogin />,
-    },
-    {
-      path: "/packageNoLogin/:id",
-      element: <PackageNoLogin />,
-    },
-    {
-      path: "/serviceNoLogin/:id",
-      element: <ServiceNoLogin />,
-    },
-    {
-      path: "/ViewListService",
-      element: <ViewListServices />,
-    },
-    {
-      path: "/ManageService",
-      element: <ManageService />,
-    },
-    {
-      path: "/serviceDetail/:id",
-      element: <ServiceDecription />,
-    },
-    {
-      path: "/packageDetail/:id",
-      element: <PackageDecription />,
-    },
-    {
-      path: "/success",
-      element: <SuccessPage />,
-    },
-    {
-      path: "/failed",
-      element: <FailedPage />,
-    },
-
-    {
-      path: "/Policy",
-      element: <Policy />,
-    },
-    {
-      path: "/Wallet",
-      element: <Wallet />,
-    },
-  ]);
-  return (
-    <>
-      <ToastContainer />
-      <RouterProvider router={router} />
-    </>
-  );
+        {
+            path: "/dashboard",
+            children: [
+                {
+                    path: "party-host",
+                    element: <DashBoard role={"PARTY_HOST"} />,
+                    children: [
+                        {
+                            path: "manage-package-service",
+                            element: <ManagePackageAndService />,
+                        },
+                        {
+                            path: "report",
+                            element: <ReportPage />,
+                        },
+                        {
+                            path: "edit-ptofile-hosts",
+                            element: <EditProfileHosts />,
+                        },
+                        {
+                            path: "manage-schedule",
+                            element: <ManageSchedule />,
+                        },
+                        {
+                            path: "manage-orders-of-hosts",
+                            element: <ManageOrdersOfHost />,
+                        },
+                    ],
+                },
+                {
+                    path: "admin",
+                    element: <DashBoard role={"ADMIN"} />,
+                    children: [
+                        {
+                            path: "manage-accounts",
+                            element: <ManageAccounts />,
+                        },
+                        {
+                            path: "report-admin",
+                            element: <ReportPageAdmin />,
+                        },
+                        {
+                            path: "manage-orders",
+                            element: <ManageOrder />,
+                        },
+                        {
+                            path: "wallet",
+                            element: <Wallet />,
+                        },
+                        {
+                            path: "manage-feedbacks",
+                            element: <ManageFeedBacks />,
+                          },
+                          {
+                            path: "admin-wallet",
+                            element: <AdminWallet />,
+                          },
+                    ],
+                },
+            ],
+        },
+        {
+            path: "/booking/:accountID",
+            element: <StepProgress />,
+        },
+        {
+            path: "/about/:id",
+            element: <ViewProfile />,
+        },
+        {
+            path: "/package/:id",
+            element: <Package />,
+        },
+        {
+            path: "/service/:id",
+            element: <Service />,
+        },
+        {
+            path: "/yourProfile",
+            element: <YourProfile />,
+        },
+        {
+            path: "/updateProfile",
+            element: <UpdateProfile />,
+        },
+        {
+            path: "/homepageLogin",
+            element: <HomepageLogin />,
+        },
+        {
+            path: "/hostpage",
+            element: <Hostpage />,
+        },
+        {
+            path: "/viewInfoOfHost",
+            element: <ViewInfoOfHost />,
+        },
+        {
+            path: "/guestDetail",
+            element: <GuestDetail />,
+        },
+        {
+            path: "/guestProfile/:id",
+            element: <GuestProfile />,
+        },
+        {
+            path: "/HostProfile",
+            element: <HostProfile />,
+        },
+        //Guest khi nhin about Profile cua Host
+        {
+            path: "/host/:id",
+            element: <AboutNoLogin />,
+        },
+        {
+            path: "/packageNoLogin/:id",
+            element: <PackageNoLogin />,
+        },
+        {
+            path: "/serviceNoLogin/:id",
+            element: <ServiceNoLogin />,
+        },
+        {
+            path: "/ViewListService",
+            element: <ViewListServices />,
+        },
+        {
+            path: "/ManageService",
+            element: <ManageService />,
+        },
+        {
+            path: "/serviceDetail/:id",
+            element: <ServiceDecription />,
+        },
+        {
+            path: "/packageDetail/:id",
+            element: <PackageDecription />,
+        },
+        {
+            path: "/success",
+            element: <SuccessPage />,
+        },
+        {
+            path: "/failed",
+            element: <FailedPage />,
+        },
+        {
+            path: "/Policy",
+            element: <Policy />,
+        },
+        {
+            path: "/Wallet",
+            element: <Wallet />,
+        },
+        //Ta dao
+        {
+            path: "/HomepageHost",
+            element: <HomepageHost />,
+        },
+    ]);
+    return (
+        <>
+            <ToastContainer />
+            <RouterProvider router={router} />
+        </>
+    );
 }
 
 export default App;

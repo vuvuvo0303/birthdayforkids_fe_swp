@@ -11,44 +11,44 @@ import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import React from "react";
 
 const LoginForm = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const loginGoogle = () => {
-    const auth = getAuth();
-    signInWithPopup(auth, provider)
-      .then(async (result) => {
-        const token = await result.user.getIdToken();
-        const response = await api.post("/authentication/logingg", {
-          token: token,
-        });
-        dispatch(login(response.data));
-        toast.success("Login successfully");
-        navigate("/dashboard");
-        localStorage.setItem("token", response.data.token);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-  const onFinish = async (values) => {
-    try {
-      const response = await api.post("/auth/login", values);
-      console.log(response.data);
-      localStorage.setItem("logged-user", JSON.stringify(response.data));
-      localStorage.setItem("token", JSON.stringify(response.data.tokens));
-      dispatch(login(response.data));
-      toast.success("Login successfully");
-      if (response.data.role == "Guest") {
-        navigate("/homepageLogin");
-      } else if (response.data.role == "Host") {
-        navigate("/dashboard/party-host/manage-package-service");
-      } else if (response.data.role == "Admin") {
-        navigate("/dashboard/admin");
-      }
-    } catch (e) {
-      toast.error("Login fail");
-    }
-  };
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const loginGoogle = () => {
+        const auth = getAuth();
+        signInWithPopup(auth, provider)
+            .then(async (result) => {
+                const token = await result.user.getIdToken();
+                const response = await api.post("/authentication/logingg", {
+                    token: token,
+                });
+                dispatch(login(response.data));
+                toast.success("Login successfully");
+                navigate("/dashboard");
+                localStorage.setItem("token", response.data.token);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+    const onFinish = async (values) => {
+        try {
+            const response = await api.post("/auth/login", values);
+            console.log(response.data);
+            localStorage.setItem("logged-user", JSON.stringify(response.data));
+            localStorage.setItem("token", JSON.stringify(response.data.tokens));
+            dispatch(login(response.data));
+            toast.success("Login successfully");
+            if (response.data.role === "Guest") {
+                navigate("/homepageLogin");
+            } else if (response.data.role === "Host") {
+                navigate("/HomepageHost");
+            } else if (response.data.role === "Admin") {
+                navigate("/dashboard/admin");
+            }
+        } catch (e) {
+            toast.error("Login fail");
+        }
+    };
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);

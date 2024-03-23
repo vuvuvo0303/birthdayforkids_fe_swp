@@ -70,9 +70,11 @@ export const HeaderLogin = () => {
             console.error("Error fetching data:", error);
         }
     };
+
     useEffect(() => {
         fetchData(loggedUser.accountID);
     }, []);
+
     return (
         <div>
             <Helmet>
@@ -88,7 +90,7 @@ export const HeaderLogin = () => {
                 <div className="container">
                     {/* <!-- Header top --> */}
                     <div className="header-top">
-                        <a href="/">
+                        <a href="/homepageLogin">
                             <div className="logo">
                                 <img
                                     src="/img/Logo.svg"

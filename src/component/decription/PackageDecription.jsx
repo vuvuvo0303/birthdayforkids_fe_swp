@@ -1,9 +1,12 @@
 import "../list.css";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Box } from "@mui/material";
-import { Header } from "../Header";
+// import { Header } from "../Header";
+import { HeaderLogin } from "../HeaderLogin";
+import { useDispatch, useSelector } from "react-redux";
+import { updatePackage } from "../../redux/features/bookingSlice";
 
 export default function PackageDecription() {
   const [packages, setPackage] = useState(null);
@@ -16,6 +19,14 @@ export default function PackageDecription() {
     description: "",
     picture: "",
   });
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const loggedUser = useSelector((store) => store.user);
+  const handleLogRedux = (redux) => {
+    // console.log("redux", redux);
+    console.log('account', packages?.account.accountID);
+
+  }
 
   const handleUpdatePackage = (ID) => {
     // if (Object.keys(updatedData).length === 0) {
@@ -61,7 +72,7 @@ export default function PackageDecription() {
       })
       .then((data) => {
         // Do something with the list of tasks
-        // console.log('real data: ', data);
+        console.log('real data: ', data);
         setPackage(data);
         return data;
       })
@@ -101,31 +112,52 @@ export default function PackageDecription() {
   useEffect(() => {
     hanldeGetPackage();
     hanldeGetServiceByPackageId();
+    handleLogRedux(loggedUser);
   }, []);
 
   return (
     <Box>
-      <Header />
+      <HeaderLogin />
       <div className="Detail">
-        <img src={packages?.picture} alt="package Picture" />
+        <img src={packages?.picture} alt="Package Picture" />
         <div className="content">
-          <h3>Package Name: {packages?.name} </h3>
-          <p>Provided by: {packages?.account.name}</p>
-          <p>Name: {packages?.description}</p>
-          <div>
-            {/* <p>Including services:</p> */}
-            <ul>
-              Including services:
-              {services &&
-                services.map((item) => (item?.serviceID ? <li key={item?.serviceID}>{item?.name}</li> : <p>None</p>))}
-            </ul>
-          </div>
-          <p className="price">Price: {packages?.price}$</p>
+          <h3 className='Name'>Package Name: {packages?.name} </h3>
+          <br />
+          <h2 className="descrip">Description:</h2>
+          <ul className="descrip_cont">
+            <li>Provided by: {packages?.account.name}</li>
+            <li>Detail: {packages?.description}</li>
+            {services?.length !== 0 &&
+              <li className='summ'><details>
+                <summary>Including services:</summary>
+                <ul className='details'>
+                  {services && services.map((item) => (
+                    item?.serviceID
+                      ?
+                      <li key={item?.serviceID}>
+                        {item?.name}
+                      </li>
+                      :
+                      <p>None</p>
+                  ))}
+                </ul>
+              </details>
+              </li>
+            }
+
+          </ul>
+          <p className="price">Price: {packages?.price} VNĐ</p>
           <div>
             <button>
-              <Link to={"/booking"}>Buy Now</Link>
+              <Link onClick={() => {
+                dispatch(updatePackage(packages))
+                navigate(`/booking/${packages?.account.accountID}`)
+              }}
+              >
+                Buy Now
+              </Link>
             </button>
-            <button
+            {/* <button
               onClick={() => {
                 // setIsOpen(true)
                 setData(packages);
@@ -134,7 +166,7 @@ export default function PackageDecription() {
               <a href="#popup2" id="openPopUp">
                 Update
               </a>
-            </button>
+            </button> */}
             <button>
               <Link to={"/ManageService"}>Cancel</Link>
             </button>
@@ -169,13 +201,12 @@ export default function PackageDecription() {
                 id="newPrice"
                 value={data.price}
                 onChange={(e) => {
-                  setData((State) => ({
-                    ...State,
+                  setData((prevState) => ({
+                    ...prevState,
                     price: e.target.value,
                   }));
                 }}
               />
-              $
             </div>
             <div>
               <label htmlFor="newDescription">Description:</label>
@@ -190,7 +221,7 @@ export default function PackageDecription() {
                 }}
               />
             </div>
-            <button
+            {/* <button
               className="buttUpdate"
               type="submit"
               onClick={() => {
@@ -199,11 +230,11 @@ export default function PackageDecription() {
               }}
             >
               Update
-            </button>
-            {/* <button onClick={() => { setIsOpen(false) }}>Close</button> */}
+            </button> */}
+            <button onClick={() => { setIsOpen(false) }}>Close</button>
           </form>
         </div>
       </div>
-    </Box>
+    </Box >
   );
 }

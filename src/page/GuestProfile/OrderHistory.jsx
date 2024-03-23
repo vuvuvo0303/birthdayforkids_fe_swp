@@ -3,10 +3,14 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 import axios from "axios";
-import { Button } from "antd";
+import { Button, Form, Input, Modal, Rate } from "antd";
 import { useSelector } from "react-redux";
+import api from "../../config/axios";
+import { toast } from "react-toastify";
 
 export const OrderHistory = () => {
+    const [modalVisible, setModalVisible] = useState(false);
+    const [orderId, setOrderId] = useState();
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const loggedUser = useSelector((store) => store.user);
@@ -22,6 +26,24 @@ export const OrderHistory = () => {
     useEffect(() => {
         fetchData(loggedUser.accountID);
     }, []);
+
+    const [form] = Form.useForm();
+
+    const handleOk = async () => {
+        form.submit();
+    };
+
+    const handleCancel = () => {
+        setModalVisible(false);
+    };
+
+    const onSubmit = async (values) => {
+        console.log(values);
+        await api.post(`/api/feedbacks/addFeedback/${orderId}`, values);
+        toast.success("Success!!!");
+        form.resetFields();
+        setModalVisible(false);
+    };
 
     return (
         <div className="container table-orderHistory">
@@ -47,12 +69,56 @@ export const OrderHistory = () => {
                             <td>{item.packageEntity.description}</td>
                             <td>
                                 <Button>Detail</Button>
-                                <Button>FeedBack</Button>
+                                {item.status === "DONE" && (
+                                    <Button
+                                        onClick={() => {
+                                            setModalVisible(true);
+                                            setOrderId(item.orderID);
+                                        }}
+                                    >
+                                        FeedBack
+                                    </Button>
+                                )}
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
+
+            <Modal
+                title="Rating and Feedback"
+                open={modalVisible}
+                onOk={handleOk}
+                onCancel={handleCancel}
+            >
+                <Form form={form} layout="vertical" onFinish={onSubmit}>
+                    <Form.Item
+                        label="Rating"
+                        name="rating"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Please rate this item!",
+                            },
+                        ]}
+                    >
+                        <Rate />
+                    </Form.Item>
+
+                    <Form.Item
+                        label="description"
+                        name="description"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Please provide feedback!",
+                            },
+                        ]}
+                    >
+                        <Input.TextArea rows={4} />
+                    </Form.Item>
+                </Form>
+            </Modal>
         </div>
     );
 };
