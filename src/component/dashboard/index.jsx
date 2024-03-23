@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import {
-    DesktopOutlined,
-    TeamOutlined,
-    ClockCircleOutlined,
-    BarChartOutlined,
-    EditOutlined,
-    TableOutlined,
+  DesktopOutlined,
+  TeamOutlined,
+  ClockCircleOutlined,
+  BarChartOutlined,
+  EditOutlined,
+  TableOutlined,
+  CommentOutlined,
+  WalletOutlined,
 } from "@ant-design/icons";
 import {
     Avatar,
@@ -44,60 +46,25 @@ const DashBoard = ({ role }) => {
         }
     }, [user]);
 
-    function loadItems() {
-        if (role === "PARTY_HOST") {
-            setItems([
-                getItem(
-                    "Manage Package and service",
-                    "/dashboard/party-host/manage-package-service",
-                    <DesktopOutlined />
-                ),
-                getItem(
-                    "Manage Report",
-                    "/dashboard/party-host/report",
-                    <BarChartOutlined />
-                ),
-                getItem(
-                    "Update Profile",
-                    "/dashboard/party-host/edit-ptofile-hosts",
-                    <EditOutlined />
-                ),
-                getItem(
-                    "Manage Schedule",
-                    "/dashboard/party-host/manage-schedule",
-                    <ClockCircleOutlined />
-                ),
-                getItem(
-                    "Manage Orders",
-                    "/dashboard/party-host/manage-orders-of-hosts",
-                    <TableOutlined />
-                ),
-            ]);
-        } else if (role === "ADMIN") {
-            setItems([
-                getItem(
-                    "Manage accounts",
-                    "/dashboard/admin/manage-accounts",
-                    <TeamOutlined />
-                ),
-                getItem(
-                    "Report Admin",
-                    "/dashboard/admin/report-admin",
-                    <BarChartOutlined />
-                ),
-                getItem(
-                    "Manage Orders",
-                    "/dashboard/admin/manage-orders",
-                    <TableOutlined />
-                ),
-                getItem(
-                    "Manage wallet",
-                    "/dashboard/admin/wallet",
-                    <TableOutlined />
-                ),
-            ]);
-        }
+  function loadItems() {
+    if (role === "PARTY_HOST") {
+      setItems([
+        getItem("Manage Package and service", "/dashboard/party-host/manage-package-service", <DesktopOutlined />),
+        getItem("Manage Report", "/dashboard/party-host/report", <BarChartOutlined />),
+        getItem("Update Profile", "/dashboard/party-host/edit-ptofile-hosts", <EditOutlined />),
+        getItem("Manage Schedule", "/dashboard/party-host/manage-schedule", <ClockCircleOutlined />),
+        getItem("Manage Orders", "/dashboard/party-host/manage-orders-of-hosts", <TableOutlined />),
+      ]);
+    } else if (role === "ADMIN") {
+      setItems([
+        getItem("Manage accounts", "/dashboard/admin/manage-accounts", <TeamOutlined />),
+        getItem("Report Admin", "/dashboard/admin/report-admin", <BarChartOutlined />),
+        getItem("Manage Orders", "/dashboard/admin/manage-orders", <TableOutlined />),
+        getItem("Manage FeedBacks", "/dashboard/admin/manage-feedbacks", <CommentOutlined />),
+        getItem("Admin Wallet", "/dashboard/admin/admin-wallet", <WalletOutlined />),
+      ]);
     }
+  }
 
     useEffect(loadItems, []);
 

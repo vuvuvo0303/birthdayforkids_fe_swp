@@ -52,53 +52,24 @@ export const FillInformation = ({ form, setCurrent, current }) => {
                     <Input />
                 </Form.Item>
 
-                <Form.Item
-                    label="Email"
-                    name="email"
-                    rules={[
-                        { required: true, message: "Please input your Email!" },
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
-                <Form.Item
-                    label="Phone Number"
-                    name="phoneNumber"
-                    rules={[
-                        {
-                            required: true,
-                            message: "Please input your password!",
-                        },
-                    ]}
-                >
-                    <Input type="number" />
-                </Form.Item>
-                <Form.Item
-                    label="Venue"
-                    name="venue"
-                    rules={[
-                        { required: true, message: "Please input your Venue" },
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
-                <Form.Item
-                    label="Note"
-                    name="note"
-                    rules={[
-                        { required: true, message: "Please input your Note" },
-                    ]}
-                >
-                    <Input.TextArea />
-                </Form.Item>
-                <Form.Item
-                    label="time"
-                    name={"scheduleId"}
-                    // rules={[
-                    //     { required: true, message: "Please input your time" },
-                    // ]}
-                >
-                    {/* <Calendar
+        <Form.Item label="Email" name="email" rules={[{ required: true, message: "Please input your Email!" }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label="Phone Number"
+          name="phoneNumber"
+          rules={[{ required: true, message: "Please input your password!" }]}
+        >
+          <Input type="number"/>
+        </Form.Item >
+        <Form.Item label="Venue" name="venue" rules={[{ required: true, message: "Please input your Venue" }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item label="Note" name="note" rules={[{ required: true, message: "Please input your Note" }]}>
+          <Input.TextArea />
+        </Form.Item>
+        <Form.Item label="time" name={"scheduleId"} rules={[{ required: false, message: "Please input your time" }]}>
+          {/* <Calendar
             onChange={(value) => {
               console.log(value);
               form.setFieldValue("date", value.$d);

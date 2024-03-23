@@ -110,7 +110,7 @@ export const ManagePackageAndService = () => {
 
       const newData = dataSource.filter((item) => item.packageID !== record.packageID);
       setDataSource(newData);
-      toast.success("Delete schedule successfully!");
+      toast.success("Delete Package successfully!");
     } catch (error) {
       console.error("Error deleting packageID:", error);
       message.error("Failed to delete packageID");
