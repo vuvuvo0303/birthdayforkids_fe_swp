@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Header } from "../../component/Header";
+import { HeaderLogin } from "../../component/HeaderLogin";
+import { HeaderLoginOfHost } from "../../page/profile/HeaderLoginOfHost";
 import { SidebarNoLogin } from "../profile/SidebarNoLogin";
 import { useParams } from "react-router";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 export const PackageNoLogin = () => {
     const { id } = useParams();
     const [packages, setPackages] = useState([]);
+    const loggedUser = useSelector((store) => store.user);
     const params = useParams();
     const fetchPackage = async () => {
         const response = await axios.get(
@@ -20,7 +24,9 @@ export const PackageNoLogin = () => {
     }, []);
     return (
         <div>
-            <Header />
+            {!loggedUser?.role && <Header />}
+            {loggedUser?.role === "Guest" && <HeaderLogin />}
+            {loggedUser?.role === "Host" && <HeaderLoginOfHost />}
             <div className="container container-profile">
                 <section className="packages">
                     <h1 className="heading">Our packages</h1>
