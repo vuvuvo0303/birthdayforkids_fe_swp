@@ -79,7 +79,7 @@ export const OrderHistory = () => {
                             <td>
                                 <Button>
                                     <Link
-                                        to={`http://localhost:5173/packageDetail/${item?.orderID}`}
+                                        to={`http://localhost:5173/packageDetail/${item.packageEntity.packageID}`}
                                     >
                                         Detail
                                     </Link>

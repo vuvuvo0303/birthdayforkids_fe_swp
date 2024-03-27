@@ -188,7 +188,12 @@ export default function PackageDecription() {
                                     </li>
                                 )}
                             </ul>
-                            <p className="price">{packages?.price} VNĐ</p>
+                            <p className="price">
+                                {new Intl.NumberFormat("vi-VN", {
+                                    style: "currency",
+                                    currency: "VND",
+                                }).format(packages?.price)}
+                            </p>
                             <p>
                                 Share:{" "}
                                 <i class="fa-brands fa-facebook fa-icon">
@@ -221,7 +226,7 @@ export default function PackageDecription() {
                     </div>
                 </div>
                 <section className="reviews">
-                    <div className="heading__feedback">Customer's reviews</div>
+                    <div className="heading__feedback feedback-packageDetail">Customer's reviews</div>
 
                     <div className="box-container">
                         {feedbacks.map((feedbackItem, index) => (

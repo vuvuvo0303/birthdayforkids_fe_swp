@@ -151,7 +151,12 @@ export default function ServiceDecription() {
                                 <li>Detail: {service?.description}</li>
                             </ul>
 
-                            <p className="price">{service?.price} VNĐ</p>
+                            <p className="price">
+                                {new Intl.NumberFormat("vi-VN", {
+                                    style: "currency",
+                                    currency: "VND",
+                                }).format(service?.price)}{" "}
+                            </p>
                             <p>
                                 Share:{" "}
                                 <i class="fa-brands fa-facebook fa-icon">

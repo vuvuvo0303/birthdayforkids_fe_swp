@@ -96,3 +96,9 @@
     color: #50cc98;
     margin-right: 10px;
 }
+
+.feedback-packageDetail {
+    color: #080808;
+    font-weight: 800;
+    font-size: 4rem;
+}

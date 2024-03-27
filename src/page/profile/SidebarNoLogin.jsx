@@ -45,18 +45,18 @@ export const SidebarNoLogin = ({ id }) => {
                 </div>
 
                 <nav className="navbar">
-                    <a href={`/host/${id}`}>
+                    <Link to={`/host/${id}`}>
                         <i className="fa-solid fa-comment"></i>
                         <span>Feedback</span>
-                    </a>
-                    <a href={`/packageNoLogin/${id}`}>
+                    </Link>
+                    <Link to={`/packageNoLogin/${id}`}>
                         <i className="fa-solid fa-boxes-stacked"></i>
                         <span>Packages</span>
-                    </a>
-                    <a href={`/serviceNoLogin/${id}`}>
+                    </Link>
+                    <Link to={`/serviceNoLogin/${id}`}>
                         <i className="fa-solid fa-box"></i>
                         <span>Services</span>
-                    </a>
+                    </Link>
                 </nav>
             </div>
         </div>

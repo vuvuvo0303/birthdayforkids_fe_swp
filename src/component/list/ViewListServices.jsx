@@ -226,9 +226,14 @@ export default function ViewListServices() {
                                                 <p className="viewListServices__price">
                                                     {/* Price:{" "} */}
                                                     <span className="viewListServices__price-value">
-                                                        {item.price}
+                                                        {new Intl.NumberFormat(
+                                                            "vi-VN",
+                                                            {
+                                                                style: "currency",
+                                                                currency: "VND",
+                                                            }
+                                                        ).format(item.price)}
                                                     </span>
-                                                    VNĐ
                                                 </p>
                                                 <Link
                                                     to={`http://localhost:5173/packageDetail/${item.packageID}`}
@@ -281,9 +286,14 @@ export default function ViewListServices() {
                                                 <p className="viewListServices__price">
                                                     {/* Price:{" "} */}
                                                     <span className="viewListServices__price-value">
-                                                        {item.price}
+                                                        {new Intl.NumberFormat(
+                                                            "vi-VN",
+                                                            {
+                                                                style: "currency",
+                                                                currency: "VND",
+                                                            }
+                                                        ).format(item.price)}
                                                     </span>
-                                                    VNĐ
                                                 </p>
                                                 <Link
                                                     to={`http://localhost:5173/serviceDetail/${item.serviceID}`}
