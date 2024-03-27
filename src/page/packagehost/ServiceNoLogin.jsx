@@ -1,118 +1,59 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Header } from "../../component/Header";
 import { SidebarNoLogin } from "../profile/SidebarNoLogin";
 import { useParams } from "react-router";
+import axios from "axios";
+import { Link } from "react-router-dom";
 export const ServiceNoLogin = () => {
     const { id } = useParams();
+    const [services, setServices] = useState([]);
+    const params = useParams();
+    const fetchPackage = async () => {
+        const response = await axios.get(
+            `http://birthdayblitzhub.online:8080/api/services/host/${params.id}`
+        );
+        setServices(response.data);
+    };
+
+    useEffect(() => {
+        fetchPackage();
+    }, []);
     return (
         <div>
             <Header />
             <div className="container container-profile">
-                <section class="services">
-                    <h1 class="heading">Our Service</h1>
+                <section className="services">
+                    <h1 className="heading">Our Service</h1>
 
-                    <div class="box-container">
-                        <div class="box-package">
-                            <div class="tutor">
-                                <img src="img/pic-2.jpg" />
-                                <div class="info">
-                                    <h3>john deo</h3>
-                                    <span>21-10-2022</span>
+                    <div className="box-container">
+                        {services.map((serviceItem, index) => (
+                            <div className="box-package" key={index}>
+                                <div className="tutor">
+                                    <img
+                                        src={serviceItem.account.avatar}
+                                        alt={serviceItem.name}
+                                    />
+                                    <div className="info">
+                                        <h3>{serviceItem.name}</h3>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="thumb">
-                                <img src="img/package.jpg" />
-                            </div>
-                            <h3 class="title"> Vippro </h3>
-                            <a href="playlist.html" class="btn">
-                                view detail
-                            </a>
-                        </div>
-
-                        <div class="box-package">
-                            <div class="tutor">
-                                <img src="img/pic-3.jpg" />
-                                <div class="info">
-                                    <h3>john deo</h3>
-                                    <span>21-10-2022</span>
+                                <div className="thumb">
+                                    <img
+                                        src={serviceItem.picture}
+                                        alt={serviceItem.name}
+                                    />
                                 </div>
+                                <h3 className="title">
+                                    {serviceItem.price} VNĐ
+                                </h3>
+                                <Link
+                                    to={`http://localhost:5173/serviceDetail/${serviceItem.serviceID}`}
+                                    className="btn"
+                                >
+                                    View detail
+                                </Link>
                             </div>
-                            <div class="thumb">
-                                <img src="img/package.jpg" />
-                            </div>
-                            <h3 class="title"> Vippro </h3>
-                            <a href="playlist.html" class="btn">
-                                view detail
-                            </a>
-                        </div>
-
-                        <div class="box-package">
-                            <div class="tutor">
-                                <img src="img/pic-4.jpg" />
-                                <div class="info">
-                                    <h3>john deo</h3>
-                                    <span>21-10-2022</span>
-                                </div>
-                            </div>
-                            <div class="thumb">
-                                <img src="img/package.jpg" />
-                            </div>
-                            <h3 class="title"> Vippro </h3>
-                            <a href="playlist.html" class="btn">
-                                view detail
-                            </a>
-                        </div>
-
-                        <div class="box-package">
-                            <div class="tutor">
-                                <img src="img/pic-8.jpg" />
-                                <div class="info">
-                                    <h3>john deo</h3>
-                                    <span>21-10-2022</span>
-                                </div>
-                            </div>
-                            <div class="thumb">
-                                <img src="img/package.jpg" />
-                            </div>
-                            <h3 class="title"> Vippro </h3>
-                            <a href="playlist.html" class="btn">
-                                view detail
-                            </a>
-                        </div>
-
-                        <div class="box-package">
-                            <div class="tutor">
-                                <img src="img/pic-9.jpg" />
-                                <div class="info">
-                                    <h3>john deo</h3>
-                                    <span>21-10-2022</span>
-                                </div>
-                            </div>
-                            <div class="thumb">
-                                <img src="img/package.jpg" />
-                            </div>
-                            <h3 class="title"> Vippro </h3>
-                            <a href="playlist.html" class="btn">
-                                view detail
-                            </a>
-                        </div>
-
-                        <div class="box-package">
-                            <div class="tutor">
-                                <img src="img/pic-1.jpg" />
-                                <div class="info">
-                                    <h3>john deo</h3>
-                                    <span>21-10-2022</span>
-                                </div>
-                            </div>
-                            <div class="thumb">
-                                <img src="img/package.jpg" />
-                            </div>
-                            <h3 class="title"> Vippro </h3>
-                            <a href="playlist.html" class="btn">
-                                view detail
-                            </a>
-                        </div>
+                        ))}
                     </div>
                 </section>
             </div>

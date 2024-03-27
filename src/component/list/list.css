@@ -1,6 +1,7 @@
 .viewListServices {
     padding: 65px 0;
-    background-image: url("../../../public/img/sky-background.jpg");
+    padding-bottom: 0;
+    background-image: url("../../../img/sky-background.jpg");
 }
 
 .viewListServices__list {

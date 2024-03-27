@@ -194,10 +194,6 @@ function App() {
             element: <ViewListServices />,
         },
         {
-            path: "/ManageService",
-            element: <ManageService />,
-        },
-        {
             path: "/serviceDetail/:id",
             element: <ServiceDecription />,
         },

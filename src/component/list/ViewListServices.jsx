@@ -162,7 +162,7 @@ export default function ViewListServices() {
                             width: 200,
                         }}
                         status="warning"
-                        placeholder="Search to Select"
+                        placeholder="Select"
                         onChange={handleChange}
                         options={[
                             {
@@ -193,6 +193,7 @@ export default function ViewListServices() {
 
                 {(displayType === "all" || displayType === "package") && (
                     <div className="viewListServices__list">
+                        {/* <h1>Package</h1> */}
                         {packages.map((item, index) =>
                             item?.packageID ? (
                                 <div className="viewListServices__items">

@@ -22,7 +22,7 @@ export const Service = () => {
             <HeaderLoginOfHost />
             <div className="container ">
                 <section className="packages">
-                    <h1 className="heading">Our packages</h1>
+                    <h1 className="heading">Our Service</h1>
 
                     <div className="box-container">
                         {services.map((serviceItem, index) => (
