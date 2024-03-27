@@ -87,7 +87,11 @@ const StepProgress = () => {
       slot: booking?.information?.slot,
       additionalNotes: booking?.information?.note,
       scheduleId: booking?.information?.scheduleId,
-      orderDetailDTOList: booking?.services?.map((item) => item.serviceID),
+      orderDetailDTOList: booking.services.map((item) => {
+        return {
+          id: item.serviceID,
+        };
+      }),
     });
     console.log(response);
     dispatch(reset());
@@ -97,6 +101,14 @@ const StepProgress = () => {
     <div>
       <HeaderLogin />
       <div className="container container-progress">
+        <Button
+          type="primary"
+          onClick={() => {
+            dispatch(reset());
+          }}
+        >
+          Reset Cart
+        </Button>
         <Steps current={current} className={prefixCls}>
           {steps.map((item) => (
             <Step key={item.title} title={item.title} />
