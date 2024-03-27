@@ -45,6 +45,7 @@ import AdminWallet from "./page/dashboad_admin/report_admin/admin-wallet/index";
 import { HomepageHost } from "./page/homepage/HomepageHost";
 import BusyDate from "./page/party-host/busydate/index";
 import ManageFeedbackOfHost from "./page/party-host/manage_feedbacks_of_host/index";
+import ManageServices from "./page/party-host/manaege_services/index";
 function App() {
   const router = createBrowserRouter([
     {
@@ -103,6 +104,10 @@ function App() {
             {
               path: "manage-feedbacks-of-host",
               element: <ManageFeedbackOfHost />,
+            },
+            {
+              path: "manage-services",
+              element: <ManageServices/>,
             },
           ],
         },
