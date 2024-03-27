@@ -28,6 +28,7 @@ function getItem(label, key, icon, children) {
 const DashBoard = ({ role }) => {
   const [items, setItems] = useState([]);
   const user = useSelector((store) => store.user);
+  const loggedUser = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -38,7 +39,7 @@ const DashBoard = ({ role }) => {
   }, [user]);
 
   function loadItems() {
-    if (role === "PARTY_HOST") {
+    if (loggedUser?.role === "Host") {
       setItems([
         getItem("Manage Package and service", "/dashboard/party-host/manage-package-service", <DesktopOutlined />),
         getItem("Manage Report", "/dashboard/party-host/report", <BarChartOutlined />),
@@ -47,9 +48,9 @@ const DashBoard = ({ role }) => {
         getItem("Manage Busy Date", "/dashboard/party-host/manage-busy-date", <ClockCircleOutlined />),
         getItem("Manage Orders", "/dashboard/party-host/manage-orders-of-hosts", <TableOutlined />),
         getItem("Manage FeedBacks", "/dashboard/party-host/manage-feedbacks-of-host", <CommentOutlined />),
-        
+
       ]);
-    } else if (role === "ADMIN") {
+    } else if (loggedUser?.role === "Admin") {
       setItems([
         getItem("Manage accounts", "/dashboard/admin/manage-accounts", <TeamOutlined />),
         getItem("Report Admin", "/dashboard/admin/report-admin", <BarChartOutlined />),

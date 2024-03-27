@@ -175,7 +175,7 @@ export default function PackageDecription() {
               </a>
             </button> */}
             <button>
-              <Link to={"/ManageService"}>Cancel</Link>
+              <Link to={"/ViewListService"}>Cancel</Link>
             </button>
           </div>
         </div>

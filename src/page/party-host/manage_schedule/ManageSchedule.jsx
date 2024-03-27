@@ -39,15 +39,16 @@ const ManageSchedule = () => {
 
   const fetchData = async () => {
     try {
-      const response = await api.get(`/api/schedules/${loggedUser.accountID}`); 
+      const response = await api.get(`/api/schedules/${loggedUser.accountID}`);
       setSchedules(response.data);
+      // console.log(schedules);
     } catch (error) {
       console.error("Error fetching schedules:", error);
       toast.error("Failed to fetch schedules");
     }
   };
-  
-  
+
+
   const handleAdd = async (time) => {
     if (schedules.find((item) => item.time === time)) {
       toast.error("Schedule already exist!");
