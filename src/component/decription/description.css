@@ -86,3 +86,13 @@
     margin-right: 2px;
     font-size: 3rem;
 }
+
+.rating__package {
+    display: flex;
+    margin-top: 5px;
+}
+
+.rating__package .rating {
+    color: #50cc98;
+    margin-right: 10px;
+}

@@ -11,13 +11,40 @@ import { useDispatch, useSelector } from "react-redux";
 import { updatePackage } from "../../redux/features/bookingSlice";
 import { Footer } from "../../component/Footer";
 import { Helmet } from "react-helmet";
-import { Space, Typography } from "antd";
+import { Rate, Space, Typography } from "antd";
 
 export default function PackageDecription() {
     const [packages, setPackage] = useState(null);
     const [services, setServices] = useState(null);
     const userName = useParams();
     const { Text, Link } = Typography;
+    // const params = useParams();
+    const [feedbacks, setFeedbacks] = useState([]);
+    const [rates, setRates] = useState();
+    const fetchFeedBack = async (id = userName.id) => {
+        const response = await axios.get(
+            "http://birthdayblitzhub.online:8080/api/feedbacks/package/" + id
+        );
+        setFeedbacks(response.data);
+        console.log("fetchFeedBack", response.data);
+    };
+
+    useEffect(() => {
+        fetchFeedBack();
+    }, []);
+
+    const fetchRate = async (id = userName.id) => {
+        const response = await axios.get(
+            "http://birthdayblitzhub.online:8080/api/feedbacks/packageAverageRating/" +
+                id
+        );
+        setRates(response.data.rating);
+        console.log("fetchRate", response.data.rating);
+    };
+    useEffect(() => {
+        fetchRate();
+        // console.log("feedbacks", feedbacks[0]);
+    }, []);
 
     const [data, setData] = useState({
         id: 0,
@@ -118,13 +145,12 @@ export default function PackageDecription() {
                         <h3 className="Name">
                             Package Name: {packages?.name}{" "}
                         </h3>
-                        <Text type="success">
-                            Package || <i class="fa-solid fa-star"> </i>{" "}
-                            <i class="fa-solid fa-star"> </i>{" "}
-                            <i class="fa-solid fa-star"> </i>{" "}
-                            <i class="fa-solid fa-star"> </i>{" "}
-                            <i class="fa-solid fa-star"> </i>
-                        </Text>
+
+                        <div className="rating__package">
+                            <div className="rating"> Package ||</div>{" "}
+                            <Rate disabled value={rates} />
+                        </div>
+
                         <br />
                         <div className="viewSerivceDetail__desc">
                             <h2 className="descrip">Description:</h2>
@@ -194,6 +220,37 @@ export default function PackageDecription() {
                         </div>
                     </div>
                 </div>
+                <section className="reviews">
+                    <div className="heading__feedback">Customer's reviews</div>
+
+                    <div className="box-container">
+                        {feedbacks.map((feedbackItem, index) => (
+                            <div className="box-comment" key={index}>
+                                <div className="student">
+                                    <img
+                                        src={feedbackItem.guest.avatar}
+                                        alt={feedbackItem.guest.name}
+                                    />
+                                    <div>
+                                        <h3>{feedbackItem.guest.name}</h3>
+                                        <Rate
+                                            disabled
+                                            defaultValue={feedbackItem.rating}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="feedback__host">
+                                    {feedbackItem.feedbackDate} ||{" "}
+                                    {feedbackItem.apackage.name}{" "}
+                                </div>
+
+                                <div className="feedback__desc">
+                                    {feedbackItem.description}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </section>
             </div>
             <Footer />
         </div>
