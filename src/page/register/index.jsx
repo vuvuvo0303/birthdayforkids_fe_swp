@@ -170,7 +170,7 @@ const Register = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please choose your Hosts",
+                  message: "Please choose your role",
                 },
               ]}
             >
@@ -200,12 +200,28 @@ const Register = () => {
                 {fileList.length >= 8 ? null : uploadButton}
               </Upload>
             </Form.Item>
-            <Flex justifyContent="center" mb={5}>
-              <Checkbox w="fit-content" size="lg" fontWeight="normal">
-                Agree to Terms and Conditions
-              </Checkbox>
-              &nbsp; <PolicyButton />
-            </Flex>
+            <Form.Item
+              name="policy"
+              valuePropName="checked" 
+              rules={[
+                {
+                  validator: (_, value) => {
+                    if (!value) {
+                      return Promise.reject("Please tick policy");
+                    } else {
+                      return Promise.resolve();
+                    }
+                  },
+                },
+              ]}
+            >
+              <Flex justifyContent="center" mb={5}>
+                <Checkbox w="fit-content" size="lg" fontWeight="normal">
+                  Agree to Terms and Conditions
+                </Checkbox>
+                &nbsp; <PolicyButton />
+              </Flex>
+            </Form.Item>
 
             <Flex justifyContent="center">
               <Form.Item

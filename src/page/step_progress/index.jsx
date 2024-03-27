@@ -80,12 +80,13 @@ const StepProgress = () => {
     const response = await api.post("api/orders/create-payment", {
       totalPrice: calcTotal(),
       packageId: booking?.package?.packageID,
-      nameReceiver: booking?.information?.username,
-      phone: booking?.information?.phoneNumber,
+      username: booking?.information?.username,
+      phoneNumber: booking?.information?.phoneNumber,
       email: booking?.information?.email,
       venue: booking?.information?.venue,
       slot: booking?.information?.slot,
-      additionalNotes: booking?.information?.note,
+      notes: booking?.information?.note,
+      date: booking?.information?.date,
       scheduleId: booking?.information?.scheduleId,
       orderDetailDTOList: booking.services.map((item) => {
         return {
