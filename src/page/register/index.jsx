@@ -128,91 +128,103 @@ const Register = () => {
                             <Input.Password />
                         </Form.Item>
 
-                        <Form.Item
-                            label="Email"
-                            name="email"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: "Please input your email!",
-                                },
-                            ]}
-                        >
-                            <Input />
-                        </Form.Item>
-                        <Form.Item
-                            label="Phone Number"
-                            name="phone"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: "Please input your Phone Number",
-                                },
-                            ]}
-                        >
-                            <Input />
-                        </Form.Item>
-                        <Form.Item
-                            label="Gender"
-                            name="gender"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: "Please input gender!",
-                                },
-                            ]}
-                        >
-                            <Radio.Group defaultValue={"MALE"}>
-                                <Radio value={"MALE"}>Male</Radio>
-                                <Radio value={"FEMALE"}>Female</Radio>
-                            </Radio.Group>
-                        </Form.Item>
-                        <Form.Item
-                            label="Role"
-                            name="role"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: "Please choose your Hosts",
-                                },
-                            ]}
-                        >
-                            <Radio.Group defaultValue={"Guest"}>
-                                <Radio value={"Guest"}>Guest</Radio>
-                                <Radio value={"Host"}>Host</Radio>
-                            </Radio.Group>
-                        </Form.Item>
-                        <Form.Item
-                            label="Avatar"
-                            name="avatar"
-                            // rules={[
-                            //   {
-                            //     required: true,
-                            //     message: "Please upload your Avatar",
-                            //   },
-                            // ]}
-                        >
-                            <Upload
-                                action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-                                listType="picture-card"
-                                fileList={fileList}
-                                onPreview={handlePreview}
-                                onChange={handleChange}
-                                maxCount={1}
-                            >
-                                {fileList.length >= 8 ? null : uploadButton}
-                            </Upload>
-                        </Form.Item>
-                        <Flex justifyContent="center" mb={5}>
-                            <Checkbox
-                                w="fit-content"
-                                size="lg"
-                                fontWeight="normal"
-                            >
-                                Agree to Terms and Conditions
-                            </Checkbox>
-                            &nbsp; <PolicyButton />
-                        </Flex>
+            <Form.Item
+              label="Email"
+              name="email"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your email!",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              label="Phone Number"
+              name="phone"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your Phone Number",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              label="Gender"
+              name="gender"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input gender!",
+                },
+              ]}
+            >
+              <Radio.Group defaultValue={"MALE"}>
+                <Radio value={"MALE"}>Male</Radio>
+                <Radio value={"FEMALE"}>Female</Radio>
+              </Radio.Group>
+            </Form.Item>
+            <Form.Item
+              label="Role"
+              name="role"
+              rules={[
+                {
+                  required: true,
+                  message: "Please choose your role",
+                },
+              ]}
+            >
+              <Radio.Group defaultValue={"Guest"}>
+                <Radio value={"Guest"}>Guest</Radio>
+                <Radio value={"Host"}>Host</Radio>
+              </Radio.Group>
+            </Form.Item>
+            <Form.Item
+              label="Avatar"
+              name="avatar"
+              // rules={[
+              //   {
+              //     required: true,
+              //     message: "Please upload your Avatar",
+              //   },
+              // ]}
+            >
+              <Upload
+                action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+                listType="picture-card"
+                fileList={fileList}
+                onPreview={handlePreview}
+                onChange={handleChange}
+                maxCount={1}
+              >
+                {fileList.length >= 8 ? null : uploadButton}
+              </Upload>
+            </Form.Item>
+            <Form.Item
+              name="policy"
+              valuePropName="checked" 
+              rules={[
+                {
+                  validator: (_, value) => {
+                    if (!value) {
+                      return Promise.reject("Please tick policy");
+                    } else {
+                      return Promise.resolve();
+                    }
+                  },
+                },
+              ]}
+            >
+              <Flex justifyContent="center" mb={5}>
+                <Checkbox w="fit-content" size="lg" fontWeight="normal">
+                  Agree to Terms and Conditions
+                </Checkbox>
+                &nbsp; <PolicyButton />
+              </Flex>
+            </Form.Item>
 
                         <Flex justifyContent="center">
                             <Form.Item

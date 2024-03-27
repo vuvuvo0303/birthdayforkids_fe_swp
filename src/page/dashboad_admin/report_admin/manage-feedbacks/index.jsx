@@ -42,6 +42,7 @@ const ManageFeedBacks = () => {
       title: "Feedback Date",
       dataIndex: "feedbackDate",
       key: "feedbackDate",
+      width: "120px",
     },
     {
       title: "Rating",

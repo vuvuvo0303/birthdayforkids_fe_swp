@@ -5,11 +5,12 @@ import React, { useEffect, useState } from "react";
 import api from "../../../config/axios";
 import { toast } from "react-toastify";
 import uploadFile from "../../../utils/upload";
+import { useSelector } from "react-redux";
 
 const UpdateServiceButton = ({ record, forceRerender }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [servicePictureFile, setServicePictureFile] = useState(null);
-
+  const loggedUser = useSelector((store) => store.user);
   const [form] = Form.useForm();
   const showModal = () => {
     setIsModalOpen(true);
@@ -103,7 +104,7 @@ const UpdateServiceButton = ({ record, forceRerender }) => {
             ]}
             initialValue={record.price}
           >
-            <Input name="price"addonAfter="VND"type="number" />
+            <Input name="price" type="number" addonAfter="VND"/>
           </Form.Item>
           <Form.Item
             label="Description"

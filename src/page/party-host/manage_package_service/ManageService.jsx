@@ -6,7 +6,7 @@ import api from "../../../config/axios";
 import uploadFile from "../../../utils/upload";
 import { toast } from "react-toastify";
 import UpdateServiceButton from "./UpdateServiceButton";
-const ManageService = ({ packageID }) => {
+const ManageService = ({ packageID, fetchPakage }) => {
   const [form] = Form.useForm();
   const [showAddPackage, setShowService] = useState(false);
   const [dataSource, setDataSource] = useState([]);
@@ -45,13 +45,14 @@ const ManageService = ({ packageID }) => {
     }
     try {
       values.packageId = packageID;
-      const response = await api.post(`/api/services/addService/${values.packageId}`, {
+      const response = await api.post(`/api/services/addServiceToPackage/${values.packageId}`, {
         ...values,
       });
       console.log(response.data);
       form.resetFields();
       setShowService(false);
       fetchService();
+      fetchPakage && fetchPakage();
       toast.success("Add successfully");
     } catch (error) {
       console.error("Error submitting Service:", error);
@@ -76,13 +77,16 @@ const ManageService = ({ packageID }) => {
   }, [rerenderKey]);
 
   const handleDelete = async (record) => {
+    console.log(record);
     try {
-      const response = await api.delete(`/api/services/${record.serviceID}`);
+      const response = await api.delete(`/api/services/${record.serviceID}/${packageID}`);
       console.log(response.data);
 
       const newData = dataSource.filter((item) => item.serviceID !== record.serviceID);
       setDataSource(newData);
       toast.success("Delete Service successfully!");
+      fetchService();
+      fetchPakage && fetchPakage();
     } catch (error) {
       console.error("Error deleting serviceID:", error);
       message.error("Failed to delete serviceID");
@@ -102,7 +106,13 @@ const ManageService = ({ packageID }) => {
       title: "Price",
       dataIndex: "price",
       key: "price",
+      render: (price) => {
+        // Định dạng giá thành VND
+        const formattedPrice = new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(price);
+        return formattedPrice;
+      },
     },
+
     {
       title: "Description",
       dataIndex: "description",
@@ -159,7 +169,10 @@ const ManageService = ({ packageID }) => {
             <Input />
           </Form.Item>
           <Form.Item label="Price" name="price" rules={[{ required: true, message: "Price must not be blank" }]}>
-            <Input suffix="VND" />
+            <Input
+              addonAfter="VND" // Hiển thị tiền tệ là VND bên phải trường nhập liệu
+              type="number" // Để đảm bảo chỉ có thể nhập số
+            />
           </Form.Item>
           <Form.Item
             label="Description"

@@ -8,6 +8,7 @@ import {
   TableOutlined,
   CommentOutlined,
   WalletOutlined,
+  AppstoreAddOutlined,
 } from "@ant-design/icons";
 import { Avatar, Breadcrumb, Button, Dropdown, Layout, Menu, Row, theme } from "antd";
 import Table from "../table";
@@ -41,14 +42,14 @@ const DashBoard = ({ role }) => {
   function loadItems() {
     if (loggedUser?.role === "Host") {
       setItems([
-        getItem("Manage Package and service", "/dashboard/party-host/manage-package-service", <DesktopOutlined />),
+        getItem("Manage Package ", "/dashboard/party-host/manage-package-service", <DesktopOutlined />),
+        getItem("Manage Service", "/dashboard/party-host/manage-services", <AppstoreAddOutlined />),
         getItem("Manage Report", "/dashboard/party-host/report", <BarChartOutlined />),
         getItem("Update Profile", "/dashboard/party-host/edit-ptofile-hosts", <EditOutlined />),
         getItem("Manage Schedule", "/dashboard/party-host/manage-schedule", <ClockCircleOutlined />),
         getItem("Manage Busy Date", "/dashboard/party-host/manage-busy-date", <ClockCircleOutlined />),
         getItem("Manage Orders", "/dashboard/party-host/manage-orders-of-hosts", <TableOutlined />),
         getItem("Manage FeedBacks", "/dashboard/party-host/manage-feedbacks-of-host", <CommentOutlined />),
-
       ]);
     } else if (loggedUser?.role === "Admin") {
       setItems([

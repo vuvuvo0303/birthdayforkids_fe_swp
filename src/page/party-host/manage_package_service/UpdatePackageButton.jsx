@@ -73,30 +73,51 @@ const UpdatePackageButton = ({ record, forceRerender }) => {
             onFinish(e);
           }}
         >
-          <Form.Item label="Package image" name="picture" initialValue={record.name}>
+          <Form.Item label="Package image" name="picture"  rules={[
+              {
+                required: true,
+                message: "Please input your Package image!",
+              },
+            ]} initialValue={record.picture}>
             <Upload {...uploadProps}>
               <Button icon={<UploadOutlined />}>Upload new package image</Button>
             </Upload>
           </Form.Item>
 
-          <Form.Item label="Name" name="name" initialValue={record.name}>
+          <Form.Item label="Name" name="name"   rules={[
+              {
+                required: true,
+                message: "Please input your Package Name!",
+              },
+            ]} initialValue={record.name}>
             <Input name="name" />
           </Form.Item>
-          <Form.Item label="Number of Slot" name="slot" initialValue={record.slot}>
-            <Input type="number"/>
-          </Form.Item>
+
           <Form.Item
-            label="Price"
-            name="price"
+            label="Number of Slot"
+            name="maximumSlot"
             rules={[
               {
                 required: true,
-                message: "Please input your Price!",
+                message: "Please input your Number of Slot!",
               },
             ]}
-            initialValue={record.price}
+            initialValue={record.maximumSlot}
           >
-            <Input name="price" />
+            <Input type="number" name="maximumSlot" />
+          </Form.Item>
+          <Form.Item
+            label="DiscountPercent"
+            name="discountPercentage"
+            rules={[
+              {
+                required: true,
+                message: "Please input your Discount Percentagece!",
+              },
+            ]}
+            initialValue={record.discountPercentage}
+          >
+            <Input type="number" name="discountPercentage" />
           </Form.Item>
           <Form.Item
             label="Description"
@@ -111,9 +132,9 @@ const UpdatePackageButton = ({ record, forceRerender }) => {
           >
             <Input name="description" />
           </Form.Item>
-          <Form.Item label="Picture" name="picture" initialValue={record.picture} hidden>
+          {/* <Form.Item label="Picture" name="picture" initialValue={record.picture} hidden>
             <Input name="picture" />
-          </Form.Item>
+          </Form.Item> */}
         </Form>
       </Modal>
     </>

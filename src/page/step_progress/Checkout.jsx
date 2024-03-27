@@ -22,6 +22,7 @@ import { Link as RouterLink } from "react-router-dom";
 import api from "../../config/axios";
 import "./checkout.css";
 import { Image } from "antd";
+import moment from "moment";
 
 const Checkout = ({ setCartItemsIndex }) => {
   const booking = useSelector((store) => store.booking);
@@ -234,18 +235,18 @@ const Checkout = ({ setCartItemsIndex }) => {
           <FormLabel fontSize="15px">Date</FormLabel>
           <Input
             disabled
-            value="2003-10-20"
+            value={moment(booking?.information?.date).format("DD/MM/YYYY")}
             fontSize="15px"
             p={8}
             border="1px solid black"
             w="200px"
             mb={10}
-            type="date"
+            type="text"
           />
           <FormLabel fontSize="15px">Time</FormLabel>
           <Input
             disabled
-            value={booking?.information?.time}
+            value={booking?.information?.timeString}
             fontSize="15px"
             p={8}
             border="1px solid black"

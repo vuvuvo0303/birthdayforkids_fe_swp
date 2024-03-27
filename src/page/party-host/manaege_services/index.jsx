@@ -6,32 +6,30 @@ import { useForm } from "antd/es/form/Form";
 import api from "../../../config/axios";
 import uploadFile from "../../../utils/upload";
 import { toast } from "react-toastify";
-import ManageService from "./ManageService";
-import UpdatePackageButton from "./UpdatePackageButton";
+import UpdateServiceButton from "./UpdateServiceBuuton";
+import { useSelector } from "react-redux";
 
-export const ManagePackageAndService = () => {
+export const ManageSevices = () => {
   const [form] = useForm();
   const [showAddPackage, setShowPackage] = useState(false);
   const [dataSource, setDataSource] = useState([]);
   const [rerenderKey, setRerenderKey] = useState(0);
+  const loggedUser = useSelector((store) => store.user);
   const forceRerender = () => {
     setRerenderKey(rerenderKey + 1);
   };
 
-  const fetchPackage = async () => {
+  const fetchService = async () => {
     try {
-      const response = await api.get("api/packages/packages-of-host/no-variable");
-      console.log(response);
-      setDataSource(
-        response.data.map((item) => {
-          return {
-            ...item,
-            key: item.packageID,
-          };
-        })
-      );
+      const response = await api.get(`/api/services/host/${loggedUser.accountID}`);
+      if (response.data) {
+        setDataSource(response.data.filter((item) => !item.deleted));
+      } else {
+        setDataSource([]);
+      }
     } catch (error) {
-      console.error("Error fetching packages:", error);
+      console.error("Error fetching services:", error);
+      message.error("Error fetching services. Please try again later.");
     }
   };
 
@@ -42,13 +40,13 @@ export const ManagePackageAndService = () => {
     }
 
     try {
-      const response = await api.post("/api/packages/addPackage", {
+      const response = await api.post("/api/services/addService", {
         ...values,
       });
       console.log(response.data);
       form.resetFields();
       setShowPackage(false);
-      fetchPackage();
+      fetchService();
       toast.success("Add successfully");
     } catch (error) {
       console.error("Error submitting package:", error);
@@ -56,7 +54,7 @@ export const ManagePackageAndService = () => {
   };
 
   useEffect(() => {
-    fetchPackage();
+    fetchService();
   }, [rerenderKey]);
   const columns = [
     {
@@ -65,47 +63,18 @@ export const ManagePackageAndService = () => {
       key: "name",
     },
     {
-      title: "Original Price",
+      title: "Price",
       dataIndex: "price",
       key: "price",
       render: (price) => {
-        // Định dạng giá ban đầu thành VND
         const formattedPrice = new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(price);
         return formattedPrice;
       },
     },
     {
-      title: "Discount Percent",
-      dataIndex: "discountPercentage",
-      key: "discountPercentage",
-      render: (discountPercentage) => {
-        // Định dạng phần trăm giảm giá thành VND
-        const formattedDiscountPercentage = discountPercentage + "%";
-        return formattedDiscountPercentage;
-      },
-    },
-    {
-      title: "Discounted Price",
-      dataIndex: "discountedPrice",
-      key: "discountedPrice",
-      render: (discountedPrice) => {
-        // Định dạng giá đã giảm thành VND
-        const formattedDiscountedPrice = new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(
-          discountedPrice
-        );
-        return formattedDiscountedPrice;
-      },
-    },
-
-    {
       title: "Description",
       dataIndex: "description",
       key: "description",
-    },
-    {
-      title: "Number of Slot",
-      dataIndex: "maximumSlot",
-      key: "maximumSlot",
     },
 
     {
@@ -122,7 +91,7 @@ export const ManagePackageAndService = () => {
           <Button type="primary" danger onClick={() => handleDelete(record)}>
             Delete
           </Button>
-          <UpdatePackageButton record={record} forceRerender={forceRerender} />
+          <UpdateServiceButton record={record} forceRerender={forceRerender} />
         </Space>
       ),
     },
@@ -130,20 +99,19 @@ export const ManagePackageAndService = () => {
 
   const handleDelete = async (record) => {
     try {
-      const response = await api.delete(`/api/packages/${record.packageID}`);
+      const response = await api.delete(`/api/services/${record.serviceID}`);
       console.log(response.data);
 
-      const newData = dataSource.filter((item) => item.packageID !== record.packageID);
+      const newData = dataSource.filter((item) => item.serviceID !== record.serviceID);
       setDataSource(newData);
-      toast.success("Delete Package successfully!");
-      fetchPackage();
+      toast.success("Delete service successfully!");
     } catch (error) {
-      console.error("Error deleting packageID:", error);
-      message.error("Failed to delete packageID");
+      console.error("Error deleting serviceID:", error);
+      message.error("Failed to delete serviceID");
     }
   };
   useEffect(() => {
-    fetchPackage();
+    fetchService();
   }, []);
   const props = {
     name: "file",
@@ -155,7 +123,7 @@ export const ManagePackageAndService = () => {
       <Breadcrumb
         items={[
           {
-            href: "/HomePage",
+            href: "/homepage",
             title: <HomeOutlined />,
           },
           {
@@ -168,7 +136,7 @@ export const ManagePackageAndService = () => {
             ),
           },
           {
-            title: "Package",
+            title: "All service",
           },
         ]}
       />{" "}
@@ -179,18 +147,12 @@ export const ManagePackageAndService = () => {
         type="primary"
         onClick={() => setShowPackage(true)}
       >
-        Add Package
+        Add Services
       </Button>
-      <Table
-        columns={columns}
-        dataSource={dataSource}
-        expandable={{
-          expandedRowRender: (record) => <ManageService fetchPakage={fetchPackage} packageID={record.packageID} />,
-        }}
-      />
+      <Table columns={columns} dataSource={dataSource} expandable={{}} />
       <Modal
         open={showAddPackage}
-        title="Create Package"
+        title="Create Services"
         okText="Add"
         onOk={() => form.submit()}
         onCancel={() => setShowPackage(false)}
@@ -207,24 +169,9 @@ export const ManagePackageAndService = () => {
           <Form.Item label="Name" name="name" rules={[{ required: true, message: "Name must not be blank" }]}>
             <Input />
           </Form.Item>
-          <Form.Item
-            label="Discount Percentage"
-            name="discountPercentage"
-            rules={[{ required: true, message: "Price must not be blank" }]}
-          >
-            <Input suffix="%" type="number" />
+          <Form.Item label="Price" name="price" rules={[{ required: true, message: "Price must not be blank" }]}>
+            <Input addonAfter="VND" type="number"/>
           </Form.Item>
-          {/* <Form.Item label="Price" name="price" rules={[{ required: true, message: "Price must not be blank" }]}>
-            <Input suffix="VND" />
-          </Form.Item> */}
-          <Form.Item
-            label="Number of slot"
-            name="slot"
-            rules={[{ required: true, message: "Number of SLot must not be blank" }]}
-          >
-            <Input type="number" />
-          </Form.Item>
-
           <Form.Item
             label="Description"
             name="description"
@@ -246,4 +193,4 @@ export const ManagePackageAndService = () => {
   );
 };
 
-export default ManagePackageAndService;
+export default ManageSevices;
