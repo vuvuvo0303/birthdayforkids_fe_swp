@@ -77,7 +77,6 @@ export default function ViewListServices() {
     };
 
     const handleSortServiceByPrice = (sortBy) => {
-
         console.log("Sort by:", sortBy);
         if (sortBy === "Desc") {
             const sortedServices = [...service];
@@ -234,7 +233,7 @@ export default function ViewListServices() {
                                                     </span>
                                                 </p>
                                                 <Link
-                                                    to={`y/packageDetail/${item.packageID}`}
+                                                    to={`/packageDetail/${item.packageID}`}
                                                 >
                                                     <button className="btn viewListServices__button">
                                                         Detail
