@@ -77,13 +77,13 @@ export default function ViewListServices() {
     };
 
     const handleSortServiceByPrice = (sortBy) => {
-        
+
         console.log("Sort by:", sortBy);
         if (sortBy === "Desc") {
             const sortedServices = [...service];
-            sortedServices.sort((a, b) => b.price - a.price); 
+            sortedServices.sort((a, b) => b.price - a.price);
             console.log("sortedServices", sortedServices);
-            setService(sortedServices); 
+            setService(sortedServices);
             console.log("data service: ", service);
 
             const sortedPackage = [...packages];
@@ -234,7 +234,7 @@ export default function ViewListServices() {
                                                     </span>
                                                 </p>
                                                 <Link
-                                                    to={`http://localhost:5173/packageDetail/${item.packageID}`}
+                                                    to={`y/packageDetail/${item.packageID}`}
                                                 >
                                                     <button className="btn viewListServices__button">
                                                         Detail
@@ -294,7 +294,7 @@ export default function ViewListServices() {
                                                     </span>
                                                 </p>
                                                 <Link
-                                                    to={`http://localhost:5173/serviceDetail/${item.serviceID}`}
+                                                    to={`/serviceDetail/${item.serviceID}`}
                                                 >
                                                     <button className="btn viewListServices__button">
                                                         Detail
