@@ -10,7 +10,7 @@ export const Layout = () => {
     const loggedUser = useSelector((store) => store.user);
     return (
         <>
-            {(!loggedUser?.role || loggedUser?.role != "Guest" && loggedUser?.role === "Host") && <Header />}
+            {(!loggedUser?.role || loggedUser?.role != "Guest" && loggedUser?.role != "Host") && <Header />}
             {loggedUser?.role === "Guest" && <HeaderLogin />}
             {loggedUser?.role === "Host" && <HeaderLoginOfHost />}
             {/* if({loggedUser?.role === "Guest"}){

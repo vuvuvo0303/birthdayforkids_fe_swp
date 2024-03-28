@@ -261,7 +261,7 @@ const Checkout = ({ setCartItemsIndex }) => {
             mb={10}
             type="time"
           />
-          <Form.Item
+          {/* <Form.Item
             label="Payments Method's"
             name="role"
             rules={[
@@ -270,11 +270,11 @@ const Checkout = ({ setCartItemsIndex }) => {
                 message: "Please choose Payments Method's",
               },
             ]}
-          ></Form.Item>
-          <Radio.Group onChange={onChange} value={value}>
+          ></Form.Item> */}
+          {/* <Radio.Group onChange={onChange} value={value}>
             <Radio value={1}>VNPay</Radio>
             <Radio value={2}>Wallet</Radio>
-          </Radio.Group>
+          </Radio.Group> */}
         </FormControl>
       </Box>
     </Flex>
