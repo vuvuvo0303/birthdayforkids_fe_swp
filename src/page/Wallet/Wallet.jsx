@@ -67,8 +67,8 @@ export const Wallet = () => {
     
     {
         title: "Value",
-        dataIndex: "order",
-        key: "order",
+        // dataIndex: "order",
+        // key: "order",
         render: (value) => value.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }),
     },
     
