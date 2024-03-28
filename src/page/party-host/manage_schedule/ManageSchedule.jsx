@@ -198,7 +198,7 @@ const ManageSchedule = () => {
       <Breadcrumb
         style={{ margin: "16px 0" }}
         items={[
-          { href: "/homepage", title: <HomeOutlined /> },
+          { href: "/", title: <HomeOutlined /> },
           { href: "", title: "Hosts" },
           { title: "Schedule" },
           { title: "Manage" },

@@ -8,7 +8,7 @@ import { HeaderLogin } from "../HeaderLogin";
 import { HeaderLoginOfHost } from "../../page/profile/HeaderLoginOfHost";
 import { Button, Select } from "antd";
 import { Footer } from "../Footer";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function ViewListServices() {
     const [service, setService] = useState([]);
@@ -61,7 +61,6 @@ export default function ViewListServices() {
                 // handle error
             })
             .then((data) => {
-                // Do something with the list of tasks
                 // console.log('real data: ', data);
                 setPackage(data);
                 return data;
@@ -74,18 +73,17 @@ export default function ViewListServices() {
     const handleChange = (event) => {
         console.log(event);
         setSortBy(event);
-        // Gọi hàm xử lý sắp xếp dịch vụ ở đây
         handleSortServiceByPrice(event);
     };
 
     const handleSortServiceByPrice = (sortBy) => {
-        // Viết logic sắp xếp dịch vụ ở đây
+        
         console.log("Sort by:", sortBy);
         if (sortBy === "Desc") {
-            const sortedServices = [...service]; // Tạo một bản sao của mảng service để tránh ảnh hưởng đến state gốc
-            sortedServices.sort((a, b) => b.price - a.price); // Sắp xếp mảng các dịch vụ theo giá giảm dần
+            const sortedServices = [...service];
+            sortedServices.sort((a, b) => b.price - a.price); 
             console.log("sortedServices", sortedServices);
-            setService(sortedServices); // Cập nhật state service với mảng đã được sắp xếp
+            setService(sortedServices); 
             console.log("data service: ", service);
 
             const sortedPackage = [...packages];

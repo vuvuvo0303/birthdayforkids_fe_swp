@@ -8,12 +8,14 @@ import { WalletOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/features/userSlice";
+import { lightBlue } from "@mui/material/colors";
 export const HeaderLoginOfHost = () => {
     const [isSticky, setSticky] = useState(false);
     const [isProfileActive, setProfileActive] = useState(false);
     const [isSearchActive, setSearchActive] = useState(false);
     const [isMenuActive, setMenuActive] = useState(false);
     const [hosts, setHosts] = useState([]);
+    const [wallet, setWallet] = useState([]);
     const loggedUser = useSelector((store) => store.user);
     const user = useSelector((store) => store.user);
     const dispatch = useDispatch();
@@ -63,15 +65,29 @@ export const HeaderLoginOfHost = () => {
                 `http://birthdayblitzhub.online:8080/auth/getUser/${id}`
             );
             const data = await response.json();
-            console.log(data);
+            console.log("host", data);
             setHosts(data);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
     };
 
+    const fetchWallet = async (id) => {
+        try {
+            const response = await fetch(
+                `http://birthdayblitzhub.online:8080/api/wallets/${id}`
+            );
+            const data = await response.json();
+            console.log("fetchWallet", data);
+            setWallet(data);
+        } catch (error) {
+            console.error("Error fetching data Wallet:", error);
+        }
+    };
+
     useEffect(() => {
         fetchData(loggedUser.accountID);
+        fetchWallet(loggedUser.accountID);
     }, []);
 
     return (
@@ -89,7 +105,7 @@ export const HeaderLoginOfHost = () => {
                 <div className="container">
                     {/* <!-- Header top --> */}
                     <div className="header-top">
-                        <a href="/HomepageHost">
+                        <a href="/">
                             <div className="logo">
                                 <img
                                     src="/img/Logo.svg"
@@ -102,7 +118,7 @@ export const HeaderLoginOfHost = () => {
                         {/* <!-- Navbar --> */}
                         <nav className="navbar">
                             <ul className="navbar__list">
-                                <li className="navbar__item">
+                                {/* <li className="navbar__item">
                                     <div className="box">
                                         <input
                                             type="text"
@@ -117,27 +133,22 @@ export const HeaderLoginOfHost = () => {
                                             </button>
                                         </a>
                                     </div>
-                                </li>
+                                </li> */}
                                 <li className="navbar__item">
                                     <a
-                                        href="#service1"
+                                        href="/ViewListService"
                                         className="navbar__link"
                                     >
                                         Service
                                     </a>
                                 </li>
                                 <li className="navbar__item">
-                                    <a href="#work1" className="navbar__link">
-                                        Work
-                                    </a>
-                                </li>
-                                <li className="navbar__item">
-                                    <a href="#about1" className="navbar__link">
+                                    <a href="/" className="navbar__link">
                                         About
                                     </a>
                                 </li>
                                 <li className="navbar__item">
-                                    <a href="#member1" className="navbar__link">
+                                    <a href="/hostpage" className="navbar__link">
                                         Host
                                     </a>
                                 </li>
@@ -209,10 +220,18 @@ export const HeaderLoginOfHost = () => {
                                 <div>
                                     <p style={{ color: "#07221C" }}>
                                         <strong>
-                                            Wallet balance: 1.000.000.000 VND
+                                            Wallet balance:
+                                            {/* {wallet?.totalMoney} */}
+                                            {new Intl.NumberFormat(
+                                                "vi-VN",
+                                                {
+                                                    style: "currency",
+                                                    currency: "VND",
+                                                }
+                                            ).format(wallet?.totalMoney)}
                                         </strong>
                                     </p>
-                                    <a href="/Wallet">Add Money</a> <br />
+                                    <a href="/Wallet">View wallet's balance</a> <br />
                                     <a onClick={hide} style={{ color: "red" }}>
                                         close
                                     </a>
