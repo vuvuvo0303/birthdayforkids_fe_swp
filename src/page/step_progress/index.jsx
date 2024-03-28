@@ -70,29 +70,34 @@ const StepProgress = () => {
 
   const handlePayment = async (type) => {
     const url = type === "vnpay" ? "api/orders/create-payment" : "/api/orders/pay-with-wallet";
-    const response = await api.post(url, {
-      totalPrice: calcTotal(),
-      packageId: booking?.package?.packageID,
-      username: booking?.information?.username,
-      phoneNumber: booking?.information?.phoneNumber,
-      email: booking?.information?.email,
-      venue: booking?.information?.venue,
-      slot: booking?.information?.slot,
-      notes: booking?.information?.note,
-      date: booking?.information?.dateString,
-      scheduleId: booking?.information?.scheduleId,
-      orderDetailDTOList: booking.services.map((item) => {
-        return {
-          id: item.serviceID,
-        };
-      }),
-    });
-    console.log(response);
-    dispatch(reset());
-    if (type === "vnpay") {
-      window.open(response.data, "_self");
-    } else {
-      navigate("/guestDetail");
+    try {
+      const response = await api.post(url, {
+        totalPrice: calcTotal(),
+        packageId: booking?.package?.packageID,
+        username: booking?.information?.username,
+        phoneNumber: booking?.information?.phoneNumber,
+        email: booking?.information?.email,
+        venue: booking?.information?.venue,
+        slot: booking?.information?.slot,
+        notes: booking?.information?.note,
+        date: booking?.information?.dateString,
+        scheduleId: booking?.information?.scheduleId,
+        orderDetailDTOList: booking.services.map((item) => {
+          return {
+            id: item.serviceID,
+          };
+        }),
+      });
+      console.log(response);
+      dispatch(reset());
+      if (type === "vnpay") {
+        window.open(response.data, "_self");
+      } else {
+        navigate("/guestDetail");
+      }
+    } catch (err) {
+      console.log(err);
+      toast.error(err.response.data);
     }
   };
   return (
