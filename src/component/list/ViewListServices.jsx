@@ -8,7 +8,7 @@ import { HeaderLogin } from "../HeaderLogin";
 import { HeaderLoginOfHost } from "../../page/profile/HeaderLoginOfHost";
 import { Button, Select } from "antd";
 import { Footer } from "../Footer";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function ViewListServices() {
     const [service, setService] = useState([]);

@@ -36,7 +36,7 @@ export default function PackageDecription() {
     const fetchRate = async (id = userName.id) => {
         const response = await axios.get(
             "http://birthdayblitzhub.online:8080/api/feedbacks/packageAverageRating/" +
-                id
+            id
         );
         setRates(response.data.rating);
         console.log("fetchRate", response.data.rating);
@@ -204,19 +204,35 @@ export default function PackageDecription() {
                                 <i class="fa-brands fa-facebook-messenger fa-icon"></i>
                             </p>
                             <div className="viewSerivceDetail__button">
-                                <button className="btn viewSerivceDetail__btn">
-                                    <Link
-                                        onClick={() => {
-                                            dispatch(updatePackage(packages));
-                                            navigate(
-                                                `/booking/${packages?.account.accountID}`
-                                            );
-                                        }}
-                                        className="buyNow"
-                                    >
-                                        Buy Now
-                                    </Link>
-                                </button>
+                                {loggedUser?.role === "Guest" &&
+                                    <button className="btn viewSerivceDetail__btn">
+                                        <Link
+                                            onClick={() => {
+                                                dispatch(updatePackage(packages));
+                                                navigate(
+                                                    `/booking/${packages?.account.accountID}`
+                                                );
+                                            }}
+                                            className="buyNow"
+                                        >
+                                            Buy Now
+                                        </Link>
+                                    </button>}
+
+                                {!loggedUser?.role &&
+                                    <button className="btn viewSerivceDetail__btn">
+                                        <a href="/login" className="buyNow">
+                                            Buy Now
+                                        </a>
+                                        {/* <Link
+                                            to={`/login`}
+                                            className="buyNow"
+                                        >
+                                            Buy Now
+                                        </Link> */}
+                                    </button>
+                                }
+
 
                                 <button className="btn viewSerivceDetail__btn">
                                     <a href="/ViewListService">Cancel</a>

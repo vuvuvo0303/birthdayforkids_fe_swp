@@ -6,23 +6,29 @@ import { WalletOutlined } from "@ant-design/icons";
 import { HeaderLogin } from "../../component/HeaderLogin";
 import { HeaderLoginOfHost } from "../../page/profile/HeaderLoginOfHost";
 import api from "../../config/axios";
-import { Table } from "antd";
+import { Table, Tag } from "antd";
 import { formatDistance } from "date-fns/formatDistance";
 import { useDispatch, useSelector } from "react-redux";
+import { CheckCircleOutlined, ArrowUpOutlined, ArrowDownOutlined } from "@ant-design/icons";
 
 export const Wallet = () => {
     const [balance, setBalance] = useState(0);
+    const [wallet, setWallet] = useState(null);
     const [transactions, setTransaction] = useState([]);
     const [transactionHistory, setTransactionHistory] = useState([]);
     const loggedUser = useSelector((store) => store.user);
 
     const fetchWallet = async () => {
         const response = await api.get("/api/wallets");
+        // console.log("wallet", response.data);
         setBalance(response.data.totalMoney);
+        setWallet(response?.data);
+        // console.log("wallet", response?.data);
     };
 
-    const fetchTransaction = async () => {
-        const response = await api.get("/api/transactions");
+    const fetchTransaction = async (id) => {
+        const response = await api.get(`/api/transactions/wallet/${id}`);
+        console.log("fetchTransaction", response?.data);
         setTransaction(
             response.data.sort(
                 (item1, item2) =>
@@ -33,8 +39,14 @@ export const Wallet = () => {
 
     useEffect(() => {
         fetchWallet();
-        fetchTransaction();
+        fetchTransaction(wallet?.walletID);
+        // loggedUser?.accountID
     }, []);
+
+    useEffect(() => {
+        fetchTransaction(wallet?.walletID);
+        // loggedUser?.accountID
+    }, [wallet]);
 
     const addMoney = () => {
         const amount = parseFloat(prompt("Enter the amount to add:"));
@@ -67,9 +79,29 @@ export const Wallet = () => {
         },
         {
             title: "Status",
+            // dataIndex: "transactionStatus",
+            // key: "transactionStatus",
+            render: (value) => value.transactionStatus === "SENDING"
+                ?
+                <Tag icon={<ArrowUpOutlined />}
+                    color="success"
+                    style={{ fontSize: 15 }}
+                >
+                    Sending
+                </Tag>
+                :
+                <Tag icon={<ArrowDownOutlined />}
+                    color="Green"
+                    style={{ fontSize: 15.5 }}
+                >
+                    Receive
+                </Tag>,
+        },
+        {
+            title: "Account",
             dataIndex: "order",
             key: "order",
-            render: (value) => value.status,
+            render: (value) => value.customerName,
         },
         {
             title: "Value",
@@ -91,25 +123,33 @@ export const Wallet = () => {
         <div>
             {loggedUser?.role === "Guest" && <HeaderLogin />}
             {loggedUser?.role === "Host" && <HeaderLoginOfHost />}
+            {!loggedUser?.role && <HeaderLogin />}
             <div className="wallet-container">
                 <div className="wallet-first">
                     <div className="wallet-header">
                         <WalletOutlined />
-                        <h2>Your Wallet</h2>
+                        <h2>{loggedUser?.name}'s Wallet</h2>
                     </div>
                     <div className="wallet-balance">
-                        Balance: {balance.toFixed(2)} VNĐ
+                        Balance: {new Intl.NumberFormat(
+                            "vi-VN",
+                            {
+                                style: "currency",
+                                currency: "VND",
+                            }
+                        ).format(balance.toFixed(2))}
                     </div>
-                    <div className="wallet-actions">
+                    {/* <div className="wallet-actions">
                         <button className="wallet-button" onClick={addMoney}>
                             Add Money
                         </button>
                         <button className="wallet-button">Withdraw</button>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="transaction-history">
                     <h3>Transaction History</h3>
                     <Table dataSource={transactions} columns={columns} />
+
                     {/* <ul>
                         {transactions.map((transaction, index) => (
                             <li key={index}>{transaction.transactionID}</li>

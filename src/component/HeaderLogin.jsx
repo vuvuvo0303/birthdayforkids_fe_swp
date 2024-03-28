@@ -14,6 +14,7 @@ export const HeaderLogin = () => {
     const [isSearchActive, setSearchActive] = useState(false);
     const [isMenuActive, setMenuActive] = useState(false);
     const [users, setUsers] = useState([]);
+    const [wallet, setWallet] = useState([]);
     const loggedUser = useSelector((store) => store.user);
     const user = useSelector((store) => store.user);
     const dispatch = useDispatch();
@@ -70,9 +71,22 @@ export const HeaderLogin = () => {
             console.error("Error fetching data:", error);
         }
     };
+    const fetchWallet = async (id) => {
+        try {
+            const response = await fetch(
+                `http://birthdayblitzhub.online:8080/api/wallets/${id}`
+            );
+            const data = await response.json();
+            console.log("fetchWallet", data);
+            setWallet(data);
+        } catch (error) {
+            console.error("Error fetching data Wallet:", error);
+        }
+    };
 
     useEffect(() => {
         fetchData(loggedUser.accountID);
+        fetchWallet(loggedUser.accountID);
     }, []);
 
     return (
@@ -90,7 +104,7 @@ export const HeaderLogin = () => {
                 <div className="container">
                     {/* <!-- Header top --> */}
                     <div className="header-top">
-                        <a href="/homepageLogin">
+                        <a href="/">
                             <div className="logo">
                                 <img
                                     src="/img/Logo.svg"
@@ -200,10 +214,18 @@ export const HeaderLogin = () => {
                                 <div>
                                     <p style={{ color: "#07221C" }}>
                                         <strong>
-                                            Wallet balance: 1.000.000.000 VND
+                                            Wallet balance:
+                                            {/* {wallet?.totalMoney} */}
+                                            {new Intl.NumberFormat(
+                                                "vi-VN",
+                                                {
+                                                    style: "currency",
+                                                    currency: "VND",
+                                                }
+                                            ).format(wallet?.totalMoney)}
                                         </strong>
                                     </p>
-                                    <a href="/Wallet">Add Money</a> <br />
+                                    <a href="/Wallet">View wallet's balance</a> <br />
                                     <a onClick={hide} style={{ color: "red" }}>
                                         close
                                     </a>

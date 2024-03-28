@@ -1,11 +1,11 @@
 import React from "react";
-import { Header } from "../../component/Header";
+import { HeaderLoginOfHost } from "../../page/profile/HeaderLoginOfHost";
 import { Sidebar } from "../../component/Sidebar";
 import { SidebarNoLogin } from "./SidebarNoLogin";
 export const HostProfile = () => {
     return (
         <div>
-            <Header />
+            <HeaderLoginOfHost />
             <div className="container container-profile">
                 <section class="user-profile">
                     <h1 class="heading">your profile</h1>
