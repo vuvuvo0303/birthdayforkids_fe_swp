@@ -11,7 +11,6 @@ import { Package } from "./page/packagehost/Package.jsx";
 import { Service } from "./page/packagehost/Service.jsx";
 import { YourProfile } from "./page/profile/YourProfile.jsx";
 import { UpdateProfile } from "./page/profile/updateProfile.jsx";
-import { HomepageLogin } from "./page/homepage/HomepageLogin.jsx";
 import { Hostpage } from "./page/HostPage/Hostpage.jsx";
 import { HostProfile } from "./page/profile/HostProfile.jsx";
 import EditProfileHosts from "./page/party-host/editprofilehosts/index.jsx";
@@ -42,7 +41,6 @@ import { ViewInfoOfHost } from "./page/HostPage/ViewInfoOfHost";
 import FailedPage from "./page/failpayment/index";
 import ManageFeedBacks from "./page/dashboad_admin/report_admin/manage-feedbacks/index";
 import AdminWallet from "./page/dashboad_admin/report_admin/admin-wallet/index";
-import { HomepageHost } from "./page/homepage/HomepageHost";
 import BusyDate from "./page/party-host/busydate/index";
 import ManageFeedbackOfHost from "./page/party-host/manage_feedbacks_of_host/index";
 import ManageServices from "./page/party-host/manaege_services/index";
@@ -168,10 +166,6 @@ function App() {
             element: <UpdateProfile />,
         },
         {
-            path: "/homepageLogin",
-            element: <HomepageLogin />,
-        },
-        {
             path: "/hostpage",
             element: <Hostpage />,
         },
@@ -232,11 +226,6 @@ function App() {
         {
             path: "/Wallet",
             element: <Wallet />,
-        },
-        //Ta dao
-        {
-            path: "/HomepageHost",
-            element: <HomepageHost />,
         },
     ]);
     return (
