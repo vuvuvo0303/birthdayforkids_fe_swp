@@ -22,6 +22,11 @@ const DataTable = () => {
       key: "customerName",
     },
     {
+      title: "Host Name",
+      dataIndex: "hostname",
+      key: "customerName",
+    },
+    {
       title: "Phone",
       dataIndex: "phone",
       key: "customerPhone",
@@ -32,15 +37,22 @@ const DataTable = () => {
       key: "packageName",
     },
 
-    {
-      title: "Quantity",
-      dataIndex: "quantity",
-      key: "quantity",
-    },
+    
     {
       title: "Total price",
       dataIndex: "totalPrice",
       key: "totalPrice",
+      render: (text, record) => (
+        <span>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(record.totalPrice)}</span>
+      ),
+    },
+    {
+      title: "Deposited",
+      dataIndex: "depositedMoney",
+      key: "depositedMoney",
+      render: (text, record) => (
+        <span>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(record.depositedMoney)}</span>
+      ),
     },
     {
       title: "Order date",
@@ -92,10 +104,11 @@ const DataTable = () => {
           return {
             id: item.orderID,
             customer: item.customerName,
+            hostname: item.packageEntity.account.name,
             phone: item.phone,
             package: item.packageEntity.name,
-            quantity: item.quantity,
             totalPrice: item.totalPrice,
+            depositedMoney: item.depositedMoney,
             orderDate: format(item.createAt, "dd/MM/yyyy"),
             status: item.status,
           };

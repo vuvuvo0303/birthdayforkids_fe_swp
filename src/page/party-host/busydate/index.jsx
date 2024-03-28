@@ -47,14 +47,14 @@ const BusyDate = () => {
     var result = true;
     const currentDate = new Date();
     if (dateObject <= currentDate) {
-      toast.error("qua khu");
+      toast.error("Date cannot be set in the past");
       result = false;
     }
     for (let i = 0; i < dateArray.length; i++) {
       const arrayDate = new Date(dateArray[i].date);
 
       if (arrayDate.getTime() === dateObject.getTime()) {
-        toast.error("bi trung");
+        toast.error("The date was mixed");
         result = false;
       }
     }
