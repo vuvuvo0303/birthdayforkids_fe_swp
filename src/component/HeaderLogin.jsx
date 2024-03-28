@@ -117,7 +117,7 @@ export const HeaderLogin = () => {
                         {/* <!-- Navbar --> */}
                         <nav className="navbar">
                             <ul className="navbar__list">
-                                <li className="navbar__item">
+                                {/* <li className="navbar__item">
                                     <div className="box">
                                         <input
                                             type="text"
@@ -132,27 +132,23 @@ export const HeaderLogin = () => {
                                             </button>
                                         </a>
                                     </div>
-                                </li>
+                                </li> */}
                                 <li className="navbar__item">
                                     <a
-                                        href="#service1"
+                                        href="/ViewListService"
                                         className="navbar__link"
                                     >
                                         Service
                                     </a>
                                 </li>
+                                
                                 <li className="navbar__item">
-                                    <a href="#work1" className="navbar__link">
-                                        Work
-                                    </a>
-                                </li>
-                                <li className="navbar__item">
-                                    <a href="#about1" className="navbar__link">
+                                    <a href="/" className="navbar__link">
                                         About
                                     </a>
                                 </li>
                                 <li className="navbar__item">
-                                    <a href="#member1" className="navbar__link">
+                                    <a href="/hostpage" className="navbar__link">
                                         Host
                                     </a>
                                 </li>
