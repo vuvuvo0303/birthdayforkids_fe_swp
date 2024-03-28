@@ -109,7 +109,7 @@ const LoginForm = () => {
             </Form.Item>
           </Flex>
         </Form>
-        <Flex
+        {/* <Flex
           onClick={loginGoogle}
           cursor="pointer"
           bgColor="white"
@@ -121,7 +121,7 @@ const LoginForm = () => {
         >
           <Image src="https://cdn.iconscout.com/icon/free/png-256/free-google-1772223-1507807.png" h="15px"></Image>
           Login with Google
-        </Flex>
+        </Flex> */}
         <Box mt="10px">
           <Text fontSize="small" textAlign="center">
             Don&apos;t have an account?&nbsp;
