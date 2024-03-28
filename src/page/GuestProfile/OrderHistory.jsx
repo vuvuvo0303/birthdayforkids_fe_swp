@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import axios from "axios";
-import { Button, Form, Input, Modal, Rate, Tag } from "antd";
+import { Button, Form, Input, Modal, Rate, Tag, message } from "antd";
 import { useSelector } from "react-redux";
 import api from "../../config/axios";
 import { toast } from "react-toastify";
@@ -21,6 +21,8 @@ export const OrderHistory = () => {
     const [loading, setLoading] = useState(true);
     const loggedUser = useSelector((store) => store.user);
     const navigate = useNavigate();
+    const [isPaymentContinued, setIsPaymentContinued] = useState(false);
+    const [isCanceling, setIsCanceling] = useState(false);
 
     const fetchData = async (id) => {
         const response = await axios.get(
@@ -52,8 +54,66 @@ export const OrderHistory = () => {
         setModalVisible(false);
     };
 
+    const handleContinuePay = async () => {
+        try {
+            const response = await axios.post(
+                `http://birthdayblitzhub.online:8080/api/orders/pay-ordered-payment/${orderId}`
+            );
+
+            console.log(response.data);
+            setIsPaymentContinued(true);
+            const indexOfHttps = response.data.indexOf("https://");
+            const url = response.data.substring(indexOfHttps);
+
+            window.open(url, "_self");
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    };
+
+    const handleCancelOrder = async (orderId) => {
+        try {
+            setIsCanceling(true);
+
+            const response = await axios.put(
+                `http://birthdayblitzhub.online:8080/api/orders/guest/cancel-order/${orderId}`
+            );
+            console.log("Cancel: ", response.data);
+
+            if (response.data.success) {
+                message.success("Order canceled successfully");
+                setIsCanceling(false);
+            }
+            fetchData(loggedUser.accountID);
+        } catch (error) {
+            console.error("Error:", error);
+            message.error("Failed to cancel order");
+        } finally {
+            setIsCanceling(false);
+        }
+    };
+
+    const handleDoneOrder = async (orderId) => {
+        const response = await axios.post(
+            `http://birthdayblitzhub.online:8080/api/orders/guest/done-order/${orderId}`
+        );
+        if (response.data.success) {
+            message.success("Order marked as done successfully");
+
+            const updatedData = data.map((item) => {
+                if (item.orderID === orderId) {
+                    return { ...item, status: "DONE" };
+                }
+                return item;
+            });
+            setData(updatedData);
+        } else {
+            message.error("Failed to mark order as done");
+        }
+        console.log(response.data);
+    };
     return (
-        <div className="container table-orderHistory">
+        <div className=" table-orderHistory">
             <table className="table">
                 <thead>
                     <tr>
@@ -61,6 +121,8 @@ export const OrderHistory = () => {
                         <th scope="col">Name</th>
                         {/* <th scope="col">Quantity</th> */}
                         <th scope="col">Total Price</th>
+                        <th scope="col">Deposit</th>
+                        <th scope="col">Remaining Amount</th>
                         <th scope="col">Description</th>
                         <th scope="col">Action</th>
                         <th scope="col">Status</th>
@@ -69,11 +131,31 @@ export const OrderHistory = () => {
                 <tbody>
                     {data.map((item, index) => (
                         <tr key={index}>
-                            <th scope="row">{index}</th>
+                            <th scope="row">{index + 1}</th>
                             {/* <td>{data.id}</td> */}
                             <td>{item.packageEntity.name}</td>
                             {/* <td>{item.quantity}</td> */}
-                            <td>{item.totalPrice}</td>
+                            <td>
+                                {" "}
+                                {new Intl.NumberFormat("vi-VN", {
+                                    style: "currency",
+                                    currency: "VND",
+                                }).format(item.totalPrice)}
+                            </td>
+                            <td>
+                                {" "}
+                                {new Intl.NumberFormat("vi-VN", {
+                                    style: "currency",
+                                    currency: "VND",
+                                }).format(item.depositedMoney)}
+                            </td>
+                            <td>
+                                {" "}
+                                {new Intl.NumberFormat("vi-VN", {
+                                    style: "currency",
+                                    currency: "VND",
+                                }).format(item.remainingMoney)}
+                            </td>
                             <td>{item.packageEntity.description}</td>
 
                             <td>
@@ -105,20 +187,53 @@ export const OrderHistory = () => {
                                     </Tag>
                                 )}
                                 {item.status === "PAID" && (
-                                    <Tag
-                                        icon={<SyncOutlined spin />}
-                                        color="processing"
-                                    >
-                                        PAID
-                                    </Tag>
+                                    <div>
+                                        <Tag
+                                            icon={<SyncOutlined spin />}
+                                            color="processing"
+                                        >
+                                            PAID
+                                        </Tag>
+                                        <Button
+                                            type="default"
+                                            onClick={() =>
+                                                handleCancelOrder(item.orderID)
+                                            }
+                                            loading={isCanceling}
+                                            danger
+                                        >
+                                            Cancel
+                                        </Button>
+                                    </div>
                                 )}
                                 {item.status === "ORDERED" && (
-                                    <Tag
-                                        icon={<SyncOutlined spin />}
-                                        color="processing"
-                                    >
-                                        ORDERED
-                                    </Tag>
+                                    <div>
+                                        <Tag
+                                            icon={<SyncOutlined spin />}
+                                            color="processing"
+                                        >
+                                            ORDERED
+                                        </Tag>
+                                        <Button
+                                            type="primary"
+                                            onClick={() => {
+                                                setOrderId(item.orderID);
+                                                handleContinuePay();
+                                            }}
+                                        >
+                                            Continue Pay
+                                        </Button>
+                                        <Button
+                                            type="default"
+                                            onClick={() =>
+                                                handleCancelOrder(item.orderID)
+                                            }
+                                            loading={isCanceling}
+                                            danger
+                                        >
+                                            Cancel
+                                        </Button>
+                                    </div>
                                 )}
                                 {item.status === "REFUSESD" && (
                                     <Tag
@@ -129,12 +244,35 @@ export const OrderHistory = () => {
                                     </Tag>
                                 )}
                                 {item.status === "ACCEPTED" && (
-                                    <Tag
-                                        icon={<SyncOutlined spin />}
-                                        color="processing"
-                                    >
-                                        ACCEPTED
-                                    </Tag>
+                                    <div>
+                                        <Tag
+                                            icon={<SyncOutlined spin />}
+                                            color="processing"
+                                        >
+                                            ACCEPTED
+                                        </Tag>
+                                        <Button
+                                            type="default"
+                                            onClick={() => {
+                                                handleDoneOrder(item.orderID),
+                                                    fetchData(
+                                                        loggedUser.accountID
+                                                    );
+                                            }}
+                                        >
+                                            Done
+                                        </Button>
+                                        <Button
+                                            type="default"
+                                            onClick={() =>
+                                                handleCancelOrder(item.orderID)
+                                            }
+                                            loading={isCanceling}
+                                            danger
+                                        >
+                                            Cancel
+                                        </Button>
+                                    </div>
                                 )}
                                 {item.status === "CANCELLED" && (
                                     <Tag

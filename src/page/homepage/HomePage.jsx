@@ -6,7 +6,6 @@ import { Header } from "../../component/Header";
 import "./index.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
 import { Link } from "react-router-dom";
 
 export const HomePage = () => {
@@ -356,44 +355,6 @@ export const HomePage = () => {
                                     </p>
                                 </article>
                             ))}
-                        </div>
-
-                        <div class="member__control">
-                            {/* <!-- Previous --> */}
-                            <button class="member__control-btn">
-                                <svg
-                                    width="6"
-                                    height="12"
-                                    viewBox="0 0 6 12"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M5.5 1L0.5 6L5.5 11"
-                                        stroke="currentColor"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
-                                </svg>
-                            </button>
-                            {/* <!-- Next --> */}
-                            <button class="member__control-btn">
-                                <svg
-                                    class="member__control-next-icon"
-                                    width="6"
-                                    height="12"
-                                    viewBox="0 0 6 12"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M5.5 1L0.5 6L5.5 11"
-                                        stroke="currentColor"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
-                                </svg>
-                            </button>
                         </div>
                     </div>
                 </div>

@@ -50,7 +50,10 @@ export const ServiceNoLogin = () => {
                                     />
                                 </div>
                                 <h3 className="title">
-                                    {serviceItem.price} VNĐ
+                                    {new Intl.NumberFormat("vi-VN", {
+                                        style: "currency",
+                                        currency: "VND",
+                                    }).format(serviceItem.price)}
                                 </h3>
                                 <Link
                                     to={`http://localhost:5173/serviceDetail/${serviceItem.serviceID}`}
