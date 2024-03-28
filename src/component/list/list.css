@@ -1,0 +1,131 @@
+.viewListServices {
+    padding: 65px 0;
+    padding-bottom: 0;
+    background-image: url("../../../img/sky-background.jpg");
+}
+
+.viewListServices__list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 30px;
+    margin-top: 70px;
+}
+
+.viewListServices__items {
+    padding: 20px;
+    margin: 15px;
+    background-color: #fff;
+    border-radius: 20px;
+    border: 3px solid #f5adcb;
+    transition: 0.25s;
+}
+
+.viewListServices__items:hover {
+    transform: translateY(-10px);
+    border-color: #f887b6;
+}
+
+.viewListServices__content {
+    display: flex;
+    /* justify-content: space-between; */
+}
+
+.viewListServices__img {
+    width: 205px;
+    height: 125px;
+    border-radius: 6px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.viewListServices__heading {
+    color: #0a0b0c;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 450;
+    line-height: 1.38; /* 138.462% */
+}
+
+.viewListServices__desc {
+    margin-top: 10px;
+}
+
+.viewListServices__price,
+.viewListServices__host {
+    color: #0a0b0c;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 350;
+    line-height: 1.38; /* 138.462% */
+}
+
+.viewListServices__host-name {
+    color: #ea478a;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 1.38; /* 138.462% */
+}
+
+.viewListServices__price {
+    position: relative;
+}
+
+.viewListServices__price::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    border-bottom: 1px dashed rgb(185, 183, 183);
+}
+.viewListServices__price-value {
+    color: #ea478a;
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 1.38; /* 138.462% */
+}
+
+.viewListServices__button {
+    --height: 44px;
+    min-width: 104px;
+    border: 1px solid #b94990;
+    background: #f0c6e7;
+    color: #181616;
+}
+
+.viewListServices__button:hover {
+    background: #f3d0eb;
+    /* opacity: 0.9; */
+}
+
+.viewListServices__feature {
+    background-color: #ec5392;
+    background-image: linear-gradient(62deg, #ec5392 0%, #ece4fd 100%);
+}
+.viewListServices__feature-container {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.viewListServices__feature-button {
+    font-size: 2.3rem;
+    font-weight: 600;
+    border: 1px solid #fff;
+    background-color: #ec5392;
+    background-image: linear-gradient(
+        0deg,
+        #ec5392 0%,
+        #ec5392 46%,
+        #ffffff 100%
+    );
+
+    margin-right: 10px;
+}
+
+.viewListServices__feature-button:hover {
+    background: #b92d67;
+}

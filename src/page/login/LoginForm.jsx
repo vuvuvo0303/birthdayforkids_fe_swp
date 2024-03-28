@@ -32,7 +32,7 @@ const LoginForm = () => {
     };
     const onFinish = async (values) => {
         try {
-            const response = await api.post("/auth/login", values);
+            const response = await api.post("http://birthdayblitzhub.online:8080/auth/login", values);
             console.log(response.data);
             localStorage.setItem("logged-user", JSON.stringify(response.data));
             localStorage.setItem("token", JSON.stringify(response.data.tokens));

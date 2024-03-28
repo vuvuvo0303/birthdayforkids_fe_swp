@@ -2,15 +2,19 @@ import { useEffect, useState } from "react";
 import React from "react";
 import "./wallet.css";
 import { WalletOutlined } from "@ant-design/icons";
+// import { Header } from "../../component/Header";
 import { HeaderLogin } from "../../component/HeaderLogin";
+import { HeaderLoginOfHost } from "../../page/profile/HeaderLoginOfHost";
 import api from "../../config/axios";
 import { Table } from "antd";
 import { formatDistance } from "date-fns/formatDistance";
+import { useDispatch, useSelector } from "react-redux";
 
 export const Wallet = () => {
     const [balance, setBalance] = useState(0);
     const [transactions, setTransaction] = useState([]);
     const [transactionHistory, setTransactionHistory] = useState([]);
+    const loggedUser = useSelector((store) => store.user);
 
     const fetchWallet = async () => {
         const response = await api.get("/api/wallets");
@@ -85,7 +89,8 @@ export const Wallet = () => {
     ];
     return (
         <div>
-            <HeaderLogin />
+            {loggedUser?.role === "Guest" && <HeaderLogin />}
+            {loggedUser?.role === "Host" && <HeaderLoginOfHost />}
             <div className="wallet-container">
                 <div className="wallet-first">
                     <div className="wallet-header">
@@ -93,7 +98,7 @@ export const Wallet = () => {
                         <h2>Your Wallet</h2>
                     </div>
                     <div className="wallet-balance">
-                        Balance: ${balance.toFixed(2)}
+                        Balance: {balance.toFixed(2)} VNĐ
                     </div>
                     <div className="wallet-actions">
                         <button className="wallet-button" onClick={addMoney}>

@@ -1,14 +1,25 @@
-import "../list.css";
-import { Link, useParams } from "react-router-dom";
+import "../decription/description.css";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Box } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 import { Header } from "../Header";
+import { HeaderLogin } from "../HeaderLogin";
+import { HeaderLoginOfHost } from "../../page/profile/HeaderLoginOfHost";
+import { Footer } from "../../component/Footer";
+import { Space, Typography } from "antd";
+import { Helmet } from "react-helmet";
+import { FacebookOutlined } from "@ant-design/icons";
 
 export default function ServiceDecription() {
     const [service, setService] = useState(null);
     const userName = useParams();
     const [feedback, setFeedback] = useState(null);
+    const { Text, Link } = Typography;
+
+    const navigate = useNavigate();
+
     const [data, setData] = useState({
         id: 0,
         name: "",
@@ -16,6 +27,7 @@ export default function ServiceDecription() {
         description: "",
         picture: "",
     });
+    const loggedUser = useSelector((store) => store.user);
 
     const handleUpdate = (ID) => {
         // if (Object.keys(updatedData).length === 0) {
@@ -104,121 +116,69 @@ export default function ServiceDecription() {
     }, []);
 
     return (
-        <Box>
-            <Header />
-            <div className="Detail">
-                <img src={service?.picture} alt="Service Picture" />
-                <div className="content">
-                    <h3 className='Name'>Service Name: {service?.name} </h3>
-                    {/* <p>Host: {service?.account.name}</p> */}
-                    <br/>
-                    <h2 className="descrip">Description:</h2>
-                    <ul className="descrip_cont">
-                        <li>Provided by: {service?.account.name}</li>
-                        <li>Detail: {service?.description}</li>
-                    </ul>
+        <div className="viewSerivceDetail">
+            <Helmet>
+                <link
+                    rel="stylesheet"
+                    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+                />
+            </Helmet>
+            {!loggedUser?.role && <Header />}
+            {loggedUser?.role === "Guest" && <HeaderLogin />}
+            {loggedUser?.role === "Host" && <HeaderLoginOfHost />}
+            <div className="container">
+                <div className="Detail">
+                    <img
+                        src={service?.picture}
+                        alt="Service Picture"
+                        className="viewSerivceDetail__img"
+                    />
+                    <div className="content">
+                        <h3 className="Name">Service Name: {service?.name} </h3>
+                        {/* <p>Host: {service?.account.name}</p> */}
+                        <Text type="success">
+                            Service || <i class="fa-solid fa-star"> </i>{" "}
+                            <i class="fa-solid fa-star"> </i>{" "}
+                            <i class="fa-solid fa-star"> </i>{" "}
+                            <i class="fa-solid fa-star"> </i>{" "}
+                            <i class="fa-solid fa-star"> </i>
+                        </Text>
+                        <br />
+                        <div className="viewSerivceDetail__desc">
+                            <h2 className="descrip">Description:</h2>
+                            <ul className="descrip_cont">
+                                <li>Provided by: {service?.account.name}</li>
+                                <li>Detail: {service?.description}</li>
+                            </ul>
 
-                    <p className="price">Price: {service?.price} VNĐ</p>
-                    <div>
-                        {/* <button>Buy now</button> */}
-                        <button
-                            onClick={() => {
-                                // setIsOpen(true)
-                                setData(service);
-                            }}
-                        >
-                            <a href="#popup1" id="openPopUp">
-                                Update
-                            </a>
-                        </button>
-                        <button>
-                            <Link to={"/ManageService"}>Cancel</Link>
-                        </button>
+                            <p className="price">
+                                {new Intl.NumberFormat("vi-VN", {
+                                    style: "currency",
+                                    currency: "VND",
+                                }).format(service?.price)}{" "}
+                            </p>
+                            <p>
+                                Share:{" "}
+                                <i class="fa-brands fa-facebook fa-icon">
+                                    {" "}
+                                    <i class="fa-brands fa-twitter fa-icon"></i>
+                                </i>
+                                <i class="fa-brands fa-pinterest fa-icon"></i>
+                                <i class="fa-brands fa-facebook-messenger fa-icon"></i>
+                            </p>
+                            <div className="viewSerivceDetail__button">
+                                {/* <button>Buy now</button> */}
+
+                                <button className="btn viewSerivceDetail__btn">
+                                    <a href="/ViewListService">Cancel</a>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div className="container_feedback">
-                {feedback && feedback.length > 0 ? (
-                    feedback.map((item) => (
-                        <div className="feedback" key={item?.serviceID}>
-                            <div className="head">
-                                <p>User: {item?.account.name}</p>
-                                <p>Date: {item?.feedbackDate} </p>
-                            </div>
-                            <p className="Reviewed">
-                                Reviewed: {item?.description}{" "}
-                            </p>
-                        </div>
-                    ))
-                ) : (
-                    <strong className="feedback">HAVE NO FEEDBACK</strong>
-                )}
-            </div>
 
-            <div id="popup1" className="overlay">
-                <div className="popup">
-                    <a className="close" href="#">
-                        &times;
-                    </a>
-                    <img src={data.picture} alt="Service Picture" />
-                    <form className="content">
-                        <div>
-                            <label htmlFor="newName">Service Name:</label>
-                            <input
-                                type="text"
-                                id="newName"
-                                value={data.name}
-                                onChange={(e) => {
-                                    setData((prevState) => ({
-                                        ...prevState,
-                                        name: e.target.value,
-                                    }));
-                                }}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="newPrice">Price:</label>
-                            <input
-                                type="number"
-                                id="newPrice"
-                                value={data.price}
-                                onChange={(e) => {
-                                    setData((prevState) => ({
-                                        ...prevState,
-                                        price: e.target.value,
-                                    }));
-                                }}
-                            />
-                            $
-                        </div>
-                        <div>
-                            <label htmlFor="newDescription">Description:</label>
-                            <br />
-                            <textarea
-                                id="newDescription"
-                                value={data.description}
-                                onChange={(e) => {
-                                    setData((prevState) => ({
-                                        ...prevState,
-                                        description: e.target.value,
-                                    }));
-                                }}
-                            />
-                        </div>
-                        <button
-                            className="buttUpdate"
-                            type="submit"
-                            onClick={() => {
-                                handleUpdate(data?.serviceID);
-                                hanldeGetService();
-                            }}
-                        >
-                            Update
-                        </button>
-                        {/* <button onClick={() => { setIsOpen(false) }}>Close</button> */}
-                    </form>
-                </div>
-            </div>
-        </Box>
+            <Footer />
+        </div>
     );
 }

@@ -38,3 +38,28 @@
     width: 100%;
     margin: 1rem 0;
 }
+
+.feedback__host {
+    color: #535455;
+    font-size: 1.3rem;
+    font-style: normal;
+    font-weight: 450;
+    line-height: 1.38; /* 138.462% */
+}
+
+.feedback__desc {
+    margin-top: 15px;
+    font-size: 1.7rem;
+    font-style: normal;
+    line-height: 1.38; /* 138.462% */
+}
+
+.heading__feedback {
+    margin-top: 30px;
+    font-size: 2.5rem;
+    color: var(--black);
+    margin-bottom: 2.5rem;
+    border-bottom: var(--border);
+    padding-bottom: 1.5rem;
+    text-transform: capitalize;
+}

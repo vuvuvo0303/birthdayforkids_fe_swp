@@ -1,0 +1,104 @@
+.viewSerivceDetail {
+    padding: 65px 0;
+    padding-bottom: 0;
+    background-image: url("../../../public/img/sky-background.jpg");
+}
+.Detail {
+    display: flex;
+    padding: 20px;
+    margin: 15px;
+    background-color: #fff;
+    border-radius: 20px;
+    border: 3px solid #d4f2ff;
+    transition: 0.25s;
+}
+
+.viewSerivceDetail__img {
+    width: 447px;
+    height: 565px;
+    border-radius: 6px;
+    object-fit: cover;
+    margin-right: 80px;
+}
+
+.Name {
+    color: #0a0b0c;
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.38; /* 138.462% */
+}
+
+.viewSerivceDetail .fa-star {
+    color: #f4b30c;
+}
+
+.viewSerivceDetail__desc {
+    margin-top: 30px;
+}
+
+.descrip {
+    color: #0a0b0c;
+    margin-bottom: 10px;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.38; /* 138.462% */
+}
+
+.descrip_cont {
+    color: #0a0b0c;
+    font-size: 1.8rem;
+    font-style: normal;
+    font-weight: 220;
+    margin-bottom: 20px;
+
+    line-height: 1.38; /* 138.462% */
+}
+
+.price {
+    color: #ff0a47;
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.38; /* 138.462% */
+}
+
+.viewSerivceDetail__button {
+    margin-top: 35px;
+}
+
+.viewSerivceDetail__btn {
+    margin-right: 10px;
+}
+
+.viewSerivceDetail__btn .buyNow,
+.viewSerivceDetail__btn .cancel {
+    color: #fff;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.38; /* 138.462% */
+}
+
+.fa-icon {
+    margin-top: 8px;
+    margin-right: 2px;
+    font-size: 3rem;
+}
+
+.rating__package {
+    display: flex;
+    margin-top: 5px;
+}
+
+.rating__package .rating {
+    color: #50cc98;
+    margin-right: 10px;
+}
+
+.feedback-packageDetail {
+    color: #080808;
+    font-weight: 800;
+    font-size: 4rem;
+}

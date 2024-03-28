@@ -1,13 +1,17 @@
 import React from "react";
 import { Header } from "../../component/Header";
+import { HeaderLogin } from "../../component/HeaderLogin";
+import { HeaderLoginOfHost } from "../../page/profile/HeaderLoginOfHost";
 import { Footer } from "../../component/Footer";
 import { useState, useEffect } from "react";
 import "./index.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 export const Hostpage = () => {
     const [members, setMembers] = useState([]);
+    const loggedUser = useSelector((store) => store.user);
 
     useEffect(() => {
         
@@ -29,7 +33,9 @@ export const Hostpage = () => {
 
     return (
         <div>
-            <Header />
+            {!loggedUser?.role && <Header />}
+            {loggedUser?.role === "Guest" && <HeaderLogin />}
+            {loggedUser?.role === "Host" && <HeaderLoginOfHost />}
 
             <div class="member" id="member1">
                 <div class="container">

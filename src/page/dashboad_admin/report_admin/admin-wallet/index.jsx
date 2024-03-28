@@ -1,6 +1,8 @@
 import React from "react";
-
+import { Wallet } from "../../../Wallet/Wallet";
 export const AdminWallet = () => {
-  return <div>index</div>;
+  return (
+    <Wallet />
+  )
 };
 export default AdminWallet;

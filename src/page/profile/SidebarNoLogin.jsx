@@ -38,28 +38,25 @@ export const SidebarNoLogin = ({ id }) => {
                                 alt={profile.name}
                             />
                             <h3 className="name">{profile.name}</h3>
-                            <p className="role">{profile.role}</p>
+                            <p className="role">{profile.email}</p>
                             {/* ... Các thông tin khác của host ... */}
                         </>
                     )}
-                    <a href="/HostProfile" className="btn btn-sidebar">
-                        View Profile
-                    </a>
                 </div>
 
                 <nav className="navbar">
-                    <a href={`/host/${id}`}>
-                        <i className="fas fa-question"></i>
-                        <span>About</span>
-                    </a>
-                    <a href={`/packageNoLogin/${id}`}>
-                        <i className="fas fa-graduation-cap"></i>
+                    <Link to={`/host/${id}`}>
+                        <i className="fa-solid fa-comment"></i>
+                        <span>Feedback</span>
+                    </Link>
+                    <Link to={`/packageNoLogin/${id}`}>
+                        <i className="fa-solid fa-boxes-stacked"></i>
                         <span>Packages</span>
-                    </a>
-                    <a href={`/serviceNoLogin/${id}`}>
-                        <i className="fas fa-chalkboard-user"></i>
+                    </Link>
+                    <Link to={`/serviceNoLogin/${id}`}>
+                        <i className="fa-solid fa-box"></i>
                         <span>Services</span>
-                    </a>
+                    </Link>
                 </nav>
             </div>
         </div>
