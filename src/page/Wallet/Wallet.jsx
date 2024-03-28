@@ -61,71 +61,87 @@ export const Wallet = () => {
     setTransactionHistory([...transactionHistory, description]);
   };
 
-  const columns = [
-    {
-      title: "Order Id",
-      dataIndex: "order",
-      key: "order",
-      render: (value) => {
-        return value.orderID;
-      },
-    },
-    {
-      title: "Status",
-      // dataIndex: "transactionStatus",
-      // key: "transactionStatus",
-      render: (value) =>
-        value.transactionStatus === "SENDING" ? (
-          <Tag icon={<ArrowUpOutlined />} color="success" style={{ fontSize: 15 }}>
-            Sending
-          </Tag>
-        ) : (
-          <Tag icon={<ArrowDownOutlined />} color="Green" style={{ fontSize: 15.5 }}>
-            Receive
-          </Tag>
-        ),
-    },
-    {
-      title: "Account",
-      dataIndex: "order",
-      key: "order",
-      render: (value) => value.customerName,
-    },
-    {
-      title: "Value",
-      // dataIndex: "order",
-      // key: "order",
-      render: (value) => value.totalPrice,
-    },
-    {
-      title: "Create At",
-      dataIndex: "createAt",
-      key: "createAt",
-      render: (value) =>
-        formatDistance(new Date(value), new Date(), {
-          addSuffix: true,
-        }),
-    },
-  ];
-  return (
-    <div>
-      {loggedUser?.role === "Guest" && <HeaderLogin />}
-      {loggedUser?.role === "Host" && <HeaderLoginOfHost />}
-      {!loggedUser?.role && <HeaderLogin />}
-      <div className="wallet-container">
-        <div className="wallet-first">
-          <div className="wallet-header">
-            <WalletOutlined />
-            <h2>{loggedUser?.name}'s Wallet</h2>
-          </div>
-          <div className="wallet-balance">
-            Balance:{" "}
-            {new Intl.NumberFormat("vi-VN", {
-              style: "currency",
-              currency: "VND",
-            }).format(balance.toFixed(2))}
-          </div>
-          {/* <div className="wallet-actions">
+    const columns = [
+        {
+            title: "Order Id",
+            dataIndex: "order",
+            key: "order",
+            render: (value) => {
+                return value.orderID;
+            },
+        },
+        {
+            title: "Status",
+            // dataIndex: "transactionStatus",
+            // key: "transactionStatus",
+            render: (value) =>
+                value.transactionStatus === "SENDING" ? (
+                    <Tag
+                        icon={<ArrowUpOutlined />}
+                        color="success"
+                        style={{ fontSize: 15 }}
+                    >
+                        Sending
+                    </Tag>
+                ) : (
+                    <Tag
+                        icon={<ArrowDownOutlined />}
+                        color="Green"
+                        style={{ fontSize: 15.5 }}
+                    >
+                        Receive
+                    </Tag>
+                ),
+        },
+        {
+            title: "Account",
+            dataIndex: "order",
+            key: "order",
+            render: (value) => value.customerName,
+        },
+        {
+            title: "Value",
+            // dataIndex: "order",
+            // key: "order",
+            render: (value) =>
+            //  value.totalPrice
+                new Intl.NumberFormat(
+                    "vi-VN",
+                    {
+                        style: "currency",
+                        currency: "VND",
+                    }
+                ).format(value.totalPrice),
+        },
+        {
+            title: "Create At",
+            dataIndex: "createAt",
+            key: "createAt",
+            render: (value) =>
+                formatDistance(new Date(value), new Date(), {
+                    addSuffix: true,
+                }),
+        },
+    ];
+    return (
+        <div>
+            {loggedUser?.role === "Guest" && <HeaderLogin />}
+            {loggedUser?.role === "Host" && <HeaderLoginOfHost />}
+            {!loggedUser?.role && <HeaderLogin />}
+            <div className="wallet-container">
+                <div className="wallet-first">
+                    <div className="wallet-header">
+                        <WalletOutlined />
+                        <h2>{loggedUser?.name}'s Wallet</h2>
+                    </div>
+                    <div className="wallet-balance">
+                        Balance:{" "}
+                        {new Intl.NumberFormat("vi-VN", {
+                            style: "currency",
+                            currency: "VND",
+                        }).format(balance.toFixed(2))}
+                    </div>
+                    {/* <div className="wallet-actions">
                         <button className="wallet-button" onClick={addMoney}>
                             Add Money
                         </button>
