@@ -1,18 +1,19 @@
 import { Breadcrumb, Button, DatePicker, Modal } from "antd";
 import React, { useEffect, useState } from "react";
-import { HomeOutlined, MoreOutlined } from "@ant-design/icons";
+import { CheckOutlined, HomeOutlined, MoreOutlined } from "@ant-design/icons";
 import { Box, Flex, Input, Text, useDisclosure } from "@chakra-ui/react";
 import { Table, Thead, Tbody, Tr, Th, Td, TableContainer } from "@chakra-ui/react";
 import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import { toast } from "react-toastify";
 import { format } from "date-fns";
+import dayjs from "dayjs";
 
 import { useSelector } from "react-redux";
 import api from "../../../config/axios";
 const BusyDate = () => {
   const [schedules, setSchedules] = useState([]);
   const loggedUser = useSelector((store) => store.user);
-
+  const [editingSchedule, setEditingSchedule] = useState(null);
   const [newDate, setNewDate] = useState(null);
   const handleDelete = async (id) => {
     if (window.confirm("Do you want to delete this schedule?")) {
@@ -41,50 +42,89 @@ const BusyDate = () => {
       toast.error("Failed to fetch schedules");
     }
   };
-  const handleAdd = async (date) => {
-    const currentDate = new Date();
-    const selectedDate = new Date(date);
 
-    if (selectedDate < currentDate) {
-      toast.error("You cannot add schedules in the past!");
+  function isDateValid(dateArray, dateObject) {
+    var result = true;
+    const currentDate = new Date();
+    if (dateObject <= currentDate) {
+      toast.error("Date cannot be set in the past");
+      result = false;
+    }
+    for (let i = 0; i < dateArray.length; i++) {
+      const arrayDate = new Date(dateArray[i].date);
+
+      if (arrayDate.getTime() === dateObject.getTime()) {
+        toast.error("The date was mixed");
+        result = false;
+      }
+    }
+
+    return result;
+  }
+  const handleEdit = (id, date) => {
+    setEditingSchedule(id);
+    setNewDate(date);
+  };
+  const handleSaveEdit = async (date) => {
+    if (new Date(newDate).getTime() == new Date(date).getTime()) {
+      toast.info("Nothing is updated!");
+      setEditingSchedule(null);
+      return;
+    }
+    if (!isDateValid(schedules, new Date(newDate))) {
       return;
     }
 
-    if (schedules.find((item) => item.date === date)) {
-      toast.error("Schedule already exists!");
-    } else {
-      setSchedules((prev) => [
-        ...prev,
-        {
-          id: prev.length + 1,
-          date: date,
-        },
-      ]);
-      toast.success("Add new schedule successfully!");
-    }
+    const request = {
+      date: dayjs(newDate).format("YYYY-MM-DD"),
+      busy: true,
+    };
+    const response = await api.put(`/api/schedulebusy/updateBusySchedule/${editingSchedule}`, request);
+    toast.success("Update successfully!");
+    setEditingSchedule(null);
+    fetchData();
   };
+
   const Row = ({ id, date }) => {
-    console.log(date);
     const formattedDate = format(new Date(date), "dd/MM/yyyy");
+    const isEditing = editingSchedule && editingSchedule == id;
     return (
       <Tr>
-        <Td>{formattedDate}</Td>
+        <Td>
+          {isEditing ? (
+            <DatePicker
+              defaultValue={dayjs(newDate)}
+              format="DD/MM/YYYY"
+              onChange={(e) => {
+                setNewDate(e.toISOString());
+              }}
+            />
+          ) : (
+            formattedDate
+          )}
+        </Td>
         <Td textAlign="right">
-          <Menu>
-            <MenuButton as="span" cursor="pointer">
-              <Button shape="circle">
-                <MoreOutlined />
-              </Button>
-            </MenuButton>
-            <MenuList p={0}>
-              <MenuItem p={5} color="red" onClick={() => handleDelete(id)}>
-                Delete
-              </MenuItem>
-              <MenuItem p={5} color="Green" onClick={() => handleEdit(id)}>
-                Edit
-              </MenuItem>
-            </MenuList>
-          </Menu>
+          {isEditing ? (
+            <Button shape="circle" onClick={() => handleSaveEdit(date)}>
+              <CheckOutlined />
+            </Button>
+          ) : (
+            <Menu>
+              <MenuButton as="span" cursor="pointer">
+                <Button shape="circle">
+                  <MoreOutlined />
+                </Button>
+              </MenuButton>
+              <MenuList p={0}>
+                <MenuItem p={5} color="Green" onClick={() => handleEdit(id, date)}>
+                  Edit
+                </MenuItem>
+                <MenuItem p={5} color="red" onClick={() => handleDelete(id)}>
+                  Delete
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          )}
         </Td>
       </Tr>
     );
@@ -97,6 +137,9 @@ const BusyDate = () => {
     const handleAddClick = async () => {
       try {
         const formattedDate = format(new Date(newDate), "yyyy-MM-dd");
+        if (!isDateValid(schedules, new Date(newDate))) {
+          return;
+        }
         const response = await api.post(`/api/schedulebusy/addBusySchedule`, {
           date: formattedDate,
           accountId: loggedUser.accountID,
@@ -135,7 +178,7 @@ const BusyDate = () => {
             </Button>,
           ]}
         >
-          <DatePicker onChange={(date) => setNewDate(date)} />
+          <DatePicker onChange={(date) => setNewDate(date)} format="DD/MM/YYYY" />
         </Modal>
       </>
     );

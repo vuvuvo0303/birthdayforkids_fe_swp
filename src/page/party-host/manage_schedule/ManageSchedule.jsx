@@ -19,7 +19,11 @@ import api from "../../../config/axios";
 import { useSelector } from "react-redux";
 const ManageSchedule = () => {
   const [schedules, setSchedules] = useState([]);
+  const [renderKey, setRenderKey] = useState(0);
   const loggedUser = useSelector((store) => store.user);
+  const rerender = () => {
+    setRenderKey(renderKey + 1);
+  };
   const handleDelete = async (id) => {
     try {
       if (window.confirm("Do you want to delete this schedule?")) {
@@ -35,11 +39,12 @@ const ManageSchedule = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [renderKey]);
 
   const fetchData = async () => {
     try {
       const response = await api.get(`/api/schedules/${loggedUser.accountID}`);
+      // const response = await api.get(`/api/schedules/${loggedUser.accountID}`);
       setSchedules(response.data);
       // console.log(schedules);
     } catch (error) {
@@ -47,7 +52,6 @@ const ManageSchedule = () => {
       toast.error("Failed to fetch schedules");
     }
   };
-
 
   const handleAdd = async (time) => {
     if (schedules.find((item) => item.time === time)) {
@@ -67,6 +71,7 @@ const ManageSchedule = () => {
         ];
       });
       toast.success("Add new schedule successfully!");
+      rerender();
     }
   };
   const handleEdit = async (id, time) => {
@@ -93,7 +98,6 @@ const ManageSchedule = () => {
       toast.error("Failed to edit schedule");
     }
   };
-
 
   const Row = ({ id, time }) => {
     const [isEdit, setIsEdit] = useState(false);

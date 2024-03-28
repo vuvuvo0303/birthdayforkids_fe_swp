@@ -51,7 +51,7 @@ const Service = ({ isSelected, data }) => {
       <img src={data.picture} />
       <p>{data.name}</p>
       <p>
-        <strong>Price: {data.price} VND</strong>
+      <strong>Price: {data.price.toLocaleString('vi-VN')} VND</strong>
       </p>
     </div>
   );

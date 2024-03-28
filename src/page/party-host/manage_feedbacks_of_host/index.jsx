@@ -31,9 +31,9 @@ const ManageFeedbackOfHost = () => {
     },
     {
       title: "Package Name",
-      dataIndex: "host",
-      key: "host",
-      render: (host) => host.name,
+      dataIndex: "apackage",
+      key: "apackage",
+      render: (account) => account.name,
     },
     {
       title: "Content Feedbacks",
