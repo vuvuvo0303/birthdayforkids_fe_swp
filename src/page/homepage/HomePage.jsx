@@ -60,7 +60,7 @@ export const HomePage = () => {
                                 into memories that last a lifetime! 🎈🎁
                             </p>
                             <div class="hero__row">
-                                <a href="#!" class="btn">
+                                <a href="/ViewListService" class="btn">
                                     Book Online
                                 </a>
                                 <span class="hero__phone">
@@ -246,9 +246,6 @@ export const HomePage = () => {
                                     Search a Package by Package name or apart of
                                     Package name.
                                 </p>
-                                <a href="#!" class="work-item__more">
-                                    Learn more
-                                </a>
                             </section>
 
                             {/* <!-- Work item 2 --> */}
@@ -263,9 +260,6 @@ export const HomePage = () => {
                                     Search a host by Host name and find your
                                     suitable host for you.
                                 </p>
-                                <a href="#!" class="work-item__more">
-                                    Learn more
-                                </a>
                             </section>
 
                             {/* <!-- Work item 3 --> */}
@@ -280,9 +274,6 @@ export const HomePage = () => {
                                     Choose the perfect sweet treat package for a
                                     magical experience.
                                 </p>
-                                <a href="#!" class="work-item__more">
-                                    Learn more
-                                </a>
                             </section>
                         </div>
                     </div>
@@ -316,9 +307,6 @@ export const HomePage = () => {
                                     your life. Join us to share the happiness
                                     and make unforgettable memories together.
                                 </p>
-                                <a href="#!" class="btn feature__cta">
-                                    Get our services
-                                </a>
                             </section>
                         </div>
                     </div>

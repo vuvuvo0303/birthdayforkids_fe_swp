@@ -233,7 +233,7 @@ const BusyDate = () => {
             />
             <Flex justifyContent="space-between">
                 <Text fontSize="3xl" mb={5}>
-                    Manage Schedules
+                    Manage Busy Date
                 </Text>
                 <Box>
                     <AddButton />

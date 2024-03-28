@@ -73,12 +73,11 @@ export const OrderHistory = () => {
 
     const handleCancelOrder = async (orderId) => {
         try {
-            // Xác nhận hành động của người dùng trước khi tiếp tục
             const confirmed = window.confirm(
                 "Are you sure you want to cancel this order?"
             );
             if (!confirmed) {
-                return; // Không thực hiện hủy nếu người dùng không xác nhận
+                return;
             }
 
             setIsCanceling(true);

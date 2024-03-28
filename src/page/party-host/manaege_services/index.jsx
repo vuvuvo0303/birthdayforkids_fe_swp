@@ -127,6 +127,12 @@ export const ManageSevices = () => {
 
     const handleDelete = async (record) => {
         try {
+            const confirmed = window.confirm(
+                "Are you sure you want to delete this service?"
+            );
+            if (!confirmed) {
+                return;
+            }
             const response = await api.delete(
                 `/api/services/${record.serviceID}`
             );
