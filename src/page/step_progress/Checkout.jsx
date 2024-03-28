@@ -1,12 +1,14 @@
 import {
   Box,
   Button,
+  CheckboxGroup,
   Divider,
   Flex,
   FormControl,
   FormLabel,
   Input,
   Link,
+  RadioGroup,
   Table,
   TableContainer,
   Tbody,
@@ -16,6 +18,8 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import { Checkbox, Form, Radio } from "antd";
+
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
@@ -27,6 +31,11 @@ import moment from "moment";
 const Checkout = ({ setCartItemsIndex }) => {
   const booking = useSelector((store) => store.booking);
   const [cartItems, setCartItems] = useState([]);
+  const [value, setValue] = useState(1);
+  const onChange = (e) => {
+    console.log("radio checked", e.target.value);
+    setValue(e.target.value);
+  };
   const handleDeleteItem = (index) => {
     cartItems.splice(index, 1);
 
@@ -48,7 +57,8 @@ const Checkout = ({ setCartItemsIndex }) => {
     // });
   };
   const handleDecrease = (index) => {
-    const quantity = cartItems[index].quantity;B
+    const quantity = cartItems[index].quantity;
+    B;
     if (quantity > 1) {
       cartItems[index].quantity -= 1;
       setCartItems([...cartItems]);
@@ -118,9 +128,6 @@ const Checkout = ({ setCartItemsIndex }) => {
       <Box w="full">
         <Flex justifyContent="space-between" w="full" fontWeight="bold">
           <Text fontSize="20px">Bill</Text>
-          <Link as={RouterLink} to="/">
-            Continue Oder &gt;
-          </Link>
         </Flex>
         <TableContainer>
           <Table variant="simple">
@@ -235,7 +242,7 @@ const Checkout = ({ setCartItemsIndex }) => {
           <FormLabel fontSize="15px">Date</FormLabel>
           <Input
             disabled
-            value={moment(booking?.information?.date).format("DD/MM/YYYY")}
+            value={booking?.information?.dateString}
             fontSize="15px"
             p={8}
             border="1px solid black"
@@ -254,6 +261,20 @@ const Checkout = ({ setCartItemsIndex }) => {
             mb={10}
             type="time"
           />
+          <Form.Item
+            label="Payments Method's"
+            name="role"
+            rules={[
+              {
+                required: true,
+                message: "Please choose Payments Method's",
+              },
+            ]}
+          ></Form.Item>
+          <Radio.Group onChange={onChange} value={value}>
+            <Radio value={1}>VNPay</Radio>
+            <Radio value={2}>Wallet</Radio>
+          </Radio.Group>
         </FormControl>
       </Box>
     </Flex>

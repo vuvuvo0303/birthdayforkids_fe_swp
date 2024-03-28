@@ -76,7 +76,7 @@ const BusyDate = () => {
     }
 
     const request = {
-      date: new Date(newDate).toISOString(),
+      date: dayjs(newDate).format("YYYY-MM-DD"),
       busy: true,
     };
     const response = await api.put(`/api/schedulebusy/updateBusySchedule/${editingSchedule}`, request);
@@ -95,7 +95,9 @@ const BusyDate = () => {
             <DatePicker
               defaultValue={dayjs(newDate)}
               format="DD/MM/YYYY"
-              onChange={(e) => setNewDate(e.toISOString())}
+              onChange={(e) => {
+                setNewDate(e.toISOString());
+              }}
             />
           ) : (
             formattedDate

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Button, message, Steps, ConfigProvider, Form, Input } from "antd";
+import { Button, message, Steps, ConfigProvider, Form, Input, Modal, Row, Col } from "antd";
 import { HeaderLogin } from "../../component/HeaderLogin";
 
 import "./checkout.css";
@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import api from "../../config/axios";
 import { useSelector, useDispatch } from "react-redux";
 import { reset } from "../../redux/features/bookingSlice";
+import { useNavigate } from "react-router-dom";
 
 const { Step } = Steps;
 const { Item } = Form;
@@ -23,7 +24,9 @@ const StepProgress = () => {
   const [form] = Form.useForm();
   const [cartItems, setCartItems] = useState();
   const booking = useSelector((store) => store.booking);
+  const [showChooseOption, setShowChooseOption] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const steps = [
     {
       title: "Package",
@@ -64,20 +67,10 @@ const StepProgress = () => {
   const prev = () => {
     setCurrent(current - 1);
   };
-  const handlePayment = async () => {
-    console.log(booking);
-    console.log({
-      totalPrice: calcTotal(),
-      packageId: booking?.package?.packageID,
-      nameReceiver: booking?.information?.username,
-      phone: booking?.information?.phoneNumber,
-      email: booking?.information?.email,
-      venue: booking?.information?.venue,
-      slot: booking?.information?.slot,
-      additionalNotes: booking?.information?.note,
-      schedule: booking?.information?.scheduleId,
-    });
-    const response = await api.post("api/orders/create-payment", {
+
+  const handlePayment = async (type) => {
+    const url = type === "vnpay" ? "api/orders/create-payment" : "/api/orders/pay-with-wallet";
+    const response = await api.post(url, {
       totalPrice: calcTotal(),
       packageId: booking?.package?.packageID,
       username: booking?.information?.username,
@@ -86,7 +79,7 @@ const StepProgress = () => {
       venue: booking?.information?.venue,
       slot: booking?.information?.slot,
       notes: booking?.information?.note,
-      date: booking?.information?.date,
+      date: booking?.information?.dateString,
       scheduleId: booking?.information?.scheduleId,
       orderDetailDTOList: booking.services.map((item) => {
         return {
@@ -96,7 +89,11 @@ const StepProgress = () => {
     });
     console.log(response);
     dispatch(reset());
-    window.open(response.data, "_self");
+    if (type === "vnpay") {
+      window.open(response.data, "_self");
+    } else {
+      navigate("/guestDetail");
+    }
   };
   return (
     <div>
@@ -126,8 +123,13 @@ const StepProgress = () => {
           )}
 
           {current === steps.length - 1 && (
-            <Button type="primary" onClick={handlePayment}>
-              Done
+            <Button
+              type="primary"
+              onClick={() => {
+                setShowChooseOption(true);
+              }}
+            >
+              Pay
             </Button>
           )}
           {current > 0 && (
@@ -136,6 +138,40 @@ const StepProgress = () => {
             </Button>
           )}
         </div>
+
+        <Modal
+          footer={false}
+          onCancel={() => setShowChooseOption(false)}
+          open={showChooseOption}
+          title="Choose payment type"
+        >
+          <Row gutter={12}>
+            <Col span={12}>
+              <Button
+                style={{
+                  width: "100%",
+                }}
+                onClick={() => {
+                  handlePayment();
+                }}
+              >
+                Payment with wallet
+              </Button>
+            </Col>
+            <Col span={12}>
+              <Button
+                style={{
+                  width: "100%",
+                }}
+                onClick={() => {
+                  handlePayment("vnpay");
+                }}
+              >
+                Payment with VNPay
+              </Button>
+            </Col>
+          </Row>
+        </Modal>
       </div>
     </div>
   );
