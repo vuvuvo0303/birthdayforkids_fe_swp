@@ -21,7 +21,7 @@ export const ChoosePackage = () => {
 
   const handleLogRedux = (redux) => {
     console.log("reduxbooking", selectedPackages);
-  }
+  };
   useEffect(() => {
     fetchPackages();
     handleLogRedux(selectedPackages);
@@ -55,25 +55,43 @@ const Package = ({ isSelected, data }) => {
 
   return (
     <div className={`package ${isSelected ? "select" : ""}`} onClick={handleSelectPackage}>
-      <Row>
+      <Row gutter={[16, 16]}>
         <Col span={5}>
           <Image width={150} height={150} src={data.picture} />
         </Col>
         <Col span={19}>
-          <h1>{data.name}</h1>
-          <p>{data.description}</p>
-          <strong>Price: {data.price} VND</strong>
+          <div style={{ padding: "0 20px" }}>
+            <h1 style={{ fontSize: 40, color: "#4d88ff" }}>{data.name}</h1>
+            <p style={{ fontSize: 16 }}>
+              <strong>Maximum Slot:</strong> {data.maximumSlot}
+            </p>
+            <p style={{ fontSize: 16 }}>
+              <strong>Description:</strong> {data.description}
+            </p>
+            <p style={{ fontSize: 20, color: "#000066" }}>
+              <strong>Price:</strong> {data.price.toLocaleString("vi-VN")} VND
+            </p>
+            <br />
+            <br />
+            <br />
 
-          <ul>
-            {services.map((item) => (
+            <ul style={{ listStyleType: "none", padding: 0 }}>
               <li>
-                <strong> {item.name} </strong>- Price: ${item.price}
-                <Col span={8}>
-                  {/* <Image width={150} height={150} src={item.picture} /> */}
-                </Col>
+                <h3 style={{ fontSize: 20, color: "#669900" }}>Services of Package:</h3>
+                {services.map((item) => (
+                  <div key={item.name} style={{ marginBottom: 20 }}>
+                    Service Name: <strong style={{ fontSize: 16 }}>{item.name}</strong>
+                    <br />
+                    <p style={{ fontSize: 15, color: "#000066" }}>
+                      <strong>Price:</strong> {item.price.toLocaleString("vi-VN")} VND
+                    </p>
+                    <br />
+                    <Image width={150} height={150} src={item.picture} />
+                  </div>
+                ))}
               </li>
-            ))}
-          </ul>
+            </ul>
+          </div>
         </Col>
       </Row>
     </div>

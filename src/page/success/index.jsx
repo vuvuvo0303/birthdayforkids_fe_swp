@@ -26,9 +26,6 @@ const SuccessPage = () => {
                 <Link to="/">
                     <Button type="primary">Go homepage</Button>
                 </Link>,
-                <Link to="/ViewListService">
-                    <Button key="buy">Buy Again</Button>
-                </Link>,
             ]}
         />
     );

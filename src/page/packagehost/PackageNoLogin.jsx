@@ -50,7 +50,10 @@ export const PackageNoLogin = () => {
                                     />
                                 </div>
                                 <h3 className="title">
-                                    {packageItem.price} VNĐ
+                                    {new Intl.NumberFormat("vi-VN", {
+                                        style: "currency",
+                                        currency: "VND",
+                                    }).format(packageItem.price)}
                                 </h3>
                                 <Link
                                     to={`http://localhost:5173/packageDetail/${packageItem.packageID}`}

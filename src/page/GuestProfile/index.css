@@ -1,5 +1,7 @@
 .table-orderHistory {
-    margin-top: 100px;
+    width: 1500px;
+    max-width: calc(100% - 10px);
+    margin: 100px auto;
 }
 
 .form-container .info {

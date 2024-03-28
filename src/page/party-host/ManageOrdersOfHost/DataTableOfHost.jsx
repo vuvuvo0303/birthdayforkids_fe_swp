@@ -30,7 +30,8 @@ const DataTableOfHost = () => {
     {
       title: "Customer",
       dataIndex: "customer",
-      key: "customer",
+      key: "customerName",
+      
     },
     {
       title: "Phone",
@@ -44,14 +45,32 @@ const DataTableOfHost = () => {
     },
 
     {
-      title: "Quantity",
-      dataIndex: "quantity",
-      key: "quantity",
-    },
-    {
       title: "Total price",
       dataIndex: "totalPrice",
       key: "totalPrice",
+      render: (text, record) => (
+        <span>{new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(record.totalPrice)}</span>
+      ),
+    },
+    {
+      title: "Deposied",
+      dataIndex: "depositedMoney",
+      key: "depositedMoney",
+      render: (text, record) => (
+        <span>
+          {new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(record.depositedMoney)}
+        </span>
+      ),
+    },
+    {
+      title: "remaining amount",
+      dataIndex: "remainingamount",
+      key: "remainingMoney",
+      render: (text, record) => (
+        <span>
+          {new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(record.remainingamount)}
+        </span>
+      ),
     },
     {
       title: "Order date",
@@ -82,7 +101,7 @@ const DataTableOfHost = () => {
       key: "action",
       render: (_, record) => (
         <>
-          {record.status === "ORDERED" && (
+          {record.status === "PAID" && (
             <Space size="middle">
               <Button
                 type="primary"
@@ -104,22 +123,26 @@ const DataTableOfHost = () => {
           )}
         </>
       ),
+      
     },
   ];
   const fetchData = async () => {
     const response = await api.get(`api/orders/host/${loggedUser.accountID}`);
-    console.table(response.data);
+    console.log(response.data);
 
     const responseData = response.data;
     setData(
       responseData.map((item) => {
         return {
           id: item.orderID,
-          customer: item.account.name,
+          customer: item.customerName,
           phone: item.account.phone,
           package: item.packageEntity.name,
-          quantity: item.quantity,
+
           totalPrice: item.totalPrice,
+          depositedMoney: item.depositedMoney,
+          remainingamount: item.remainingMoney,
+
           orderDate: format(item.createAt, "dd/MM/yyyy"),
           status: item.status,
         };

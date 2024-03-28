@@ -1,5 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Breadcrumb, List, Avatar, Skeleton, Button, Modal, Form, Upload, Input, Radio, Image } from "antd";
+import {
+    Breadcrumb,
+    List,
+    Avatar,
+    Skeleton,
+    Button,
+    Modal,
+    Form,
+    Upload,
+    Input,
+    Radio,
+    Image,
+} from "antd";
 import { HomeOutlined, UploadOutlined } from "@ant-design/icons";
 import "./index.css"; // Import tập tin CSS
 import { useDispatch, useSelector } from "react-redux";
@@ -18,7 +30,7 @@ const EditProfileHosts = () => {
     const [editUser, setEditUser] = useState({});
     const dispatch = useDispatch();
     useEffect(() => {
-      fetchData();
+        fetchData();
     }, []);
     const fetchData = () => {
         setLoading(true);
@@ -55,12 +67,12 @@ const EditProfileHosts = () => {
         form.submit();
     };
 
-  const handleAvatarChange = (info) => {
-    console.log(info);
-    if (info.file.status === "uploading") {
-      setAvatarFile(info.file.originFileObj);
-    }
-  };
+    const handleAvatarChange = (info) => {
+        console.log(info);
+        if (info.file.status === "uploading") {
+            setAvatarFile(info.file.originFileObj);
+        }
+    };
 
     const uploadProps = {
         name: "avatar",
@@ -69,75 +81,87 @@ const EditProfileHosts = () => {
         showUploadList: false,
     };
 
-  // if (avatarFile) {
-  //   setEditUser((state) => {
-  //     return { ...state, avatar: URL.createObjectURL(avatarFile) };
-  //   });
-  // }
+    // if (avatarFile) {
+    //   setEditUser((state) => {
+    //     return { ...state, avatar: URL.createObjectURL(avatarFile) };
+    //   });
+    // }
 
-  // const onSubmit = async (values) => {
-  // if (values.picture.file) {
-  //   const url = await uploadFile(values.picture.file.originFileObj);
-  //   values.picture = url;
-  // // }
-  // try {
-  //   const response = await api.put(`auth/${loggedUser.accountID}`, {
-  //     ...values,
-  //   });
-  //   console.log(response.data);
-  // } catch (error) {
-  //   console.error("Error:", error);
-  // }
-  // };
+    // const onSubmit = async (values) => {
+    // if (values.picture.file) {
+    //   const url = await uploadFile(values.picture.file.originFileObj);
+    //   values.picture = url;
+    // // }
+    // try {
+    //   const response = await api.put(`auth/${loggedUser.accountID}`, {
+    //     ...values,
+    //   });
+    //   console.log(response.data);
+    // } catch (error) {
+    //   console.error("Error:", error);
+    // }
+    // };
 
-  const handleUpdateProfile = async (values) => {
-    console.log(values);
-    if (values.avatar.file) {
-      const url = await uploadFile(values.avatar.file.originFileObj);
-      values.avatar = url;
-    }
-    const response = await api.put(`auth/${loggedUser.accountID}`, values);
-    setModalVisible(false);
-    dispatch(login(response.data));
-  };
+    const handleUpdateProfile = async (values) => {
+        console.log(values);
+        if (values.avatar.file) {
+            const url = await uploadFile(values.avatar.file.originFileObj);
+            values.avatar = url;
+        }
+        const response = await api.put(`auth/${loggedUser.accountID}`, values);
+        setModalVisible(false);
+        dispatch(login(response.data));
+    };
 
-  useEffect(() => {
-    handleUpdateProfile();
-  }, []);
+    useEffect(() => {
+        handleUpdateProfile();
+    }, []);
 
-  return (
-    <>
-      <Breadcrumb
-        style={{ margin: "16px 0" }}
-        items={[
-          { href: "/homepage", title: <HomeOutlined /> },
-          { href: "", title: "Hosts" },
-          { title: "Update Profile" },
-        ]}
-      />
-      <div style={{ padding: "0 24px" }}>
-        <h1>Update Profile</h1>
-        <List
-          className="demo-loadmore-list"
-          loading={initLoading}
-          itemLayout="horizontal"
-          dataSource={data}
-          renderItem={(item) => (
-            <List.Item
-              actions={[
-                <Button key="edit" onClick={() => handleEdit(item)}>
-                  Edit
-                </Button>,
-              ]}
-            >
-              <Skeleton avatar title={false} loading={loading} active>
-                <List.Item.Meta
-                  avatar={<Avatar src={loggedUser.avatar} />}
-                  title={loggedUser.name}
-                  description={
-                    <div className="description-container">
-                      <div className="description-item Name">Name: {loggedUser.name}</div>
-                      <div className="description-item email">Email: {loggedUser.email}</div>
+    return (
+        <>
+            <Breadcrumb
+                style={{ margin: "16px 0" }}
+                items={[
+                    { href: "/", title: <HomeOutlined /> },
+                    { href: "", title: "Hosts" },
+                    { title: "Update Profile" },
+                ]}
+            />
+            <div style={{ padding: "0 24px" }}>
+                <h1>Update Profile</h1>
+                <List
+                    className="demo-loadmore-list"
+                    loading={initLoading}
+                    itemLayout="horizontal"
+                    dataSource={data}
+                    renderItem={(item) => (
+                        <List.Item
+                            actions={[
+                                <Button
+                                    key="edit"
+                                    onClick={() => handleEdit(item)}
+                                >
+                                    Edit
+                                </Button>,
+                            ]}
+                        >
+                            <Skeleton
+                                avatar
+                                title={false}
+                                loading={loading}
+                                active
+                            >
+                                <List.Item.Meta
+                                    avatar={<Avatar src={loggedUser.avatar} />}
+                                    title={loggedUser.name}
+                                    description={
+                                        <div className="description-container">
+                                            <div className="description-item Name">
+                                                Name: {loggedUser.name}
+                                            </div>
+                                            <div className="description-item email">
+                                                Email: {loggedUser.email}
+                                            </div>
 
                                             <div className="description-item gender">
                                                 Gender: {loggedUser.gender}
@@ -185,61 +209,66 @@ const EditProfileHosts = () => {
                             <Input name="email" />
                         </Form.Item>
 
-            <Form.Item
-              label="Gender"
-              name="gender"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your Gender!",
-                },
-              ]}
-            >
-              <Radio.Group defaultValue={"MALE"}>
-                <Radio value={"MALE"}>Male</Radio>
-                <Radio value={"FEMALE"}>Female</Radio>
-              </Radio.Group>
-            </Form.Item>
-            <Form.Item
-              label="Phone Number"
-              name="phone"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your phone!",
-                },
-              ]}
-            >
-              <Input name="phone" />
-            </Form.Item>
+                        <Form.Item
+                            label="Gender"
+                            name="gender"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Please input your Gender!",
+                                },
+                            ]}
+                        >
+                            <Radio.Group defaultValue={"MALE"}>
+                                <Radio value={"MALE"}>Male</Radio>
+                                <Radio value={"FEMALE"}>Female</Radio>
+                            </Radio.Group>
+                        </Form.Item>
+                        <Form.Item
+                            label="Phone Number"
+                            name="phone"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Please input your phone!",
+                                },
+                            ]}
+                        >
+                            <Input name="phone" />
+                        </Form.Item>
 
-            
-            <Form.Item
-              label="avatar"
-              name="avatar"
-              rules={[
-                {
-                  required: false,
-                },
-              ]}
-            >
-              <Upload {...uploadProps}>
-                <Button icon={<UploadOutlined />}>Upload Avatar</Button>
-              </Upload>
-            </Form.Item>
-            {avatarFile ? (
-              <Image src={URL.createObjectURL(avatarFile)} alt="Avatar Preview" width="30" />
-            ) : (
-              <Image src={loggedUser.avatar} width="30" />
-            )}
-            <Form.Item name="id" noStyle>
-              <Input type="hidden" />
-            </Form.Item>
-          </Form>
-        </Modal>
-      </div>
-    </>
-  );
+                        <Form.Item
+                            label="avatar"
+                            name="avatar"
+                            rules={[
+                                {
+                                    required: false,
+                                },
+                            ]}
+                        >
+                            <Upload {...uploadProps}>
+                                <Button icon={<UploadOutlined />}>
+                                    Upload Avatar
+                                </Button>
+                            </Upload>
+                        </Form.Item>
+                        {avatarFile ? (
+                            <Image
+                                src={URL.createObjectURL(avatarFile)}
+                                alt="Avatar Preview"
+                                width="30"
+                            />
+                        ) : (
+                            <Image src={loggedUser.avatar} width="30" />
+                        )}
+                        <Form.Item name="id" noStyle>
+                            <Input type="hidden" />
+                        </Form.Item>
+                    </Form>
+                </Modal>
+            </div>
+        </>
+    );
 };
 
 export default EditProfileHosts;
