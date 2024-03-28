@@ -105,9 +105,17 @@ export const Wallet = () => {
         },
         {
             title: "Value",
-            dataIndex: "order",
-            key: "order",
-            render: (value) => value.totalPrice,
+            // dataIndex: "order",
+            // key: "order",
+            render: (value) =>
+            //  value.totalPrice
+                new Intl.NumberFormat(
+                    "vi-VN",
+                    {
+                        style: "currency",
+                        currency: "VND",
+                    }
+                ).format(value.totalPrice),
         },
         {
             title: "Create At",
