@@ -155,7 +155,7 @@ export const ManagePackageAndService = () => {
       <Breadcrumb
         items={[
           {
-            href: "/HomePage",
+            href: "/",
             title: <HomeOutlined />,
           },
           {
