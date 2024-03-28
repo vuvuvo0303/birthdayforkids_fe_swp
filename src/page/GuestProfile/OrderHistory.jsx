@@ -34,7 +34,7 @@ export const OrderHistory = () => {
 
     useEffect(() => {
         fetchData(loggedUser.accountID);
-    }, []);
+    }, [data]);
 
     const [form] = Form.useForm();
 
@@ -73,6 +73,14 @@ export const OrderHistory = () => {
 
     const handleCancelOrder = async (orderId) => {
         try {
+            // Xác nhận hành động của người dùng trước khi tiếp tục
+            const confirmed = window.confirm(
+                "Are you sure you want to cancel this order?"
+            );
+            if (!confirmed) {
+                return; // Không thực hiện hủy nếu người dùng không xác nhận
+            }
+
             setIsCanceling(true);
 
             const response = await axios.put(
@@ -81,10 +89,11 @@ export const OrderHistory = () => {
             console.log("Cancel: ", response.data);
 
             if (response.data.success) {
-                message.success("Order canceled successfully");
+                // message.success("Order canceled successfully");
                 setIsCanceling(false);
+                fetchData(loggedUser.accountID);
             }
-            fetchData(loggedUser.accountID);
+            message.success("Order canceled successfully");
         } catch (error) {
             console.error("Error:", error);
             message.error("Failed to cancel order");
@@ -94,23 +103,29 @@ export const OrderHistory = () => {
     };
 
     const handleDoneOrder = async (orderId) => {
-        const response = await axios.post(
-            `http://birthdayblitzhub.online:8080/api/orders/guest/done-order/${orderId}`
-        );
-        if (response.data.success) {
-            message.success("Order marked as done successfully");
+        try {
+            const response = await axios.post(
+                `http://birthdayblitzhub.online:8080/api/orders/guest/done-order/${orderId}`
+            );
+            const done = await response.data.success;
+            if (done) {
+                // message.success("Order marked as done successfully");
 
-            const updatedData = data.map((item) => {
-                if (item.orderID === orderId) {
-                    return { ...item, status: "DONE" };
-                }
-                return item;
-            });
-            setData(updatedData);
-        } else {
-            message.error("Failed to mark order as done");
+                const updatedData = data.map((item) => {
+                    if (item.orderID === orderId) {
+                        return { ...item, status: "DONE" };
+                    }
+                    return item;
+                });
+                fetchData(loggedUser.accountID);
+                setData(updatedData);
+            }
+            message.success("Order marked as done successfully");
+        } catch (error) {
+            console.error("Error:", error);
+            message.error("Failed to done order");
         }
-        console.log(response.data);
+        // console.log(response.data);
     };
     return (
         <div className=" table-orderHistory">
@@ -254,10 +269,7 @@ export const OrderHistory = () => {
                                         <Button
                                             type="default"
                                             onClick={() => {
-                                                handleDoneOrder(item.orderID),
-                                                    fetchData(
-                                                        loggedUser.accountID
-                                                    );
+                                                handleDoneOrder(item.orderID);
                                             }}
                                         >
                                             Done
